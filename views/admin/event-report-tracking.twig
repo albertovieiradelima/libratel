@@ -1,0 +1,188 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {{ navigate }}
+            <small>Painel de controle</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/admin"><i class="fa fa-cogs"></i> Admin</a>
+            </li>
+            <li>
+                <i class="fa fa-calendar"></i> Cursos / Eventos</a>
+            </li>
+            <li class="active">{{ navigate }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-6" style="text-align: left; margin-bottom: 10px;">
+            <span>
+                Alterar Curso/Evento:
+                <select id='select-event' class="form-control select2" style="width: auto;min-width: 250px;">
+                    {% for obj in events %}
+                        <option value='{{obj.id}}'>{{obj.title}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+            </div>
+            <div class="col-lg-6" style="text-align: right; margin-bottom: 10px;">
+                <div class="info-datatable"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-body table-responsive">
+                        <table id="registers" class="table table-hover table-bordered" cellspacing="0" style="width: 6000px;">
+                            <thead>
+                            <tr role="row">
+                                <th tabindex="0" aria-label="Inscrição: activate to sort column ascending" style="width: 100px;">
+                                    Inscrição
+                                </th>
+                                <th tabindex="0" style="width: 250px;" aria-controls="registers" aria-label="Participante: activate to sort column ascending" aria-sort="ascending">
+                                    Participante
+                                </th>
+                                <th tabindex="0" style="width: 100px;" aria-label="Cpf: activate to sort column">
+                                    Cpf
+                                </th>
+                                <th tabindex="0" aria-label="Cargo: activate to sort column">
+                                    Cargo
+                                </th>
+                                <th tabindex="0" aria-label="Área: activate to sort column">
+                                    Área
+                                </th>
+                                <th tabindex="0" style="width: 80px;" aria-label="Sexo: activate to sort column">
+                                    Sexo
+                                </th>
+                                <th tabindex="0" style="width: 250px;" aria-label="Nome(Crachá): activate to sort column">
+                                    Nome(Crachá)
+                                </th>
+                                <th tabindex="0" style="width: 250px;" aria-label="Empresa(Crachá): activate to sort column">
+                                    Empresa(Crachá)
+                                </th>
+                                <th tabindex="0" aria-label="E-mail: activate to sort column">
+                                    E-mail
+                                </th>
+                                <th tabindex="0" style="width: 100px;" aria-label="Telefone: activate to sort column">
+                                    Telefone
+                                </th>
+                                <th tabindex="0" style="width: 250px;" aria-label="Shopping/Empresa: activate to sort column">
+                                    Shopping/Empresa
+                                </th>
+                                <th tabindex="0" style="width: 100px;" aria-label="Cnpj: activate to sort column">
+                                    Cnpj
+                                </th>
+                                <th tabindex="0" aria-label="Cidade: activate to sort column">
+                                    Cidade
+                                </th>
+                                <th tabindex="0" style="width: 50px;" aria-label="UF: activate to sort column">
+                                    UF
+                                </th>
+                                <th tabindex="0" style="width: 250px;" aria-label="Razão Social(Cobrança): activate to sort column">
+                                    Razão Social(Cobrança)
+                                </th>
+                                <th tabindex="0" style="width: 100px;" aria-label="Cpnj(Cobrança): activate to sort column">
+                                    Cpnj(Cobrança)
+                                </th>
+                                <th tabindex="0" aria-label="Endereço(Cobrança): activate to sort column">
+                                    Endereço(Cobrança)
+                                </th>
+                                <th tabindex="0" style="width: 100px;" aria-label="Cep(Cobrança): activate to sort column">
+                                    Cep(Cobrança)
+                                </th>
+                                <th tabindex="0" aria-label="Telefone(Cobrança): activate to sort column">
+                                    Telefone(Cobrança)
+                                </th>
+                                <th tabindex="0" style="width: 100px;" aria-label="Valor: activate to sort column">
+                                    Valor
+                                </th>
+                                <th tabindex="0" aria-label="Boleto: activate to sort column">
+                                    Boleto
+                                </th>
+                                <th tabindex="0" style="width: 80px;" aria-label="Situação: activate to sort column">
+                                    Situação
+                                </th>
+                                <th tabindex="0" aria-label="Dt. Vencimento: activate to sort column">
+                                    Dt. Vencimento
+                                </th>
+                                <th tabindex="0" aria-label="Dt. Pagamento: activate to sort column">
+                                    Dt. Pagamento
+                                </th>
+                                <th tabindex="0" style="width: 250px;" aria-label="Nome(Responsável): activate to sort column">
+                                    Nome(Responsável)
+                                </th>
+                                <th tabindex="0" aria-label="Cpf(Responsável): activate to sort column">
+                                    Cpf(Responsável)
+                                </th>
+                                <th tabindex="0" aria-label="E-mail(Responsável): activate to sort column">
+                                    E-mail(Responsável)
+                                </th>
+                                <th tabindex="0" aria-label="Cargo: activate to sort column">
+                                    Cargo(Responsável)
+                                </th>
+                                <th tabindex="0" aria-label="Telefone(Responsável): activate to sort column">
+                                    Telefone(Responsável)
+                                </th>
+                                <th tabindex="0" aria-label="Cupom de Desconto: activate to sort column">
+                                    Cupom de Desconto
+                                </th>
+                                <th tabindex="0" style="width: 80px;" aria-label="Desconto(%): activate to sort column">
+                                    Desconto(%)
+                                </th>
+                                <th tabindex="0" style="width: 80px;" aria-label="Comercial: activate to sort column">
+                                    Comercial
+                                </th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Inscrição</th>
+                                <th>Participante</th>
+                                <th>Cpf</th>
+                                <th>Cargo</th>
+                                <th>Área</th>
+                                <th>Sexo</th>
+                                <th>Nome(Crachá)</th>
+                                <th>Empresa(Crachá)</th>
+                                <th>E-mail</th>
+                                <th>Telefone</th>
+                                <th>Shopping/Empresa</th>
+                                <th>Cnpj</th>
+                                <th>Cidade</th>
+                                <th>UF</th>
+                                <th>Razão Social(Cobrança)</th>
+                                <th>Cpnj(Cobrança)</th>
+                                <th>Endereço(Cobrança)</th>
+                                <th>Cep(Cobrança)</th>
+                                <th>Telefone(Cobrança)</th>
+                                <th>Valor</th>
+                                <th>Boleto</th>
+                                <th>Situação</th>
+                                <th>Dt. Vencimento</th>
+                                <th>Dt. Pagamento</th>
+                                <th>Nome(Responsável)</th>
+                                <th>Cpf(Responsável)</th>
+                                <th>E-mail(Responsável)</th>
+                                <th>Cargo(Responsável)</th>
+                                <th>Telefone(Responsável)</th>
+                                <th>Cupom de Desconto</th>
+                                <th>Desconto(%)</th>
+                                <th>Comercial</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block header_page %}
+    <script>
+        _eventID = {{event.id}};
+    </script>
+    <script type="text/javascript" src="/assets/js/admin/event-report-tracking.js"></script>
+{% endblock %}

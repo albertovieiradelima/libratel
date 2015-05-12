@@ -1,0 +1,468 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_inauguracoes.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Prêmio Abrasce</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Premio ABRASCE</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-12">
+            <h3>
+                INSCRIÇÃO -
+                {% if award %}
+                    {{ award.title|upper }}
+                {% else %}
+                    {{ event.title ? event.title|upper : 'PRÊMIO ABRASCE' }}
+                {% endif %}
+            </h3>
+            <hr/>
+            <div class="box-noticia">
+                <form method="post" action="/site/premio-abrasce/inscricao/save" class="form-horizontal form-validate">
+                    <input type="hidden" name="fk_award" value="{{ award.fk_award }}" />
+                    <input type="hidden" name="fk_event" value="{{ event.id }}" />
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <strong>( <strong class="text-danger">*</strong> ) Campos obrigatórios</strong>
+                            <hr class="hr-line">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Selecione o Shopping <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <select id="selectShopping" name="fk_shopping" class="form-control select2" required="">
+                                <option value="">---</option>
+                                {% for sh in shoppings %}
+                                {% if sh.filiacao == '2' %}
+                                <option value="{{sh.id_shopping}}">{{sh.fantasia}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="project-list" style="display: none;" class="form-group">
+                        <label class="col-sm-3 control-label">Projetos Inscritos</label>
+                        <div class="col-sm-8" id="list">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Título do Projeto <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="project_title" type="text" class="form-control" placeholder="Título do Projeto" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">CEP <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="shopping_zip" id="shopping_zip" type="text" class="form-control cep-mask" placeholder="CEP" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Estado <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <select name="shopping_state" id="shopping_state" class="form-control select2" required="">
+                                <option value="">---</option>
+                                {% for obj in states %}
+                                <option value="{{obj}}">{{obj}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cidade <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="shopping_city" id="shopping_city" type="text" class="form-control" placeholder="Cidade" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Endereço <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="shopping_address" id="shopping_address" type="text" class="form-control" placeholder="Endereço" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Telefone <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="shopping_phone" type="text" class="form-control phone-mask" placeholder="Telefone" required="">
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<label class="col-sm-3 control-label">Fax</label>-->
+                    <!--<div class="col-sm-3">-->
+                    <!--<input name="shopping_fax" type="text" class="form-control phone-mask" placeholder="Fax">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <br>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <h4>Responsável pelo projeto</h4>
+                            <hr class="hr-line">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">CPF do Responsável pela Inscrição <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="responsible_document_number" type="text" class="form-control cpf" placeholder="CPF do responsável pela inscrição" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Nome do Responsável pela Inscrição <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="responsible_name" type="text" class="form-control" placeholder="Nome do responsável pela inscrição" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cargo do Responsável pela Inscrição <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="responsible_position" type="text" class="form-control" placeholder="Cargo do responsável pela inscrição" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">E-mail do Responsável pela Inscrição <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="responsible_email" type="text" class="form-control" placeholder="E-mail do responsável pela inscrição" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Telefone <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="responsible_phone" type="text" class="form-control phone-mask" placeholder="Telefone do responsável pela inscrição" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Empresa Administradora do Shopping Center <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="administrator_name" type="text" class="form-control" placeholder="Empresa Administradora do Shopping Center" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Empresa(s) Empreendedora(s) do Shopping Center <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <textarea name="companies_shopping" class="form-control" placeholder="Empresa(s) Empreendedora(s) do Shopping Center" required=""></textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <h4>Dados de Cobrança</h4>
+                            <hr class="hr-line">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Emitir cobrança para:</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input type="radio" checked name="billing_info" required="" value="shopping"> Mesmo Shopping Selecionado acima
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="billing_info" required="" value="other"> Outra Empresa
+                            </label>
+                        </div>
+                    </div>
+
+        <span id="form-billing">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">CPF ou CNPJ <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <input name="billing_document_number" type="text" class="form-control" placeholder="CPF ou CNPJ" required="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Nome da Pessoa Fisíca ou Jurídica <strong class="text-danger">*</strong></label>
+                <div class="col-sm-8">
+                    <input name="billing_name" type="text" class="form-control" placeholder="Nome da Pessoa Fisíca ou Jurídica" required="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">CEP <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <input name="billing_zip" id="billing_zip" type="text" class="form-control cep-mask" placeholder="CEP" required="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Estado <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <select name="billing_state" class="form-control select2" required="">
+                        <option value="">---</option>
+                        {% for obj in states %}
+                        <option value="{{obj}}">{{obj}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Cidade <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <input name="billing_city" type="text" class="form-control" placeholder="Cidade" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Endereço <strong class="text-danger">*</strong></label>
+                <div class="col-sm-8">
+                    <input name="billing_address" type="text" class="form-control" placeholder="Endereço" required="">
+                </div>
+            </div>
+
+        </span>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-8">
+                            <hr class="hr-line">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">O que deseja fazer?  <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-9">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="action" required="" value="continue"> Quero gerar o boleto e prosseguir com o detalhamento do projeto agora
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="action" required="" value="finish"> Quero gerar o boleto e prosseguir com o detalhamento do projeto depois
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-8">
+                            <hr class="hr-line">
+                            <div class="col-md-3">
+                                <a href="http://premioabrasce.crmall.com/uploads/premio-abrasce/Regulamento_GERAL_Premio_Abrasce_2015.pdf" target="_blank">Regulamento geral</a>
+                            </div>
+                            <div class="col-md-9">
+                                {% if award %}
+                                {% if award.fk_award == '15' %}
+                                <a href="http://premioabrasce.crmall.com/uploads/premio-abrasce/Regulamento_Premio_Expansao_Revitalizacao_2015.pdf" target="_blank">Regulamento {{ award.title|capitalize }} 2015</a>
+                                {% elseif award.fk_award == '16' %}
+                                <a href="http://premioabrasce.crmall.com/uploads/premio-abrasce/Regulamento_Premio_Abrasce_Sustentabilidade_2015.pdf" target="_blank">Regulamento {{ award.title|capitalize }} 2015</a>
+                                {% elseif award.fk_award == '17' %}
+                                <a href="http://premioabrasce.crmall.com/uploads/premio-abrasce/Regulamento_Premio_Abrasce_Marketing_Campanhas_Institucionais_2015.pdf" target="_blank">Regulamento {{ award.title|capitalize }} 2015</a>
+                                {% elseif award.fk_award == '18' %}
+                                <a href="http://premioabrasce.crmall.com/uploads/premio-abrasce/Regulamento_Premio_Abrasce_Marketing_Eventos_e_Promocoes_2015.pdf" target="_blank">Regulamento {{ award.title|capitalize }} 2015</a>
+                                {% endif %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input required="" name="agreed" type="checkbox" /> Declaro que li o regulamento, tenho conhecimento e concordo com as condições para a validade do desconto aplicado nesta inscrição.
+                                    <!-- <input type="checkbox"> Li e concordo com os termos dos regulamentos geral e específico do {{ event.title ? event.title|upper : "" }}. Desejo fazer a inscrição. -->
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-8">
+                            <hr class="hr-line">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-md-8">
+                            <button type="submit" class="btn btn-primary btn-block">Avançar <i class="fa fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var _selectedShopping;
+
+    $(document).ready(function(){
+
+        _setFormBillingFieldsRequired(false);
+        _setFormBillingFieldsReadonly(true);
+
+        $('#selectShopping').on('change', function(e){
+
+            _loader.show();
+
+            var params = {
+                'fk_shopping': $(this).val()
+            }
+
+            $.post('/site/get-shopping-address', params, function(res){
+
+                if(res.success == true){
+                    _selectedShopping = res.data;
+                    _shoppingEntityToFormBilling();
+
+                    // Set values to shopping fields
+                    $('input[name=shopping_name]').val( _selectedShopping.fantasia );
+                    $('input[name=shopping_zip]').val( _selectedShopping.cep );
+                    $('select[name=shopping_state]').select2("val", _selectedShopping.estado );
+                    $('input[name=shopping_city]').val( _selectedShopping.cidade );
+                    $('input[name=shopping_address]').val( _selectedShopping.endereco );
+
+                    $('input[name=project_title]').focus();
+                }
+
+            }).error(function(data){
+
+                console.log(data);
+                
+            }).always(function(){
+                _loader.hide();
+            });
+        })
+
+        //$('#form-billing').hide();
+
+        $('input[name=billing_info]:radio').change(function(e){
+
+            if($(this).val() == 'shopping'){
+
+                if(_selectedShopping){
+                    _shoppingEntityToFormBilling();
+                };
+
+                _setFormBillingFieldsReadonly(true);
+
+                _setFormBillingFieldsRequired(false);
+                //$('#form-billing').hide();
+
+            }else if($(this).val() == 'other'){
+
+                $('input[name=billing_document_number]').focus();
+
+                _setFormBillingFieldsReadonly(false);
+                _cleanFormBilling();
+                _setFormBillingFieldsRequired(true);
+                //$('#form-billing').show();
+
+            }
+        });
+
+        $('#shopping_zip').blur(function () {
+            if ($('#shopping_zip').val() != '') {
+                $('#shopping_zip').addClass('ajax-loader');
+                // busca cep
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: 'http://www.crmall.com.br/interface_crmall/appcrmall/php/enderecoPorCep.php?identificador=tqyG1HzR2Q&cep={' + $('#shopping_zip').val() + '}',
+                    success: function(data) {
+                        $('input[name=shopping_address]').val( data['logradouro'] );
+                        $('input[name=shopping_city]').val( data['cidade'] );
+                        $('select[name=shopping_state]').select2("val", data['uf'] );
+                        $('input[name=shopping_zip]').removeClass('ajax-loader');
+                        $('#number').focus();
+                        if($('input[name=billing_info]:radio').val() == 'shopping'){
+
+                            $('input[name=billing_zip]').val( $('#shopping_zip').val() );
+                            $('input[name=billing_address]').val( data['logradouro'] );
+                            $('input[name=billing_city]').val( data['cidade'] );
+                            $('select[name=billing_state]').select2("val", data['uf'] );
+                        }
+                    },
+                    error: function() {
+                        $('#shopping_zip').removeClass('ajax-loader');
+                    }
+                });
+            }
+        });
+
+        $('#billing_zip').blur(function () {
+            if ($('#billing_zip').val() != '') {
+                $('#billing_zip').addClass('ajax-loader');
+                // busca cep
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: 'http://www.crmall.com.br/interface_crmall/appcrmall/php/enderecoPorCep.php?identificador=tqyG1HzR2Q&cep={' + $('#billing_zip').val() + '}',
+                    success: function(data) {
+                        $('input[name=billing_address]').val( data['logradouro'] );
+                        $('input[name=billing_city]').val( data['cidade'] );
+                        $('select[name=billing_state]').select2("val", data['uf'] );
+                        $('input[name=billing_zip]').removeClass('ajax-loader');
+                    },
+                    error: function() {
+                        $('#billing_zip').removeClass('ajax-loader');
+                    }
+                });
+            }
+        });
+
+    });
+
+    function _setFormBillingFieldsRequired(flag){
+        $('input[name=billing_document_number]').prop('required',flag);
+        $('input[name=billing_name]').prop('required',flag);
+        $('input[name=billing_zip]').prop('required',flag);
+        $('select[name=billing_state]').prop('required',flag);
+        $('input[name=billing_city]').prop('required',flag);
+        $('input[name=billing_address]').prop('required',flag);
+    }
+
+    function _cleanFormBilling(){
+        $('input[name=billing_document_number]').val('');
+        $('input[name=billing_name]').val('');
+        $('input[name=billing_zip]').val('');
+        $('select[name=billing_state]').select2("val","");
+        $('input[name=billing_city]').val('');
+        $('input[name=billing_address]').val('');
+    }
+
+    function _shoppingEntityToFormBilling(){
+        $('input[name=billing_document_number]').val( _selectedShopping.cnpj );
+        $('input[name=billing_name]').val( _selectedShopping.fantasia );
+        $('input[name=billing_zip]').val( _selectedShopping.cep );
+        $('select[name=billing_state]').select2("val", _selectedShopping.estado );
+        $('input[name=billing_city]').val( _selectedShopping.cidade );
+        $('input[name=billing_address]').val( _selectedShopping.endereco );
+    }
+
+    function _setFormBillingFieldsReadonly(flag){
+        $('input[name=billing_document_number]').prop('readonly',flag);
+        $('input[name=billing_name]').prop('readonly',flag);
+        $('input[name=billing_zip]').prop('readonly',flag);
+        $('select[name=billing_state]').select2('readonly',flag);
+        $('input[name=billing_city]').prop('readonly',flag);
+        $('input[name=billing_address]').prop('readonly',flag);
+    }
+
+</script>
+
+{% endblock %}

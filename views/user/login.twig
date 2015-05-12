@@ -1,0 +1,196 @@
+{% extends "user/layout.twig" %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Identifique-se</h3>
+                </div>
+                <div style="padding-top:30px" class="panel-body">
+                    <img class="profile-img" src="/assets/img/perfil-abrasce.png" alt="">
+                    <form action="/login" id="login" method="POST">
+                        <div class="form-group">
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username">
+                            </div>
+                            <div style="margin-bottom: 25px" class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
+                            </div>
+                            <label>
+                                <input type="checkbox" name="active" class="icheckbox_minimal" /> Lembrar minha senha
+                            </label>
+                            <button type="submit" name="submit" class="btn btn-primary form-control">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    <a href="/admin/nova-senha"><span class="mini-link">Esqueci minha senha</span></a>
+                    <a data-target="#signup-modal" data-toggle="modal" href="#" style="float: right">Cadastre-se</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <div class="modal fade" id="signup-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <form id="formSignUp" method="post" action="/admin/cadastro" enctype="multipart/form-data" class="form-horizontal form-validate">
+                    <input type="hidden" id="evento_id" name="evento_id" value="{{ evento.id }}">
+                    <input type="hidden" name="fk_event_registration" class="form-control" value="{{evento.fk_event_registration}}">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">Cadastro de usuário</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="cpf" class="col-sm-3 control-label">CPF <strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <input type="text" name="cpf" class="form-control" id="cpf" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="nome">Nome Completo<strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <input type="text" name="fullname" id="fullname" class="form-control" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="col-sm-3 control-label">E-mail <strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <input type="email" name="email" id="email" class="form-control" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="nome">Usuário de login<strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <input type="text" name="username" id="username" class="form-control"required="">
+                            </div>
+                        </div>
+                        <div class="form-group" id="div-pass">
+                            <label for="password" class="col-sm-3 control-label">Senha <strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <input type="password" name="password" id="password" class="form-control" required="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="col-sm-3 control-label">Confirme a senha <strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <input type="password" name="password-confirm" id="password-confirm" class="form-control" required="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label" for="phone">Telefone <strong class="text-danger">*</strong></label>
+                            <div class="col-sm-8">
+                                <input name="phone" id="phone" type="text" class="form-control phone-mask" required="">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Cargo <strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <select id="job" name="job" class="form-control select2" required="">
+                                    {% for key,cargo in null|cargoParticipantsList %}
+                                        <option value="{{ key }}">{{ cargo }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Área <strong class="text-danger">*</strong></label>
+                            <div class="col-lg-8">
+                                <select id="area" name="area" class="form-control select2" required="">
+                                    {% for key,area in null|areaParticipantsList %}
+                                        <option value="{{ key }}">{{ area }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                        <button type="submit" name="submit" id="submit" class="btn btn-primary" disabled="disabled"><i class="fa fa-check"></i>  Adicionar</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#cpf").mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+        });
+
+        var username = $("#username");
+        var password = $("#password");
+        var confirm_password = $("#password-confirm");
+        var div_pass = $("#div-pass");
+        var div_confirm_pass = $("#div-confirm-pass");
+
+        password.change(function () {
+            if(password.val().length <6){
+                div_pass.addClass('has-error');
+                toastr.error('A senha precisa ter 6 ou mais caracteres');
+            }else{
+                div_pass.removeClass('has-error');
+                $("#submit").prop( "disabled", true );
+            }
+        });
+
+        confirm_password.change(function () {
+            if(password.val() != confirm_password.val()){
+                div_confirm_pass.addClass('has-error');
+                toastr.error('Senhas não conferem');
+                $("#submit").prop( "disabled", true );
+            }else{
+                div_confirm_pass.removeClass('has-error');
+                $("#submit").prop( "disabled", false );
+            }
+        });
+
+        $('#formSignUp').submit(function(e) {
+            e.preventDefault(); // stop default action
+
+            if(password.val().length <6 && password.val() != confirm_password.val()){
+                div_confirm_pass.addClass('has-error');
+                toastr.error('Senhas não conferem')
+            }else {
+                var formData = new FormData($('#formSignUp')[0]);
+                var formURL = $(this).attr("action");
+
+                $.ajax({
+                    type: "POST",
+                    url: formURL,
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+
+                    success: function (data, textStatus, jqXHR) {
+                        if (data.success) {
+                            $('.modal-loading').fadeOut('slow');
+                            $('#signup-modal').modal('hide');
+
+                            toastr.success(data.msg);
+                        } else {
+                            toastr.error(data.msg);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        // if fails
+                    }
+                });
+            }
+        });
+    </script>
+
+
+{% endblock %}

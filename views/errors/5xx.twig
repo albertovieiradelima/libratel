@@ -1,0 +1,54 @@
+{% extends "site/layout.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div style="margin-top: 100px;">
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">{{ code ? code : '5xx' }}
+                    <small>{{ error ? error : 'Ocorreu um erro no servidor.' }}</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a>
+                    </li>
+                    <li class="active">{{ code ? code : '5xx' }}</li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="jumbotron">
+                    <h1><span class="error-404">{{ code ? code : '5xx' }}</span>
+                    </h1>
+                    <p>Ocorreu um erro no servidor.<br>Aqui estão alguns links úteis:</p>
+                    <ul>
+                        <li>
+                            <a style="color: #005ca9;" href="/">Home</a>
+                        </li>
+                        <li>
+                            <a style="color: #005ca9;" href="/site/sobre">Sobre a ABRASCE</a>
+                        </li>
+                        <li>
+                            <a style="color: #005ca9;" href="/site/associados">Associados</a>
+                        </li>
+                        <li>
+                            <a style="color: #005ca9;" href="/site/publicacoes">Publicações</a>
+                        </li>
+                        <li>
+                            <a style="color: #005ca9;" href="/site/eventos">Cursos e Eventos</a>
+                        </li>
+                        <li>
+                            <a style="color: #005ca9;" href="/site/guia-de-shoppings">Shopping Center</a>
+                        </li>
+                        <li>
+                            <a style="color: #005ca9;" href="/site/guia-de-fornecedores">Fornecedores</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

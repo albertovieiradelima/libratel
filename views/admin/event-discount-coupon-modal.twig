@@ -1,0 +1,77 @@
+<style type="text/css">
+    .col-lg-6 {
+        margin-bottom: 15px;
+    }
+</style>
+<div class="modal fade" id="event-discount-coupon-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formEventDiscountCoupon" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Cupons de Desconto</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <div class="form-group">
+                        <label for="fk_event">Evento</label>
+                        <select class="form-control select2" name="fk_event" id="fk_event">
+                            <option value="">---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Empresa</label>
+                        <input type="text" name="company" class="form-control" placeholder="Nome da empresa">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="email">E-mail</label>
+                            <input type="email" name="email" class="form-control" placeholder="E-mail para contato">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="contact">Contato</label>
+                            <input type="text" name="contact" class="form-control" placeholder="Nome para contato">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="minimum_number">Quantidade Mínima</label>
+                            <input type="text" name="minimum_number" class="form-control mask-number" placeholder="Quantidade mínima de participantes">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="maximum_number">Quantidade Máxima</label>
+                            <input type="text" name="maximum_number" class="form-control mask-number" placeholder="Quantidade máxima de participantes">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="discount_participant">Percentual de desconto por Participante</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">%</div>
+                                <input type="text" name="discount_participant" class="form-control mask-number" placeholder="Percentual de desconto">
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="date">Válido até</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" name="expiration_date" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="observations">Observação</label>
+                        <textarea class="textarea form-control" name="observations" id="observations" placeholder="Insira o texto ..." style="width: 100%; height: 200px"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

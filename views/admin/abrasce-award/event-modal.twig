@@ -1,0 +1,55 @@
+<style type="text/css">
+.col-lg-6 {
+    margin-bottom: 15px;
+}
+</style>
+<div class="modal fade" id="event-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formEvent" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Prêmio ABRASCE - Cadastro de Evento</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <div class="form-group">
+                        <label for="title">Título</label>
+                        <input type="text" name="title" class="form-control" placeholder="Título da Publicação">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descrição</label>
+                        <textarea class="textarea form-control" name="description" id="description" placeholder="Insira o texto ..." style="width: 100%; height: 200px"></textarea>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 90px;">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="year">Ano</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" name="year" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="date">Data</label>
+                            <div class="input-group input-daterange">
+                                <div class="input-group-addon" style="padding: 6px 12px;border-left: 1px solid #ccc;">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" name="start_date" />
+                                <span class="input-group-addon">a</span>
+                                <input type="text" class="form-control" name="end_date" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i> Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

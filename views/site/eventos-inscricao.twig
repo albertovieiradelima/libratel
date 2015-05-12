@@ -1,0 +1,610 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_cursos-e-eventos.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Cursos e Eventos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Cursos e Eventos</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-12">
+            <h3>
+                INSCRIÇÃO - {{ entity.title|upper }}
+            </h3>
+            <hr/>
+            <div class="box-noticia">
+                <div role="alert" id="warning" class="alert alert-danger alert-dismissible fade in" style="display: none">
+                </div>
+                <form method="post" action="/site/evento/inscricao/save" class="form-horizontal form-validate">
+                    <input type="hidden" id="fk_event" name="fk_event" value="{{ entity.id }}">
+                    <input type="hidden" id="company_filiation" name="company_filiation">
+
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <strong>Preencha os campos abaixo para inscrição</strong>
+                            <hr class="hr-line">
+                            ( <strong class="text-danger">*</strong> ) Campos obrigatórios
+                        </div>
+                    </div>
+
+                    <div clas="form-group" id="filiation" style="display: none">
+                        <div class="col-sm-3"></div>
+                        <div class="alert col-sm-8" id="text-filiation">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                            <label class="col-sm-3 control-label">Pessoa</label>
+                            <div class="col-sm-8">
+                            <label class="control-label radio-inline">
+                                <input checked="checked" class="radio-inline" data-val="true"
+                                       data-val-required="Preenchimento obrigatorio" name="register_TipoPessoa"
+                                       type="radio" value="Fisica"> Física
+                            </label>
+                            <label class="control-label radio-inline">
+                                <input name="register_TipoPessoa" type="radio" value="Juridica"> Jurídica
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="CPF">CPF<strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input id="CPF" name="company_document" type="text" class="form-control" placeholder="" required="required">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="fk_coupon">
+                        <label class="col-sm-3 control-label">Cupom </label>
+                        <div class="col-sm-8 fk_coupon">
+                            <input name="fk_coupon" type="text" class="form-control" placeholder="">
+                            <span id="error_cupom" class="help-block" style="display: none">Cupom inválido</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="Nome"> Nome <strong class="text-danger">*</strong> </label>
+                        <div class="col-sm-8">
+                            <input name="company_name" id="Nome" type="text" class="form-control" placeholder="" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">CEP <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="company_zip" id="company_zip" type="text" class="form-control cep-mask" placeholder="CEP" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Endereço <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="company_address" id="company_address" type="text" class="form-control" placeholder="Endereço" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Número <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="company_number" id="company_number" type="text" class="form-control" placeholder="Número" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Bairro <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="company_neighborhood" id="company_neighborhood" type="text" class="form-control" placeholder="Bairro" required="">
+                    </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cidade <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="company_city" id="company_city" type="text" class="form-control" placeholder="Cidade" required="">
+                    </div>
+
+                    <label class="col-sm-2 control-label">Estado <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <select name="company_state" id="company_state" class="form-control select2" required="">
+                                <option value="">---</option>
+                                {% for obj in states %}
+                                <option value="{{obj}}">{{obj}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Telefone <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="company_phone" type="text" class="form-control phone-mask" placeholder="Telefone" required="">
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                    <!--<label class="col-sm-3 control-label">Fax</label>-->
+                    <!--<div class="col-sm-3">-->
+                    <!--<input name="register_fax" type="text" class="form-control phone-mask" placeholder="Fax">-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <br>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <h4>Dados de Cobrança</h4>
+                            <hr class="hr-line">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Emitir cobrança para:</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input type="radio" checked name="billing_info" required="" value="same"> Mesmo cadastro acima
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="billing_info" required="" value="other"> Outra
+                            </label>
+                        </div>
+                    </div>
+        <span id="form-billing">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Pessoa</label>
+                <div class="col-sm-8">
+                    <label class="control-label radio-inline">
+                        <input class="radio-inline" data-val="true"
+                               data-val-required="Preenchimento obrigatorio" checked="checked" name="billing_document_person"
+                               type="radio" value="Fisica" > Física
+                    </label>
+                    <label class="control-label radio-inline">
+                        <input name="billing_document_person" type="radio" value="Juridica"> Jurídica
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="billing_document">CPF<strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <input name="billing_document" type="text" class="form-control" placeholder="CPF ou CNPJ" required="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="billing_name">Nome <strong class="text-danger">*</strong></label>
+                <div class="col-sm-8">
+                    <input name="billing_name" type="text" class="form-control" required="">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">CEP <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <input name="billing_zip" id="billing_zip" type="text" class="form-control cep-mask" placeholder="CEP" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Endereço <strong class="text-danger">*</strong></label>
+                <div class="col-sm-8">
+                    <input name="billing_address" type="text" class="form-control" placeholder="Endereço" required="">
+                </div>
+            </div>
+            <div class="form-group">
+            <label class="col-sm-3 control-label">Número <strong class="text-danger">*</strong></label>
+            <div class="col-sm-3">
+                <input name="billing_number" id="billing_number" type="text" class="form-control" placeholder="Número" required="">
+            </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Bairro <strong class="text-danger">*</strong></label>
+                <div class="col-sm-8">
+                    <input name="billing_neighborhood" id="billing_neighborhood" type="text" class="form-control" placeholder="Bairro" required="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Cidade <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <input name="billing_city" type="text" class="form-control" placeholder="Cidade" required="">
+                </div>
+
+                <label class="col-sm-2 control-label">Estado <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <select name="billing_state" class="form-control select2" required="">
+                        <option value="">---</option>
+                        {% for obj in states %}
+                        <option value="{{obj}}">{{obj}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Telefone <strong class="text-danger">*</strong></label>
+                <div class="col-sm-3">
+                    <input name="billing_phone" type="text" class="form-control phone-mask" required="">
+                </div>
+            </div>
+        </span>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <h4>Responsável pelo cadastro</h4>
+                            <hr class="hr-line">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">CPF do Responsável pela Inscrição <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="responsible_document" type="text" class="form-control cpf" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Nome do Responsável pelo Cadastro <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="responsible_name" type="text" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cargo <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="responsible_job" id="responsible_job" type="text" class="form-control"required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">E-mail <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="responsible_email" type="text" class="form-control email" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Telefone <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-3">
+                            <input name="responsible_phone" type="text" class="form-control phone-mask" required="">
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-md-8">
+                            <button type="submit" class="btn btn-primary btn-block">Avançar <i class="fa fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    _eventid = $("input[name=fk_event]").val();
+
+    $("input[name=register_TipoPessoa]").change(function () {
+        var nome = $("label[for=Nome]");
+        var cpf = $("label[for=CPF]");
+
+        var company_document = $("input[name=company_document]");
+
+        if (this.value == 'Fisica') {
+            nome.html('Nome <strong class="text-danger">*</strong>');
+            cpf.html('CPF <strong class="text-danger">*</strong>');
+            company_document.mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+
+            if($("input[name=billing_info]:checked").val()=='same'){
+                $("input[name=billing_document_person][value='Fisica']").prop("checked", true);
+                _setFilterContact('Fisica');
+            }
+        }
+        if (this.value == 'Juridica') {
+            nome.html('Empresa <strong class="text-danger">*</strong>');
+            cpf.html('CNPJ <strong class="text-danger">*</strong>');
+            company_document.mask("99.999.999/9999-99", {"placeholder": "00.000.000/0000-00"});
+            if($("input[name=billing_info]:checked").val()=='same') {
+                $("input[name=billing_document_person][value='Juridica']").prop("checked", true);
+                _setFilterContact('Juridica');
+            }
+        }
+    });
+
+    $("input[name=fk_coupon]").change(function () {
+        var params = {
+            'id': $(this).val()
+        }
+
+        if(params.id!=''){
+            _loader.show();
+
+            $.post('/site/event-discount-coupon/get-data/'+_eventid, params, function (res) {
+                if (res.success == false) {
+                    $('#fk_coupon').addClass('has-error');
+                    $('#error_cupom').text(res.error);
+                    $('#error_cupom').show();
+                }else{
+                    $('#error_cupom').hide();
+                }
+            }).error(function (data) {
+                console.log(data);
+            }).always(function () {
+                _loader.hide();
+            });
+        }else{
+            $('#error_cupom').hide();
+        }
+    });
+
+    $("input[name=company_document]").change(function () {
+        var params = {
+            'document': $(this).val()
+        }
+
+        _loader.show();
+
+        $.post('/crmall/costumer/'+_eventid, params, function(res){
+            if(res.success == true){
+                var _result = res.costumer;
+                $('input[name=billing_document]').val( $("input[name=company_document]").val() );
+
+                _valuesToFormBilling(_result);
+                _setValuesRegister(_result);
+
+                if(_result.FILIACAO == '2'){
+                    $('#text-filiation').removeClass('alert-warning').addClass('alert-info');
+                    $('#text-filiation').html('<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Filiado ABRASCE');
+                }else{
+                    var text = '<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> Esse CPF/CNPJ não foi reconhecido como associado.' +
+                            ' Caso seja associado, por favor, entre em contato conosco. <strong>Telefone:</strong> (11) 3506 - 8313 <strong>E-mail:</strong>  bruno@abrasce.com.br<br>' +
+                            'Ou continue com a inscrição';
+
+                    $('#text-filiation').removeClass('alert-info').addClass('alert-warning');
+                    $('#text-filiation').html(text);
+                }
+                $('#filiation').show();
+
+                if($("input[name=register_TipoPessoa]:checked").val()=='Fisica') {
+                    _setResponsible(_result);
+                    $('input[name=responsible_document]').val( $("input[name=company_document]").val() );
+                }
+            }else{
+                $("#warning").html("<p>"+res.error+"</p>");
+                $("#warning").show();
+            }
+        }).error(function(data){
+            console.log(data);
+        }).always(function(){
+            _loader.hide();
+        });
+    });
+
+    $("input[name=billing_document]").change(function () {
+        if($("input[name=billing_info]:checked").val()=='other')
+        {
+            var params = {
+                'document': $(this).val()
+            }
+
+            _loader.show();
+
+            $.post('/crmall/costumer/' + _eventid, params, function (res) {
+                if (res.success == true) {
+                    var _result = res.costumer;
+                    _valuesToFormBilling(_result);
+                }
+            }).error(function (data) {
+                console.log(data);
+            }).always(function () {
+                _loader.hide();
+            });
+        }
+    });
+
+    $("input[name=billing_document_person]").change(function () {
+        _setFilterContact($(this).val());
+    });
+
+    $("input[name='billing_info']").change(function () {
+        if($(this).val() == 'same'){
+            var type = $("input[name=register_TipoPessoa]:checked").val();
+
+            if(type=='Fisica'){
+                $("input[name=billing_document_person][value='Fisica']").prop("checked", true);
+                _setFilterContact('Fisica');
+            }else{
+                $("input[name=billing_document_person][value='Juridica']").prop("checked", true);
+                _setFilterContact('Juridica');
+            }
+
+            var selected = {
+                "NOME":$('input[name=company_name]').val(),
+                "CEP":$('input[name=company_zip]').val(),
+                "ESTADO": $('select[name=company_state]').select2("val"),
+                "CIDADE":$('input[name=company_city]').val(),
+                "ENDERECO":$('input[name=company_address]').val(),
+                "NUMERO":$('input[name=company_number]').val(),
+                "BAIRRO":$('input[name=company_neighborhood]').val(),
+                "TELEFONE":$('input[name=company_phone]').val()
+            };
+
+            $("input[name=billing_document]").val($("input[name=company_document]").val());
+            _valuesToFormBilling(selected);
+            _setFormBillingFieldsReadonly(true);
+            _setFormBillingFieldsRequired(false);
+        }else if($(this).val() == 'other'){
+            _setFormBillingFieldsReadonly(false);
+            _cleanFormBilling();
+            _setFormBillingFieldsRequired(true);
+        }
+    });
+
+    $("input[name='company_phone']").change(function () {
+        if($('input[name=billing_info]:radio').val() == 'same'){
+            $('input[name=billing_phone]').val($(this).val());
+        }
+    });
+
+    $("input[name='company_number']").change(function () {
+        if($('input[name=billing_info]:radio').val() == 'same'){
+            $('input[name=billing_number]').val($(this).val());
+        }
+    });
+
+    $("input[name='company_name']").change(function () {
+        if($('input[name=billing_info]:radio').val() == 'same'){
+            $('input[name=billing_name]').val($(this).val());
+        }
+    });
+
+    $(document).ready(function(){
+        $("input[name='company_document']").mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+        $("input[name='billing_document']").mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+
+        _setFormBillingFieldsRequired(false);
+        _setFormBillingFieldsReadonly(true);
+
+        $('#company_zip').blur(function () {
+            if ($('#company_zip').val() != '') {
+                $('#company_zip').addClass('ajax-loader');
+
+                // busca cep
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+
+                    url: 'http://www.crmall.com.br/interface_crmall/appcrmall/php/enderecoPorCep.php?identificador=tqyG1HzR2Q&cep={' + $('#company_zip').val() + '}',
+                    success: function(data) {
+                        $('input[name=company_address]').val( data['logradouro'] );
+                        $('input[name=company_city]').val( data['cidade'] );
+                        $('select[name=company_state]').select2("val", data['uf'] );
+                        $('input[name=company_neighborhood]').val( data['bairro'] );
+                        $("input[name=company_number]").focus();
+                        $('input[name=company_zip]').removeClass('ajax-loader');
+
+                        if($('input[name=billing_info]:radio').val() == 'same'){
+                            $('input[name=billing_zip]').val( $('#company_zip').val() );
+
+                            $('input[name=billing_address]').val( data['logradouro'] );
+                            $('input[name=billing_city]').val( data['cidade'] );
+                            $('select[name=billing_state]').select2("val", data['uf'] );
+                            $('input[name=billing_neighborhood]').val(data['bairro']);
+                        }
+                    },
+                    error: function() {
+                        $('#company_zip').removeClass('ajax-loader');
+                    }
+                });
+            }
+        });
+
+        $('#billing_zip').blur(function () {
+            if ($('#billing_zip').val() != '') {
+                $('#billing_zip').addClass('ajax-loader');
+                // busca cep
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: 'http://www.crmall.com.br/interface_crmall/appcrmall/php/enderecoPorCep.php?identificador=tqyG1HzR2Q&cep={' + $('#billing_zip').val() + '}',
+                    success: function(data) {
+                        $('input[name=billing_address]').val( data['logradouro'] );
+                        $('input[name=billing_city]').val( data['cidade'] );
+                        $('select[name=billing_state]').select2("val", data['uf'] );
+                        $('input[name=billing_neighborhood]').val( data['bairro'] );
+                        $('input[name=billing_number]').focus();
+                        $('input[name=billing_zip]').removeClass('ajax-loader');
+                    },
+                    error: function() {
+                        $('#billing_zip').removeClass('ajax-loader');
+                    }
+                });
+            }
+        });
+
+    });
+
+    function _setFilterContact(flag){
+        if(flag == 'Fisica') {
+            $('label[for=billing_name]').html('Nome <strong class="text-danger">*</strong>');
+            $('label[for=billing_document]').text('CPF');
+            $('input[name=billing_document]').mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+        }else{
+            $('label[for=billing_name]').html('Empresa <strong class="text-danger">*</strong>');
+            $('label[for=billing_document]').text('CNPJ');
+            $('input[name=billing_document]').mask("99.999.999/9999-99", {"placeholder": "00.000.000/0000-00"});
+        }
+    }
+
+    function _setFormBillingFieldsRequired(flag){
+        $('input[name=billing_document]').prop('required',flag);
+        $('input[name=billing_name]').prop('required',flag);
+        $('input[name=billing_zip]').prop('required',flag);
+        $('select[name=billing_state]').prop('required',flag);
+        $('input[name=billing_city]').prop('required',flag);
+        $('input[name=billing_address]').prop('required',flag);
+        $('input[name=billing_number]').prop('required',flag);
+        $('input[name=billing_neighborhood]').prop('required',flag);
+    }
+
+    function _cleanFormBilling(){
+        $('input[name=billing_document]').val('');
+        $('input[name=billing_name]').val('');
+        $('input[name=billing_zip]').val('');
+        $('select[name=billing_state]').select2("val","");
+        $('input[name=billing_city]').val('');
+        $('input[name=billing_address]').val('');
+        $('input[name=billing_number]').val('');
+        $('input[name=billing_neighborhood]').val('');
+        $('input[name=billing_phone]').val('');
+    }
+
+    function _setValuesRegister(result) {
+        // Set values to shopping fields
+        $('input[name=company_filiation]').val(result.FILIACAO);
+        $('input[name=company_name]').val(result.NOME);
+        $('input[name=company_zip]').val(result.CEP);
+        $('select[name=company_state]').select2("val", result.ESTADO);
+        $('input[name=company_city]').val(result.CIDADE);
+        $('input[name=company_address]').val(result.ENDERECO);
+        $('input[name=company_neighborhood]').val(result.BAIRRO);
+        $('input[name=company_number]').val(result.NUMERO);
+        $('input[name=company_phone]').val(result.TELEFONE);
+    }
+
+    function _setResponsible(result){
+        $('input[name=responsible_name]').val( result.NOME );
+        $('input[name=responsible_email]').val( result.EMAIL );
+        $('input[name=responsible_phone]').val( result.TELEFONE);
+        $('input[name=responsible_job]').val( result.CARGO );
+    }
+
+    function _valuesToFormBilling(result){
+        $('input[name=billing_name]').val( result.NOME );
+        $('input[name=billing_zip]').val( result.CEP );
+        $('select[name=billing_state]').select2("val", result.ESTADO );
+        $('input[name=billing_city]').val( result.CIDADE );
+        $('input[name=billing_address]').val( result.ENDERECO );
+        $('input[name=billing_number]').val( result.NUMERO );
+        $('input[name=billing_neighborhood]').val( result.BAIRRO );
+        $('input[name=billing_phone]').val(result.TELEFONE);
+    }
+
+    function _setFormBillingFieldsReadonly(flag){
+        $('input[name=billing_document]').prop('readonly',flag);
+        $('input[name=billing_name]').prop('readonly',flag);
+        $('input[name=billing_zip]').prop('readonly',flag);
+        $('select[name=billing_state]').select2('readonly',flag);
+        $('input[name=billing_city]').prop('readonly',flag);
+        $('input[name=billing_address]').prop('readonly',flag);
+        $('input[name=billing_number]').prop('readonly',flag);
+        $('input[name=billing_neighborhood]').prop('readonly',flag);
+        $('input[name=billing_document_person]').prop('disabled',flag);
+        $('input[name=billing_phone]').prop('readonly',flag);
+    }
+
+</script>
+
+{% endblock %}

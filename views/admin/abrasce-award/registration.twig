@@ -1,0 +1,111 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+<section class="content-header">
+    <h1>
+        {{ navigate }} - {{ event.title }}
+        <small>Painel de controle</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/admin"><i class="fa fa-cogs"></i> Admin</a>
+        </li>
+        <li>
+            <i class="fa fa-trophy"></i> Prêmio ABRASCE
+        </li>
+        <li><a href="/admin/abrasce-award/registrations">Inscrição</a></li>
+        <li class="active">{{ navigate }}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8" style="text-align: left; margin-bottom: 10px;">
+            <button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#registration-modal">
+                <i class="fa fa-plus"></i> Novo
+            </button>
+            <button type="button" class="btn btn-primary edit" data-toggle="modal">
+                <i class="fa fa-pencil"></i> Alterar
+            </button>
+            <button type="button" class="btn btn-danger disabled" data-toggle="modal">
+                <i class="fa fa-times"></i> Remover
+            </button>
+            <span>|</span>
+            <span>
+                Alterar Prêmio: 
+                <select id='select-event' class="form-control select2" style="width: auto;min-width: 250px;">
+                    {% for obj in events %}
+                        <option value='{{obj.id}}'>{{obj.title}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+        </div>
+        <div class="col-lg-4" style="text-align: right; margin-bottom: 10px;">
+            <div class="info-datatable"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="registers" class="table table-hover table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                        <tr role="row">
+                            <th tabindex="0" aria-label="Código: activate to sort column ascending" style="width: 100px;">
+                                Código
+                            </th>
+                            <th class="sorting" tabindex="0" aria-controls="registers" rowspan="1" colspan="1" aria-label="Título activate to sort column ascending" aria-sort="ascending">
+                                Título do Projeto
+                            </th>
+                            <th tabindex="0" aria-label="Shopping: activate to sort column">
+                                Shopping
+                            </th>
+                            <th tabindex="0" aria-label="Prêmio: activate to sort column">
+                                Prêmio
+                            </th>
+                            <th tabindex="0" aria-label="Número da Inscrição: activate to sort column">
+                                Número da Inscrição
+                            </th>
+                            <th tabindex="0" aria-label="Número da Fatura: activate to sort column">
+                                Número da Fatura
+                            </th>
+                            <th tabindex="0" aria-label="Vencimento: activate to sort column">
+                                Vencimento
+                            </th>
+                            <th tabindex="0" aria-label="Status: activate to sort column">
+                                Status
+                            </th>
+                            <th tabindex="0" aria-label="Opções: activate to sort column">
+                                Opções
+                            </th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Código</th>
+                            <th>Título</th>
+                            <th>Shopping</th>
+                            <th>Prêmio</th>
+                            <th>Número da Inscrição</th>
+                            <th>Número da Fatura</th>
+                            <th>Vencimento</th>
+                            <th>Status</th>
+                            <th>Opções</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include modal ignore missing %}
+
+{% include project_modal ignore missing %}
+
+{% endblock %}
+
+{% block header_page %}
+<script>
+    _eventID = {{event.id}};
+</script>
+<script type="text/javascript" src="/assets/js/admin/abrasce-award/registration.js"></script>
+{% endblock %}

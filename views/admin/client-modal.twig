@@ -1,0 +1,121 @@
+<style type="text/css">
+.col-lg-8, .col-lg-6, .col-lg-2 {
+    margin-bottom: 15px;
+}
+</style>
+<div class="modal fade" id="client-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formClient" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Cliente</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="type">Pessoa</label>
+                            <select class="form-control" name="type" id="type_person">
+                                <option value="1">Física</option>
+                                <option value="2">Jurídica</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="name">Nome / Razão Social</label>
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="nickname">Apelido / Nome Fantasia</label>
+                            <input type="text" name="nickname" class="form-control">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="email">E-mail</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="cpf_cnpj">Cpf / Cnpj</label>
+                            <input type="text" name="cpf_cnpj" class="form-control">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="rg_ie">Rg / Ie</label>
+                            <input type="text" name="rg_ie" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-2" style="padding-left: 0px;">
+                            <label for="cep">Cep</label>
+                            <input type="text" name="cep" id="CEP" class="form-control">
+                        </div>
+                        <div class="col-lg-8">
+                            <label for="address">Endereço</label>
+                            <input type="text" name="address" class="form-control">
+                        </div>
+                        <div class="col-lg-2" style="padding-right: 0px;">
+                            <label for="number">Número</label>
+                            <input type="text" name="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="complement">Complemento</label>
+                            <input type="text" name="complement" class="form-control">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="neighborhood">Bairro</label>
+                            <input type="text" name="neighborhood" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="city">Cidade</label>
+                            <input type="text" name="city" class="form-control">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="state">Estado</label>
+                            <select name="state" id="state" class="input-large form-control">
+                                {% for key,uf in null|uflist %}
+                                    <option value="{{ key }}">{{ uf }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="phone">Telefone</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <input type="text" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask name="phone" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="date">Data de cadastro</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" name="date" disabled />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="status" class="minimal" checked/> Ativo
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

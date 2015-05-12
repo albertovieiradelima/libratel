@@ -1,0 +1,22 @@
+{% extends "email/layout.twig" %}
+{% block content %}
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">Cursos e Eventos / Interesse</div>
+            <div class="panel-body">
+                {# Dados Pessoais #}
+                <p>Nome: {{ data.Nome }}</p>
+                <p>Cargo: {{ data.Cargo }}</p>
+                <p>Telefone: {{ data.Telefone }}</p>
+                <p>CPF: {{ data.CPF }}</p>
+                <p>Empresa: {{ data.Empresa }}</p>
+                <p>E-mail: {{ data.Email }}</p>
+                <br>
+                <p>Tenho interesse em: <strong>{{ register }}</strong></p>
+                <p>Data: <strong>{{ date }}</strong></p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

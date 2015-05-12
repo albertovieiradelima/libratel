@@ -1,0 +1,184 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_associados.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Benefícios do Associado</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Associados/Benefícios</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+
+        <!--Beneficios do Associado-->
+        <div class="col-md-8 container-beneficios">
+            <h3>BENEFÍCIOS DO ASSOCIADO</h3>
+            <hr>
+            <p>
+                A Abrasce oferece uma série de benefícios aos seus associados, com o intuito de fortalecer a indústria
+                de Shopping Center e promover a capacitação profissional dos atuantes no setor. A Associação realiza
+                diversos encontros e cursos, com o objetivo de levar maior conhecimento e estimular a discussão entre
+                profissionais, com troca de experiências e networking. Hoje contamos com cerca de 300 shoppings filiados
+                em todo o País.
+            </p>
+
+            <p>
+                <strong>SERVIÇOS</strong>
+            </p>
+
+            <p>
+                <strong>Apoio Jurídico</strong>
+            </p>
+
+            <p>
+                Defendendo os interesses dos shopping centers, a ABRASCE atua em leis que impactam a categoria,
+                fornecendo orientações e compartilhando trabalhos técnicos.
+            </p>
+
+            <p>
+                <strong>Ação junto a Imprensa</strong>
+            </p>
+
+            <p>
+                Fortalecer a imagem da indústria de Shopping Centers, a ABRASCE abastece a imprensa e demais públicos
+                formadores de opinião com dados que mostram a importância cada vez maior desses empreendimentos no
+                cotidiano do brasileiro.
+            </p>
+
+            <p>
+                <strong>Ação junto ao Governo</strong>
+            </p>
+
+            <p>
+                A ABRASCE tem conquistado vitórias marcantes no campo político e legislativo no Brasil, acompanhando
+                projetos de lei, apresentando estudos e defendendo ativamente os interesses dos associados.
+            </p>
+
+            <p>
+                <strong>Biblioteca</strong>
+            </p>
+
+            <p>
+                Com títulos próprios e traduzidos, a ABRASCE possui um acervo para aquisições e consultas. São mais de
+                500 títulos entre livros, teses, revistas, dicionários e catálogos.
+            </p>
+
+            <p>Associados à ABRASCE recebem todos os títulos que são publicados pela entidade.</p>
+
+            <p>
+                <strong>Comitês</strong>
+            </p>
+
+            <p>
+                A ABRASCE sedia comitês de aprofundamento de trabalhos e discussões em temas relevantes para o mercado.
+                Os projetos desenvolvidos são divulgados pela ABRASCE. Os trabalhos resultam em produtos focados no
+                desenvolvimento do setor.
+            </p>
+
+            <p>
+                <strong>Comunicação</strong>
+            </p>
+
+            <p>
+                A revista Shopping Centers promove e divulga o setor, aborda temas relevantes e de interesse, visando
+                gerir, inovar e valorizar a indústria.
+            </p>
+
+            <p>
+                Já o site Portal do Shopping traz informações atualizadas diariamente com notícias, dicas, serviços e artigos.
+            </p>
+
+            <p>
+                <strong>Delegação ABRASCE</strong>
+            </p>
+
+            <p>
+                A delegação Abrasce reúne importantes executivos da indústria brasileira de shopping centers rumo ao
+                maior evento mundial do setor, incluindo visitas técnicas, palestras e networking.
+            </p>
+
+            <p>
+                <strong>Educação</strong>
+            </p>
+
+            <p>
+                A ABRASCE promove cursos de aperfeiçoamento profissional em parceria com renomadas instituições de ensino,
+                capacitando empreendedores e gestores por meio de conhecimento, melhores práticas e expertises para a
+                constante evolução do setor.
+            </p>
+
+            <p>
+                <strong>Eventos</strong>
+            </p>
+
+            <p>
+                ABRASCE realiza eventos que acontecem em diversas regiões do país. São fóruns, seminários, palestras,
+                com destaque para o Congresso Internacional de Shopping Centers & Exposhopping, maior evento do setor na
+                América Latina.
+            </p>
+
+            <p>
+                <strong>Pesquisas</strong>
+            </p>
+
+            <p>
+                O Censo Brasileiro de Shopping Centers é uma das pesquisas publicada anualmente pela entidade. A ABRASCE
+                também divulga mensalmente, aos seus associados, o monitoramento do setor e muitas outras pesquisas de
+                interesse.
+            </p>
+
+            <p>
+                Mais informações: (11) 3506-8300
+            </p>
+        </div>
+        <!--end-->
+
+        <div class="col-md-4 col-right-margin-top-lg">
+            <ul class="nav nav-pills nav-stacked abrasce-nav-list">
+                <li class="abrasce-list link-beneficios active">
+                    <a href="/site/associado/beneficios">
+                        Benefícios do Associado
+                    </a>
+                </li>
+                <li class="abrasce-list link-seja-associado">
+                    <a href="/site/associado/seja-associado">
+                        Seja um Associado
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+<script>
+    $(document).ready(function () {
+        $("#menu-associados").addClass('active');
+
+        $('.container-seja-associado').addClass('hide');
+        $('.container-beneficios').removeClass('hide');
+
+        $('.link-seja-associado').removeClass('active');
+        $('.link-beneficios').addClass('active');
+    });
+</script>
+
+{% endblock %}

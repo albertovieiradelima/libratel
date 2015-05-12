@@ -1,0 +1,57 @@
+<div class="modal fade" id="smtp-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="formSMTP" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Configurações de SMTP</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <div class="form-group">
+                        <div class="col-md-10 col-lg-10 margin-group">
+                            <label for="smtp_host">Servidor</label>
+                            <input name="smtp_host" type="text" class="form-control" placeholder="IP ou Domínio do Servidor">
+                        </div>
+                        <div class="col-md-2 col-lg-2 margin-group">
+                            <label for="smtp_port">Porta</label>
+                            <input name="smtp_port" type="text" class="form-control" placeholder="Porta">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="smtp_user">Usuário</label>
+                            <input name="smtp_user" type="text" class="form-control" placeholder="Usuário de Autenticação">
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="smtp_pass">Senha</label>
+                            <input name="smtp_pass" type="text" class="form-control" placeholder="Senha de Autenticação">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h4 class="modal-title">Dados do Remetente</h4>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="smtp_email">De: (E-mail)</label>
+                            <input name="smtp_email" type="text" class="form-control" placeholder="E-mail">
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="smtp_name">De: (Nome)</label>
+                            <input name="smtp_name" type="text" class="form-control" placeholder="Nome">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

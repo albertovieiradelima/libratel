@@ -1,0 +1,94 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_guia-shoppings.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Guia de Shoppings</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Guia de Shoppings</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-page">
+            <h3>LISTA DE SHOPPINGS</h3>
+            <hr>
+            <div class="box-container">
+                <div class="container-content">
+                    <img src="/assets/img/selo.png" class="abrasce-selo">
+                    <p class="abrasce-text">A Abrasce identifica os Shopping Centers de acordo com padrões internacionais, o que valoriza os empreendimentos filiados e, então, o selo pode ser estampado na comunicação do empreendimento como um atestado de preceitos internacionalmente consagrados pela indústria de shoppings.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-uf-guia col-xs-12 col-sm-6 col-md-6">
+                    <select name="uf" id="uf" class="input-large form-control">
+                        {% for key,uf in null|uflist %}
+                        <option value="{{ key }}"{{ key == id ? ' selected' : '' }}>{{ key == '' ? 'Busca por estado' : uf }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                {% for shopping in shoppings %}
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="box-container-shoppings">
+                        <div class="container-content content-boxes">
+                            <div class="abrasce-fantasia">
+                                {% if shopping.filiacao == 2 %}
+                                    <a href="/site/shopping/{{ shopping.id_shopping }}" tag="{{shopping.fantasia }}"><span>{{ shopping.fantasia }}</span></a>
+                                {% else %}
+                                    <span>{{ shopping.fantasia }}</span>
+                                {% endif %}
+                            </div>
+                            <label>{{ shopping.localidade|upper }}</label><br>
+                            <label>{{ shopping.telefone|phone }}</label><br>
+                            {% if shopping.filiacao == 2 %}
+                                <a href="/site/shopping/{{ shopping.id_shopping }}"><img src="/assets/img/selo.png" class="abrasce-mini-selo"></a>
+                            {% endif %}
+                        </div>
+                        {% if shopping.marcacao == 2 %}
+                            <div class="zero-clipboard"><span class="btn-clipboard btn-clipboard-hover">a inaugurar</span></div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4 col-right-margin-top-lg">
+            <div class="box-container-rigth-col">
+                <a href="http://40anos.multiplan.com.br/" target="_blank"><img src="/assets/img/banner-multiplan-estatico.jpg" alt="" style="width: 338px"/></a>
+            </div>
+            <div class="box-container">
+                <a href="/site/premio-abrasce"><img style="width: 338px" src="/assets/img/banner_premio.jpg" alt=""/></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $("#uf").change(function() {
+            window.location.href = '/site/guia-de-shoppings/' + $(this).val();
+        });
+    })
+</script>
+
+{% endblock %}

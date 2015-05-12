@@ -1,0 +1,220 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_guia-shoppings.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Guia de Shoppings</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Guia de Shoppings</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+
+        <!--Beneficios do Associado-->
+        <div class="col-md-8">
+            <h3>{{ shopping.fantasia }}</h3>
+            <hr>
+            <div class="info-shopping-image">
+                <img src="/crmall/shopping/banner/{{ shopping.id_shopping }}" class="info-shopping-banner" tag="banner">
+                <img src="/crmall/shopping/logo/{{ shopping.id_shopping }}" class="info-shopping-logo" tag="logo">
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="box-container">
+                        <div class="box-info-shopping">
+                            <h3>PERFIL CONSUMIDORES:</h3>
+                            <!--<hr class="hr-line">-->
+                            <div class="row">
+                                <div class="col-xs-5 col-sm-5 col-md-5" style="text-align: center;">
+                                    <canvas id="infochart" width="110" height="110"></canvas>
+                                </div>
+                                <div class="col-xs-7 col-sm-7 col-md-7 info-margem">
+                                    <span class="glyphicon glyphicon-stop info-graph1"></span>&nbsp;<label>Classe A: {{ shopping.perfil_a }}%</label><br>
+                                    <span class="glyphicon glyphicon-stop info-graph2"></span>&nbsp;<label>Classe B: {{ shopping.perfil_b }}%</label><br>
+                                    <span class="glyphicon glyphicon-stop info-graph3"></span>&nbsp;<label>Classe C: {{ shopping.perfil_c }}%</label><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="box-container">
+                        <div class="box-info-shopping">
+                            <h3>ENTRETENIMENTO:</h3>
+                            {% for entertain in entertainment %}
+                            <i class="fa fa-circle info-shopping-check"></i>&nbsp;<label>{{ entertain.descricao|capitalize }}</label><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row info-shopping-boxes">
+                <div class="col-md-15">
+                    <div class="info-shopping-button">
+                        <span>PISO DE LOJAS</span><br>
+                        <img src="/assets/img/icon-piso-lojas.png"><br>
+                        <span class="info-shopping-input">{{ shopping.pisos_lojas|default('0') }}</span>
+                    </div>
+                </div>
+                <div class="col-md-15">
+                    <div class="info-shopping-button">
+                        <span>LOJAS ÂNCORA</span><br>
+                        <img src="/assets/img/icon-lojas-ancora.png"><br>
+                        <span class="info-shopping-input">{{ shopping.lojas_ancoras|default('0') }}</span>
+                    </div>
+                </div>
+                <div class="col-md-15">
+                    <div class="info-shopping-button">
+                        <span>TOTAL DE LOJAS</span><br>
+                        <img src="/assets/img/icon-total-lojas.png"><br>
+                        <span class="info-shopping-input">{{ shopping.total_lojas|default('0') }}</span>
+                    </div>
+                </div>
+                <div class="col-md-15">
+                    <div class="info-shopping-button">
+                        <span>SALAS DE CINEMA</span><br>
+                        <img src="/assets/img/icon-salas-cinema.png"><br>
+                        <span class="info-shopping-input">{{ shopping.salas_cinemas|default('0') }}</span>
+                    </div>
+                </div>
+                <div class="col-md-15">
+                    <div class="info-shopping-button">
+                        <span>VAGAS DE ESTACIONAMENTO</span><br>
+                        <img src="/assets/img/icon-vagas-estacionamento.png"><br>
+                        <span class="info-shopping-input">{{ shopping.vagas_estacionamento|default('0') }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--end-->
+
+        <!--Seja um Associado-->
+        <div class="col-md-4 col-right-margin-top-sm">
+            <div class="box-container">
+                <div class="box-info-shopping">
+                    <div class="info-shopping-block">
+                        <span class="info-shopping-contato">CONTATO:</span><br>
+                        <span class="info-shopping-text">{{ shopping.telefone|phone }}</span><br>
+                        <span class="info-shopping-link"><a href="//{{ shopping.site }}" target="_blank">{{ shopping.site }}</a></span><br>
+                    </div>
+                    <div class="info-shopping-block">
+                        <span class="info-shopping-text">{{ shopping.logradouro }}, {{ shopping.numero }}, {{ shopping.bairro }}</span><br>
+                        <span class="info-shopping-text">{{ shopping.localidade }} - {{ shopping.estado }}, {{ shopping.cep|cep }}</span><br>
+                    </div>
+                    <div class="info-shopping-block">
+                        <span class="info-shopping-text">Administradora:</span><br>
+                        <span class="info-shopping-text">{{ extra.administradora|default('') }}</span><br>
+                    </div>
+                    <div class="info-shopping-block">
+                        <span class="info-shopping-area">Área Total do Terreno</span><br>
+                        <span class="info-shopping-area-text">{{ shopping.area_terreno|number_format(0, '', '.') }} m2</span><br>
+                    </div>
+                    <div class="info-shopping-block">
+                        <span class="info-shopping-area">Área Construída</span><br>
+                        <span class="info-shopping-area-text">{{ shopping.area_construida|number_format(0, '', '.') }} m2</span><br>
+                    </div>
+                    <div class="info-shopping-block">
+                        <span class="info-shopping-area">Área Bruta Locável</span><br>
+                        <span class="info-shopping-area-text">{{ shopping.abl|number_format(0, '', '.') }} m2</span><br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--end-->
+
+    </div>
+
+</div>
+<!-- /.container -->
+<script>
+    $(document).ready(function () {
+        $(".navbar-btn button").removeClass('active');
+
+        // Get context with jQuery - using jQuery's .get() method.
+        var ctx = $("#infochart").get(0).getContext("2d");
+
+        // pie chart data
+        var data = [
+            {
+                value: {{ shopping.perfil_b }},
+                color:"#ffcb08",
+                highlight: "#f7d863",
+                label: "Perfil B"
+            },
+            {
+                value: {{ shopping.perfil_a }},
+                color: "#0066b3",
+                highlight: "#317da3",
+                label: "Perfil A"
+            },
+            {
+                value: {{ shopping.perfil_c }},
+                color: "#646568",
+                highlight: "#817c67",
+                label: "Perfil C"
+            }
+        ];
+
+    var options = {
+        // Boolean - Whether we should show a stroke on each segment
+        segmentShowStroke: true,
+
+        // String - The colour of each segment stroke
+        segmentStrokeColor: "#e4e4e4",
+
+        // Number - The width of each segment stroke
+        segmentStrokeWidth: 2,
+
+        // Number - The percentage of the chart that we cut out of the middle
+        percentageInnerCutout: 1, // This is 0 for Pie charts
+
+        // Number - Amount of animation steps
+        animationSteps: 100,
+
+        // String - Animation easing effect
+        animationEasing: "easeOutBounce",
+
+        // Boolean - Whether we animate the rotation of the Doughnut
+        animateRotate: true,
+
+        // Boolean - Whether we animate scaling the Doughnut from the centre
+        animateScale: true,
+
+        // Boolean - whether to maintain the starting aspect ratio or not when responsive, if set to false, will take up entire container
+        maintainAspectRatio: true,
+
+        // String - Template string for single tooltips
+        tooltipTemplate: "<%=label%>: <%=value%>%"
+    };
+
+    // pie chart
+    var myPieChart = new Chart(ctx).Pie(data, options);
+
+    $(".info-shopping-logo").delay(1000).animate({"opacity": "1"}, 700);
+
+    });
+</script>
+
+{% endblock %}

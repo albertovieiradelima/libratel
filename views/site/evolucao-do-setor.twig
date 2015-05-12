@@ -1,0 +1,159 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_cursos-e-eventos.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Números do Setor</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Evolução do Setor</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-page">
+            <h3>EVOLUÇÃO DO SETOR</h3>
+            <hr>
+            <h4 style="margin-top: 30px; display: block;">SHOPPING CENTERS NO BRASIL 2013</h4>
+            <div class="box-container table-responsive">
+                <table class="table-list">
+                    <thead>
+                        <td class="th-setor">ANO</td>
+                        <td class="th-setor">Nº DE SHOPPINGS</td>
+                        <td class="th-setor">ABL (MILHÕES DE M2)</td>
+                        <td class="th-setor">LOJAS</td>
+                        <td class="th-setor">FATURAMENTO (EM BILHÕES DE REAIS/ANO)</td>
+                        <td class="th-setor">EMPREGOS</td>
+                        <td class="th-setor">TRÁFEGO DE PESSOAS (MILHÕES VISITAS / MÊS)</td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2006</td>
+                            <td>351</td>
+                            <td>7,492</td>
+                            <td>56.487</td>
+                            <td>50</td>
+                            <td>524.090</td>
+                            <td>203</td>
+                        </tr>
+                        <tr>
+                            <td>2007</td>
+                            <td>363</td>
+                            <td>8,253</td>
+                            <td>62.086</td>
+                            <td>58</td>
+                            <td>629.700</td>
+                            <td>305</td>
+                        </tr>
+                        <tr>
+                            <td>2008</td>
+                            <td>376</td>
+                            <td>8,645</td>
+                            <td>65.500</td>
+                            <td>64,6</td>
+                            <td>700.650</td>
+                            <td>325</td>
+                        </tr>
+                        <tr>
+                            <td>2009</td>
+                            <td>392</td>
+                            <td>9,081</td>
+                            <td>70.500</td>
+                            <td>74</td>
+                            <td>707.166</td>
+                            <td>328</td>
+                        </tr>
+                        <tr>
+                            <td>2010</td>
+                            <td>408</td>
+                            <td>9,512</td>
+                            <td>73.775</td>
+                            <td>91</td>
+                            <td>720.641</td>
+                            <td>329</td>
+                        </tr>
+                        <tr>
+                            <td>2011</td>
+                            <td>430</td>
+                            <td>10,344</td>
+                            <td>80.192</td>
+                            <td>108,2</td>
+                            <td>775.383</td>
+                            <td>376</td>
+                        </tr>
+                        <tr>
+                            <td>2012</td>
+                            <td>457</td>
+                            <td>11,403</td>
+                            <td>83.631</td>
+                            <td>119,4</td>
+                            <td>804.683</td>
+                            <td>398</td>
+                        </tr>
+                        <tr>
+                            <td>2013</td>
+                            <td>495</td>
+                            <td>12,940</td>
+                            <td>86.271</td>
+                            <td>129,2</td>
+                            <td>843.254</td>
+                            <td>415</td>
+                        </tr>
+                        <tr>
+                            <td>2014</td>
+                            <td>520</td>
+                            <td>13,846</td>
+                            <td>95,242</td>
+                            <td>142,3</td>
+                            <td>978.963</td>
+                            <td>431</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p>(1) Novo critério: A série inclui apenas shoppings já inaugurados;</p>
+            <p>(2) Os dados referentes a Número de Lojas, Salas de Cinema e Empregos foram calculados com base em uma amostra de shoppings e não terão atualização mensal;</p>
+            <p>(3) Alguns dados referentes a 2009 foram revistos com base nos resultados do Censo do Setor, da Price Waterhouse Coopers;</p>
+
+            <div style="margin-top: 50px;">
+                <p style="margin-bottom: 0; font-weight: bold;">EVOLUÇÃO DA ABL EM SHOPPING CENTERS NO BRASIL</p>
+                <p>(em milhões m²)</p>
+                <img style="width: 100%;" src="/assets/img/grafico-abl-evolucao-2015.jpg" alt=""/>
+            </div>
+
+            <div style="margin-top: 50px;">
+                <p style="margin-bottom: 0; font-weight: bold;">EVOLUÇÃO DO Nº DE EMPREGOS EM SHOPPING CENTERS NO BRASIL</p>
+                <p>(em milhares)</p>
+                <img style="width: 100%;" src="/assets/img/grafico-evolucao-empregos-2015.jpg" alt=""/>
+            </div>
+
+            <div style="margin-top: 50px;">
+                <p style="margin-bottom: 0; font-weight: bold;">EVOLUÇÃO DO FATURAMENTO EM SHOPPING CENTERS NO BRASIL</p>
+                <p>(em bilhões de R$)</p>
+                <img style="width: 100%;" src="/assets/img/grafico-evolucao-faturamento-2015.jpg" alt=""/>
+            </div>
+        </div>
+        <div class="col-md-4 col-right-margin-top-lg">
+            {% include "site/menu-monitoramento.twig" %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

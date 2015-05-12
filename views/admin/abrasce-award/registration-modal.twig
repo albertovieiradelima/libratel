@@ -1,0 +1,203 @@
+<div class="modal fade" id="registration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formRegistration" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Dados da Inscrição</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <input type="hidden" name="fk_award" class="form-control">
+                    <input type="hidden" name="fk_event" class="form-control">
+                    <div class="form-group">
+                        <div class="col-md-12 col-lg-12 margin-group">
+                            <label for="shopping">Shopping</label>
+                            <input name="shopping" type="text" class="form-control" placeholder="Shopping" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12 col-lg-12 margin-group">
+                            <label for="titulo">Título do Projeto</label>
+                            <input name="project_title" type="text" class="form-control" placeholder="Título do Projeto" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="registration_number">Número da Inscrição</label>
+                            <input type="text" name="registration_number" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="invoice_number">Número da Fatura</label>
+                            <input type="text" name="invoice_number" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="invoice_due_date">Data da Fatura</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="invoice_due_date" class="form-control" readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="invoice_payment_date">Data de Pagamento</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="invoice_payment_date" class="form-control date-time-picker" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-lg-4 margin-group">
+                            <label for="responsible_document_number">CPF do Responsável pela Inscrição</label>
+                            <input type="text" name="responsible_document_number" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-8 col-lg-8 margin-group">
+                            <label for="responsible_name">Nome do Responsável pela Inscrição</label>
+                            <input type="text" name="responsible_name" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="responsible_position">Cargo do Responsável pela Inscrição</label>
+                            <input type="text" name="responsible_position" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="responsible_email">E-mail do Responsável pela Inscrição</label>
+                            <input type="text" name="responsible_email" class="form-control" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="administrator_name">Empresa Administradora do Shopping Center</label>
+                            <input type="text" name="administrator_name" class="form-control" readonly>
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="companies_shopping">Empresa(s) Empreendedora(s) do Shopping Center</label>
+                            <input type="text" name="companies_shopping" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="tab-content">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab_shopping" data-toggle="tab">Dados do Shopping</a></li>
+                            <li><a href="#tab_billing" data-toggle="tab">Dados de Cobrança</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_shopping">
+                            <div class="form-group">
+                                <div class="col-md-2 col-lg-2 margin-group">
+                                    <label for="zip">Cep</label>
+                                    <input type="text" name="zip" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-10 col-lg-10 margin-group">
+                                    <label for="address">Endereço</label>
+                                    <input type="text" name="address" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-lg-6 margin-group">
+                                    <label for="city">Cidade</label>
+                                    <input type="text" name="city" class="form-control" readonly>
+                                </div>
+                                <div class="col-md-6 col-lg-6 margin-group">
+                                    <label for="state">Estado</label>
+                                    <select name="state" id="state" class="input-large form-control" readonly>
+                                        {% for key,uf in null|uflist %}
+                                            <option value="{{ key }}">{{ uf }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_billing">
+                            <div class="form-group">
+                                <div class="col-md-4 col-lg-4 margin-group">
+                                    <label for="billing_document_number">CPF/CNPJ do Responsável pela Cobrança</label>
+                                    <input type="text" name="billing_document_number" class="form-control">
+                                </div>
+                                <div class="col-md-8 col-lg-8 margin-group">
+                                    <label for="billing_name">Nome do Responsável pela Cobrança</label>
+                                    <input type="text" name="billing_name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-2 col-lg-2 margin-group">
+                                    <label for="billing_zip">Cep</label>
+                                    <input type="text" name="billing_zip" class="form-control">
+                                </div>
+                                <div class="col-md-10 col-lg-10 margin-group">
+                                    <label for="billing_address">Endereço</label>
+                                    <input type="text" name="billing_address" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-lg-6 margin-group">
+                                    <label for="billing_city">Cidade</label>
+                                    <input type="text" name="billing_city" class="form-control">
+                                </div>
+                                <div class="col-md-6 col-lg-6 margin-group">
+                                    <label for="billing_state">Estado</label>
+                                    <select name="billing_state" id="billing_state" class="input-large form-control">
+                                        {% for key,uf in null|uflist %}
+                                            <option value="{{ key }}">{{ uf }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="phone">Telefone</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <input type="text" name="phone" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask readonly />
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="fax">Fax</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <input type="text" name="fax" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask readonly/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label for="status">Situação</label>
+                            <select name="status" id="status" class="input-large form-control">
+                                <option value="pending">Pendente</option>
+                                <option value="confirmed">Confirmado</option>
+                                <option value="cancelled">Cancelado</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 col-lg-6 margin-group">
+                            <label></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label></label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

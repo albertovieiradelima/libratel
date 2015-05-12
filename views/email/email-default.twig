@@ -1,0 +1,23 @@
+{% extends "email/layout.twig" %}
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                   {{ message|raw }}
+                <br>
+                <p>
+                    Em caso de dúvidas, por gentileza entre em contato com Bruno através do telefone (11)3506-8313 ou por e-mail bruno@abrasce.com.br.
+                </p>
+                <br>
+                <p>
+                    Atenciosamente, Abrasce<br>
+                    Portal do Shopping<br>
+                    http://www.portaldoshopping.com.br
+                </p>
+                <br>
+                <br>
+                *Esse é um e-mail automático.
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,66 @@
+<style type="text/css">
+    .col-lg-6 {
+        margin-bottom: 15px;
+    }
+</style>
+<div class="modal fade" id="store-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formStore" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Títulos</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <div class="form-group">
+                        <label for="fk_store_category">Categoria</label>
+                        <select class="form-control" name="fk_store_category" id="fk_store_category"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Título</label>
+                        <input type="text" name="title" class="form-control" placeholder="Título da Publicação">
+                    </div>
+                    <div class="form-group file">
+                        <label for="image">Imagem</label>
+                        <input id="file" name="image" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="" data-overwrite-initial="false">
+                    </div>
+                    <div class="form-group">
+                        <label for="sinopse">Sinopse</label>
+                        <textarea class="textarea form-control" name="sinopse" id="sinopse" placeholder="Insira o texto ..." style="width: 100%; height: 200px"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="year">Ano de Publicação</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" name="year" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="price">Preço</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-dollar"></i>
+                                </div>
+                                <input required="" type="text" name="price" class="form-control money" data-thousands="." data-decimal="," placeholder="Valor" aria-required="true" aria-invalid="false">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="status" class="minimal" checked/> Ativo
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_guia-fornecedores.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Guia de Fornecedores</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Guia de Fornecedores</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+
+        <!--Beneficios do Associado-->
+        <div class="col-md-12">
+            <h3>{{ supplier.fantasia }}</h3>
+            <hr>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="box-container">
+                        <div class="box-info-fornecedor">
+                            <div class="info-supplier-logo col-xs-12 col-sm-4 col-md-2">
+                                <img src="/crmall/supplier/logo/{{ supplier.id_fornecedor }}" class="info-supplier-logo" tag="logo">
+                            </div>
+                            <div class="col-xs-12 col-sm-8 col-md-10">
+                                <p class="info-supplier-text">
+                                    <span>CONTATO:</span>
+                                    {% for contact in contacts %}
+                                    {{ contact.contato }}
+                                    {% endfor %}
+                                </p>
+                                <p class="info-supplier-text">
+                                    <span>TELEFONE:</span> {{ supplier.telefone|phone }}
+                                </p>
+                                <p class="info-supplier-text">
+                                    <span>SITE:</span> <a href="//{{ supplier.site }}" target="_blank">{{ supplier.site }}</a>
+                                </p>
+                                <p class="info-supplier-text">
+                                    <span>DESCRIÇÃO:</span> {{ supplier.descricao_fornecedor }}
+                                </p>
+                                <p class="info-supplier-text">
+                                    <span>LOCALIZAÇÃO:</span> {{ supplier.localidade ~ ' - ' ~ supplier.estado }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <!--end-->
+
+    </div>
+
+</div>
+<!-- /.container -->
+<script>
+    $(document).ready(function () {
+        $(".navbar-btn button").removeClass('active');
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_sobre-a-abrasce.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Notícias</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Imprensa / Notícias</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-noticia">
+            {% if query %}
+
+            {% if list|length > 0 %}
+            <h3>Exibindo resultados para "{{query}}"</h3>
+            <hr>
+            {% else %}
+            Nenhum resultado encontrado para "{{query}}"
+            {% endif %}
+
+            {% else %}
+            Termo de pesquisa inválido
+            {% endif %}
+
+            <div class="box-noticia">
+                {% for ent in list %}
+
+                <h3>{{ ent.date|date("d/m/Y") }} - {{ ent.title }}</h3>
+                <p class="description-page">
+                    {{ ent.description[:280]|striptags ~ '...'  }}
+                    &nbsp;
+                    <strong><a href="/site/noticia-associado/{{ent['id']}}">[+ Continuar lendo...]</a></strong>
+                </p>
+                <hr class="hr-line">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>Pesquisar</h3>
+            <hr>
+            <form id="form-search-noticias" action="/site/busca/noticias-associado" method="get">
+                <div class="box-newsletter">
+                    <div class="input-group">
+                        <input name="q" type="text" class="form-control" placeholder="Busca por palavra chave">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+    {% if rows %}
+    <div style="font-style:italic" class="text-center text-muted">
+        ({{rows}} resultados encontrados)
+    </div>
+    {% endif %}
+
+    {% if pages > 1 %}
+    <div class="text-center">
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for i in 1..pages %}
+                <li class="{{ page == (i) ? 'active' : '' }}"><a href="/site/busca/noticias-associado?q={{query}}&page={{i}}">{{i}}</a></li>
+                {% endfor %}
+                <li>
+                    <a href="#" aria-label="Próximo">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $('#form-search-noticias').on('submit', function(data){
+            var params = $(this).serializeArray();
+            var q = params[0].value;
+            if(q.length <= 2){
+                toastr.error("O termo a ser pesquisado precisa ter pelo menos 2 caracteres",'Termo de pesquisa muito pequeno');
+                return false;
+            }
+            return true;
+        });
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_cursos-e-eventos.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Números do Setor</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Números Regionais</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-page">
+            <h3>NÚMEROS REGIONAIS</h3>
+            <hr>
+            <h4 style="margin-top: 30px; display: block;">PARTICIPAÇÃO POR REGIÃO</h4>
+            <div class="box-container table-responsive">
+                <table class="table-list">
+                    <thead>
+                        <td>REGIÃO</td>
+                        <td>Nº DE SHOPPINGS</td>
+                        <td>% DO TOTAL</td>
+                        <td>ABL</td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Norte</td>
+                            <td>25</td>
+                            <td>4,8%</td>
+                            <td>647.752</td>
+                        </tr>
+                        <tr>
+                            <td>Nordeste</td>
+                            <td>75</td>
+                            <td>14,3%</td>
+                            <td>2.269.296</td>
+                        </tr>
+                        <tr>
+                            <td>Centro-Oeste</td>
+                            <td>47</td>
+                            <td>9,0%</td>
+                            <td>1.127.615</td>
+                        </tr>
+                        <tr>
+                            <td>Sudeste</td>
+                            <td>288</td>
+                            <td>55,0%</td>
+                            <td>8.005.384</td>
+                        </tr>
+                        <tr>
+                            <td>Sul</td>
+                            <td>89</td>
+                            <td>17,0%</td>
+                            <td>1.896.396</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="box-container table-responsive">
+                <table class="table-list">
+                    <tbody>
+                        <tr>
+                            <td style="width: 177px">Total</td>
+                            <td style="width: 237px">524</td>
+                            <td style="width: 173px">100%</td>
+                            <td style="width: 141px">13.946.444</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4 col-right-margin-top-lg">
+            {% include "site/menu-monitoramento.twig" %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

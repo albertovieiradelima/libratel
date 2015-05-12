@@ -1,0 +1,113 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+    <link href="/assets/css/print.css" rel="stylesheet" media="print" type="text/css" />
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_cursos-e-eventos.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Cursos e Eventos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Cursos e Eventos</h5>
+        </div>
+    </div>
+
+    <div class="row row-container">
+        <div class="description-page">
+            <p><h4>Sua inscrição foi realizada com sucesso.</h4>
+            <p>Um e-mail foi enviado para {{registro.responsible_email}}</p>
+            <a class="btn btn-primary" href="javascript:window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir inscrição</a>
+            <a class="btn btn-primary" href="{{link_boleto}}" target="_blank"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Imprimir Boleto</a>
+        </div>
+
+        <div class="col-md-12" id="printable">
+            <div class="row">
+                <h3>{{ evento.title|upper }}</h3>
+            </div>
+            <hr>
+            <p><strong>DESCRIÇÃO: </strong>{{evento.description|raw}}</p>
+            <p><strong>LOCAL: </strong>{{evento.local}}</p>
+            <p><strong>DE: </strong>{{evento.start_date}} <strong>a</strong> {{evento.end_date}}</p>
+            <br>
+            <p><strong>INSCRIÇÃO</strong></p>
+            <p><strong>Documento:</strong> {{registro.company_document}}</p>
+            <p><strong>Nome:</strong> {{registro.company_name}}</p>
+            <p><strong>CEP:</strong> {{registro.company_zip}}</p>
+            <p><strong>Endereço:</strong> {{registro.company_address}}    Número:{{registro.company_number}}</p>
+            <p><strong>Bairro:</strong> {{registro.company_neighborhood}}</p>
+            <p><strong>Cidade:</strong>  {{registro.company_city}} <strong>Estado:</strong> {{registro.company_state}}</p>
+            <p><strong>Telefone:</strong> {{registro.company_phone}}</p>
+            {% if registro.fk_coupon!='' %}
+            <p><strong>Cupom: </strong>{{registro.fk_coupon}}</p>
+            {% endif %}
+            <p><strong>Participantes: </strong>{{participantes|length}}</p>
+            <p><strong>Valor total: </strong>R$ {{registro.invoice_value}}</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <hr>
+                    <p><strong>DADOS DE COBRANÇA</strong></p>
+                    <p><strong>Documento:</strong> {{registro.billing_document}}</p>
+                    <p><strong>Nome:</strong> {{registro.billing_name}}</p>
+                    <p><strong>CEP:</strong> {{registro.billing_zip}}</p>
+                    <p><strong>Endereço:</strong> {{registro.billing_address}}    Número:{{registro.billing_number}}</p>
+                    <p><strong>Bairro:</strong> {{registro.billing_neighborhood}}</p>
+                    <p><strong>Cidade:</strong>  {{registro.billing_city}}  <strong>Estado:</strong>  {{registro.billing_state}}</p>
+                    <p><strong>Telefone:</strong> {{registro.billing_phone}}</p>
+                </div>
+                <div class="col-md-6">
+                    <hr>
+                    <strong>RESPONSÁVEL PELO CADASTRO</strong>
+                    <p><strong>Documento:</strong> {{registro.responsible_document}}</p>
+                    <p><strong>Nome:</strong> {{registro.responsible_name}}</p>
+                    <p><strong>Cargo:</strong> {{registro.responsible_job}}
+                    <p><strong>Email: </strong> {{registro.responsible_email}}
+                    <p><strong>Telefone:</strong> {{registro.responsible_phone}}</p>
+                </div>
+            </div>
+            <hr>
+
+            {% if participantes|length > 0 %}
+            <strong>PARTICIPANTES</strong>
+            <div class="table-responsive" style="clear: both;">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <td style="width: 100px;"><strong>NOME CERTIFICADO</strong></td>
+                        <td style="width: 100px;"><strong>CPF</strong></td>
+                        <td style="width: 100px;"><strong>CARGO</strong></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for participante in participantes %}
+                    <tr>
+                        <td>{{participante.certificate_name}}</td>
+                        <td>{{participante.cpf}}</td>
+                        <td>{{participante.job}}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+            <hr>
+            <strong>POLÍTICA DE CANCELAMENTO</strong>
+            <p>{{evento.cancellation_policy|raw}}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

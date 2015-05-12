@@ -1,0 +1,139 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_cursos-e-eventos.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Números do Setor</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Números do Setor</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-page">
+            <h3>NÚMEROS DO SETOR</h3>
+            <hr>
+            <div class="box-container table-responsive">
+                <table class="table-list">
+                    <thead>
+                        <td>BRASIL: ABRIL 2015</td>
+                    </thead>
+                    <table class="table-list">
+                        <tbody>
+
+                        <tr>
+                            <td>Número Total de Shoppings</td>
+                            <td>524</td>
+                        </tr>
+                        <tr>
+                            <td>A Inaugurar em 2015 (¹)</td>
+                            <td>21</td>
+                        </tr>
+                        <tr>
+                            <td>Número Previsto para Dez. 2015</td>
+                            <td>545 </td>
+                        </tr>
+                        <tr>
+                            <td>Área Bruta Locável (Em milhões de m²)</td>
+                            <td>13,946</td>
+                        </tr>
+                        <tr>
+                            <td>Área Construída (Em milhões de m²)</td>
+                            <td> 33,33 </td>
+                        </tr>
+                        <tr>
+                            <td>Vagas para Carros</td>
+                            <td> 823.224 </td>
+                        </tr>
+                        <tr>
+                            <td>Total de Lojas</td>
+                            <td>95.242 </td>
+                        </tr>
+                        <tr>
+                            <td>Megalojas</td>
+                            <td>1.905 </td>
+                        </tr>
+                        <tr>
+                            <td>Lojas Satélites</td>
+                            <td>70.479 </td>
+                        </tr>
+                        <tr>
+                            <td>Lazer</td>
+                            <td>952</td>
+                        </tr>
+                        <tr>
+                            <td>Alimentação</td>
+                            <td>12.381 </td>
+                        </tr>
+                        <tr>
+                            <td>Lojas de Serviços	</td>
+                            <td> 6.667 </td>
+                        </tr>
+                        <tr>
+                            <td>Salas de Cinema</td>
+                            <td>2.488</td>
+                        </tr>
+                        <tr>
+                            <td>Empregos Gerados	</td>
+                            <td>978.963 </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </table>
+            </div>
+
+            <div class="box-container table-responsive">
+                <table class="table-list">
+                    <thead>
+                        <td>NÚMEROS: BRASIL DEZEMBRO/14</td>
+                    </thead>
+                    <table class="table-list">
+                        <tbody>
+                        <tr>
+                            <td style="width: 576px">Faturamento Estimado 2014 (Em R$ bilhões)</td>
+                            <td>142,28</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 576px">Vendas em Relação ao Varejo Nacional em 2014 (²)</td>
+                            <td>19%</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 576px">Tráfego de Pessoas (milhões por mês)</td>
+                            <td>430.501</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </table>
+            </div>
+
+            <p>(1) Número Previsto de Inaugurações</p>
+            <p>(2) Exclui vendas de combustíveis e GLP:  Critério: Consideram-se aqui shoppings com lojas locadas, lojas âncoras e vagas de estacionamento, com área igual ou superior a 5.000m². A informação sobre faturamento é estimada e pode ser alterada</p>
+        </div>
+        <div class="col-md-4 col-right-margin-top-lg">
+            {% include "site/menu-monitoramento.twig" %}
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function() {
+        $("#menu-numeros-do-setor").addClass('active');
+    })
+</script>
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_inauguracoes.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Inaugurações</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Inaugurações</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-page">
+            <h3>{{ category.name ? category.name|upper : 'INAUGURAÇÕES' }}</h3>
+            <hr>
+            {% set count = 0 %}
+            {% set abl = 0 %}
+            <div class="box-container table-responsive">
+                <table class="table-list">
+                    <thead>
+                        <td>SHOPPING</td>
+                        <td>CIDADE</td>
+                        <td>UF</td>
+                        <td>ABL</td>
+                        <td>INAUGURADO EM</td>
+                    </thead>
+                    <tbody>
+                        {% if inaugurations|length > 0 %}
+
+                            {% for inauguration in inaugurations %}
+                                <tr>
+                                    <td>{{ inauguration.shopping }}</td>
+                                    <td>{{ inauguration.city }}</td>
+                                    <td>{{ inauguration.state }}</td>
+                                    <td>{{ inauguration.abl }}</td>
+                                    <td>{{ inauguration.inauguration_date|localizeddate('none', 'none', 'pt_BR', null, "MMMM Y")|capitalize }}</td>
+                                </tr>
+                                {% set count = count + 1 %}
+                                {% set abl = abl + inauguration.abl %}
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="no-inaugurations">Nenhuma inauguração prevista para este período</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            {% if inaugurations|length > 0 %}
+            <div class="box-container table-responsive">
+                <table class="table-list">
+                    <tr>
+                        <td style="width: 50%;">TOTAL DE SHOPPINGS: {{ count }}</td>
+                        <td style="width: 50%">ABL TOTAL: {{ abl }}</td>
+                    </tr>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-4 inauguration-menu-right col-right-margin-top-lg">
+            <ul class="nav nav-pills nav-stacked abrasce-nav-list">
+                {% for item in categories %}
+                    <li class="abrasce-list{{ category.name|upper == item.name|upper ? ' active' : '' }}" id="2">
+                        <a href="/site/inauguracoes/{{ item.id }}">
+                            {{ item.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

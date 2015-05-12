@@ -1,0 +1,27 @@
+{% extends "email/layout.twig" %}
+{% block content %}
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">Inscrição Prêmio ABRASCE</div>
+            <div class="panel-body">
+                <p>Prezado(a) {{ registration.responsible_name }},</p>
+                <p>
+                    Para visualizar o boleto referente a inscrição <strong>{{ registration.registration_number }}</strong> no <strong>{{ event.title }}</strong>, <a href="{{ boleto }}" target="_blank">clique aqui</a>.
+                </p>
+                <br>
+                <p>
+                    Lembramos que o projeto pode ser alterado quantas vezes necessárias até o dia <strong>{{ event.registration_date_end|date("d/m/Y") }}</strong>.
+                </p>
+                <p>
+                    Em caso de dúvidas, por gentileza entre em contato conosco através do telefone <strong>(11) 3506-8313</strong> ou pelo nosso site.
+                </p>
+                <br>
+                <p>Cordialmente, Abrasce</p>
+                <p>Portal do Shopping</p>
+                <p>http://www.portaldoshopping.com.br</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

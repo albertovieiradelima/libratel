@@ -1,0 +1,238 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_cursos-e-eventos.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Cursos e Eventos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Cursos e Eventos</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-12 container-beneficios">
+            <h4><strong>{{ evento.start_date|date("d/m/Y") }}</strong></h4>
+            <div class="row">
+                <div class="col-md-8"><h3>{{ evento.title|upper }}</h3></div>
+            </div>
+
+            <hr>
+            {% if entity.image %}
+            <img style='margin: 0px 0px 20px 20px' class='pull-right' src="/uploads/events/{{ evento.image }}" width="320" alt="">
+            {% endif %}
+
+            <div class="row">
+                <div class="col-md-3 description-page" style="margin-bottom: 0px">
+                    É associado: <strong>{{evento.company_filiation=='2'?'Sim':'Não'}}</strong>
+                </div>
+                {% if evento.fk_coupon != '' %}
+                <div class="col-md-3 description-page" style="margin-bottom: 0px">
+                    Cupom: <strong>{{evento.fk_coupon}}</strong>
+                </div>
+                <div class="col-md-6 description-page" style="margin-bottom: 0px">
+                    Participantes:
+                    <strong>Min: </strong>{{evento.coupon_min}}
+                    <strong> Max: </strong>{{evento.coupon_max - evento.coupon_used}}
+                    <span style="float: right"> Desconto por participante: <strong>{{evento.discount}} %</strong> </span>
+                </div>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-6 description-page" style="margin-bottom: 0px">
+                    Valor por participante: <strong>R$ {{evento.price}}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 description-page" style="margin-bottom: 5px">
+                    Participantes: <strong>{{ participantes|length>0? participantes|length  : '0' }}</strong>
+                </div>
+                <div class="col-md-4 description-page">
+                    Valor total da inscrição: <strong> R$ {{ participantes|length>0?evento.total_price : '0' }}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5 description-page" style="margin-bottom: 0px">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#participante-modal">
+                        <i class="fa fa-plus"></i> Adicionar Participante
+                    </button>
+                </div>
+            </div>
+
+            {% if participantes|length > 0 %}
+            <div class="list-row">
+                <div class="col-md-3 yellow-title-container">
+                    <span>Participantes</span>
+                </div>
+                <div class="box-container table-responsive" style="clear: both;">
+                    <table class="table-list">
+                        <thead>
+                        <tr>
+                            <td style="width: 100px;">NOME CERTIFICADO</td>
+                            <td style="width: 100px;">CPF</td>
+                            <td style="width: 100px;">CARGO</td>
+                            <td style="width: 100px;"></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for participante in participantes %}
+                        <tr>
+                            <td>{{participante.certificate_name}}</td>
+                            <td>{{participante.cpf}}</td>
+                            <td>{{participante.job}}</td>
+                            <td><a  onclick="confirm('Tem certeza que deseja excluir?');" href="/site/evento/participantes/remove/{{evento.fk_event_registration}}/{{participante.id}}">Excluir</a></td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="list-row box-noticia">
+                <h5>POLÍTICA DE CANCELAMENTO</h5>
+                {{evento.cancellation_policy|raw}}
+
+                <form method="post" action="/site/evento/inscricao/finalizar/{{evento.fk_event_registration}}" id="acept" class="form-horizontal">
+                    <input type="hidden" id="id" name="id" value="{{ entity.id }}">
+                    <label class="control-label" for="agree">Li e concordo com os termos acima</label>
+                    <input id="agree" name="agree" type="checkbox" value="true" required="required">
+                    <input id="price" name="price" type="hidden" value="{{evento.total_price}}">
+
+                    <div class="form-group" style="margin-top: 10px">
+                        <div class="col-lg-2">
+                            <button type="submit" class="btn btn-primary btn-block">Avançar <i class="fa fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            {% else %}
+            <div class="list-row box-noticia">
+                <h5>Não há participantes cadastrados</h5>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="participante-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formCourse" method="post" action="/site/evento/participantes/novo" enctype="multipart/form-data" class="form-horizontal form-validate">
+                <input type="hidden" id="evento_id" name="evento_id" value="{{ evento.id }}">
+                <input type="hidden" name="fk_event_registration" class="form-control" value="{{evento.fk_event_registration}}">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Participante</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="nome">Nome Para o Certificado <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <input type="text" name="certificate_name" class="form-control" placeholder="Nome do participante" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf" class="col-sm-3 control-label">CPF <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <input type="text" name="cpf" class="form-control" id="cpf" required="">
+                        </div>
+                    </div>
+
+                    <label class="col-sm-3 control-label">Sexo <strong class="text-danger">*</strong></label>
+                    <div class="form-group col-lg-8">
+                        <label class="control-label radio-inline">
+                            <input class="radio-inline" name="sex" type="radio" value="male" > Masculino
+                        </label>
+                        <label class="control-label radio-inline">
+                            <input class="radio-inline" name="sex" type="radio"  data-val="true" id="sex"value="female" data-val-required="Preenchimento obrigatorio" required=""> Feminino
+
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-3 control-label">E-mail <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <input type="email" name="email" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="badge_name" class="col-sm-3 control-label">Nome Para Crachá <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <input type="text" name="badge_name" class="form-control" required="">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="badge_company" class="col-sm-3 control-label" >Empresa Para Crachá <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <input type="text" name="badge_company" class="form-control" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cargo <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <select id="job" name="job" class="form-control select2" required="">
+                                {% for key,cargo in null|cargoParticipantsList %}
+                                <option value="{{ key }}">{{ cargo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Área <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <select id="area" name="area" class="form-control select2" required="">
+                                {% for key,area in null|areaParticipantsList %}
+                                <option value="{{ key }}">{{ area }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Celular <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <input name="phone" type="text" class="form-control phone-mask" required="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Adicionar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $("#cpf").mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+
+
+        var newPhoneMask = function (phone, e, currentField, options) {
+            if (phone.length < 15) {
+                return '(00) 0000-00009';
+            }
+            return '(00) 00000-0009';
+        };
+    });
+</script>
+
+{% endblock %}

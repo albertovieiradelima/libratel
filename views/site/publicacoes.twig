@@ -1,0 +1,522 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_publicacoes.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Publicações</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Publicações</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+
+        <!--Beneficios do Associado-->
+        <div class="col-md-8 container-beneficios">
+            <h3>PUBLICAÇÕES ABRASCE</h3>
+            <hr>
+            <p>
+                A Biblioteca ABRASCE mantém um acervo de livros disponível para pesquisas. São livros, monografias e
+                catálogos, que relatam desde o surgimento desse formato de varejo nos Estados Unidos, sua adaptação ao
+                mercado nacional, o crescimento em nosso país, até os novos formatos e tendências. A Abrasce também
+                oferece publicações do International Council of Shopping Centers (ICSC), que foram traduzidas para o
+                português. Esses títulos encontram-se a venda. Para aquisição das publicações, preencha os campos do
+                formulário ao lado em "Faça seu pedido". Dúvidas entre em contato pelo telefone (11) 3506-8300.
+            </p>
+
+            <div class="row col-md-12">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="abrasce-category-box">
+                        <select name="category" id="category" class="input-large form-control">
+                            <option value="">Todas Publicações</option>
+                            {% for category in categories %}
+                            <option value="{{ category.id }}" {{ category.id== id ?
+                            ' selected' : '' }}>{{ category.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <form action="/site/pedido" id="form_item" method="POST">
+                <div class="row">
+                    {% if books|length > 0 %}
+                        {% for book in books %}
+                        <div class="col-xs-12 col-sm-6 col-md-6">
+                            <div class="box-container-publicacoes">
+                                <div class="box-publicacoes">
+                                    <div class="abrasce-book-header">
+                                        <span class="abrasce-book-title">{{ book.title }}</span><br>
+                                        <span class="abrasce-book-date">{{ book.year }}</span>
+                                        <hr class="hr-line">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="abrasce-book-image"><img src="/uploads/store/{{ book.image }}"
+                                                                                 class="abrasce-book-image"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="abrasce-book-price">R$ {{ book.price|number_format(2, ',', '.') }}
+                                            </div>
+                                            <div class="abrasce-book-qtde">
+                                                <div class="input-group spinner">
+                                                    <label class="control-label" for="qtde-{{ book.id }}">Quantidade</label>
+                                                    <input type="text" name="book-{{ book.id }}" class="form-control"
+                                                           value="0">
+
+                                                    <div class="input-group-btn-vertical">
+                                                        <button class="btn btn-default"><i class="fa fa-caret-up"></i>
+                                                        </button>
+                                                        <button class="btn btn-default"><i class="fa fa-caret-down"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="abrasce-book-sinopse">
+                                                <button type="button" class="btn btn-primary form-control btn-sinopse"
+                                                        data-trigger="hover" data-original-title="{{ book.title }}"
+                                                        data-container="body" data-html="true" data-toggle="popover"
+                                                        data-placement="right" data-content="{{ book.sinopse }}">SINOPSE
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="col-md-12">
+                            <div class="box-container-publicacoes">
+                                <div class="box-publicacoes">
+                                    <label>Nenhum registro encontrado para a categoria selecionada.</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+
+        </div>
+        <!--end-->
+
+        <!--Seja um Associado-->
+        <div class="col-md-4">
+            <h3>Faça o seu pedido</h3>
+            <hr>
+            <div class="box-noticia">
+                <form action="/site/pedido" id="form-cadastro" method="POST">
+                    <div class="form-group">
+                        <label class="control-label" for="TipoPessoa">Tipo de Pessoa</label>
+
+                        <div class="controls">
+                            <label class="control-label radio-inline">
+                                <input checked="checked" class="radio-inline" data-val="true"
+                                       data-val-required="Preenchimento obrigatorio" id="TipoPessoa" name="TipoPessoa"
+                                       type="radio" value="Fisica"> Física
+                            </label>
+                            <label class="control-label radio-inline">
+                                <input name="TipoPessoa" type="radio" value="Juridica"> Jurídica
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="Nome" id="NomeLabel">Nome</label>
+
+                        <div class="controls">
+                            <input class="form-control" data-val="true" data-val-required="Preenchimento obrigatorio"
+                                   id="Nome" name="Nome" type="text" value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="NomeFantasia" id="NomeFantasiaLabel" style="display: none;">Nome Fantasia</label>
+
+                        <div class="controls">
+                            <input class="form-control" id="NomeFantasia" name="NomeFantasia" type="text" value=""
+                                   _vkenabled="true" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label phone" for="CPF" id="CPFLabel">CPF</label>
+
+                        <div class="controls">
+                            <input class="numeric form-control" data-val="true"
+                                   data-val-required="Preenchimento obrigatorio" id="CPF" name="CPF" type="text"
+                                   value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label phone" for="InscricaoEstadual" id="InscricaoEstadualLabel" style="display: none;">Inscrição
+                            Estadual</label>
+
+                        <div class="controls">
+                            <input class="form-control" id="InscricaoEstadual" name="InscricaoEstadual" type="text"
+                                   value="" _vkenabled="true" style="display: none;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="Cargo" id="CargoLabel">Cargo</label>
+
+                        <div class="controls">
+                            <select name="Cargo" id="Cargo" class="form-control">
+                                {% for key,cargo in null|cargolist %}
+                                <option value="{{ key }}">{{ cargo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="Email" id="EmailLabel">Email</label>
+
+                        <div class="controls">
+                            <input class="form-control" data-val="true" data-val-required="Preenchimento obrigatorio"
+                                   id="Email" name="Email" type="text" value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="Telefone" id="TelefoneLabel">Telefone</label>
+
+                        <div class="controls">
+                            <input class="phone sp_celphones form-control" data-val="true"
+                                   data-val-required="Preenchimento obrigatorio" id="Telefone" name="Telefone"
+                                   type="text" value="" _vkenabled="true">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="EntregaCEP" id="EntregaCEPLabel">CEP</label>
+
+                        <div class="controls">
+                            <input class="zip-code form-control" data-url="/enderecos/localizar" data-val="true"
+                                   data-val-required="Preenchimento obrigatorio" id="EntregaCEP" maxlength="9"
+                                   name="EntregaCEP" type="text" value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="EntregaEndereco" id="EntregaEnderecoLabel">Endereço de Entrega</label>
+
+                        <div class="controls">
+                            <input class="form-control" data-val="true" data-val-required="Preenchimento obrigatorio"
+                                   id="EntregaEndereco" name="EntregaEndereco" type="text" value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="EntregaNumero" id="EntregaNumeroLabel">Número</label>
+
+                        <div class="controls">
+                            <input class="form-control" data-val="true" data-val-required="Preenchimento obrigatorio"
+                                   id="EntregaNumero" name="EntregaNumero" type="text" value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="EntregaComplemento" id="EntregaComplementoLabel">Complemento</label>
+
+                        <div class="controls">
+                            <input class="form-control" id="EntregaComplemento" name="EntregaComplemento" type="text"
+                                   value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="EntregaBairro" id="EntregaBairroLabel">Bairro</label>
+
+                        <div class="controls">
+                            <input class="form-control" data-val="true" data-val-required="Preenchimento obrigatorio"
+                                   id="EntregaBairro" name="EntregaBairro" type="text" value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="EntregaCidade" id="EntregaCidadeLabel">Cidade</label>
+
+                        <div class="controls">
+                            <input class="form-control" data-val="true" data-val-required="Preenchimento obrigatorio"
+                                   id="EntregaCidade" name="EntregaCidade" type="text" value="" _vkenabled="true">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="EntregaUF" id="EntregaUFLabel">UF</label>
+
+                        <div class="controls">
+                            <select name="EntregaUF" id="EntregaUF" class="input-large form-control">
+                                {% for key,uf in null|uflist %}
+                                <option value="{{ key }}" {{ key== id ?
+                                ' selected' : '' }}>{{ uf }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label question" for="EnderecoDeCobrancaIgualEntrega" id="EnderecoDeCobrancaIgualEntregaLabel">O endereço de
+                            faturamento é o mesmo endereço de entrega?</label>
+
+                        <div class="controls">
+                            <label class="control-label radio-inline">
+                                <input checked="True" class="radio-inline" data-val="true"
+                                       data-val-required="O campo O endereço de faturamento é o mesmo endereço de entrega? é obrigatório."
+                                       id="EnderecoDeCobrancaIgualEntrega" name="EnderecoDeCobrancaIgualEntrega"
+                                       type="radio" value="Sim"> Sim
+                            </label>
+                            <label class="control-label radio-inline">
+                                <input class="radio-inline" id="EnderecoDeCobrancaIgualEntrega"
+                                       name="EnderecoDeCobrancaIgualEntrega" type="radio" value="Nao"> Não
+                            </label>
+                        </div>
+                    </div>
+                    <div id="endereco-cobranca" style="display: none;">
+                        <div class="form-group">
+                            <label class="control-label" for="CobrancaEndereco" id="CobrancaEnderecoLabel">Endereço de Cobrança</label>
+
+                            <div class="controls">
+                                <input class="form-control" id="CobrancaEndereco" name="CobrancaEndereco" type="text"
+                                       value="" _vkenabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="CobrancaNumero" id="CobrancaNumeroLabel">Número</label>
+
+                            <div class="controls">
+                                <input class="form-control" id="CobrancaNumero" name="CobrancaNumero" type="text"
+                                       value="" _vkenabled="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="CobrancaComplemento" id="CobrancaComplementoLabel">Complemento</label>
+
+                            <div class="controls">
+                                <input class="form-control" id="CobrancaComplemento" name="CobrancaComplemento"
+                                       type="text" value="" _vkenabled="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="CobrancaBairro" id="CobrancaBairroLabel">Bairro</label>
+
+                            <div class="controls">
+                                <input class="form-control" id="CobrancaBairro" name="CobrancaBairro" type="text"
+                                       value="" _vkenabled="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="CobrancaCidade" id="CobrancaCidadeLabel">Cidade</label>
+
+                            <div class="controls">
+                                <input class="form-control" id="CobrancaCidade" name="CobrancaCidade" type="text"
+                                       value="" _vkenabled="true">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="CobrancaUF" id="CobrancaUFLabel">UF</label>
+
+                            <div class="controls">
+                                <select name="CobrancaUF" id="CobrancaUF" class="input-large form-control">
+                                    {% for key,uf in null|uflist %}
+                                    <option value="{{ key }}" {{ key== id ?
+                                    ' selected' : '' }}>{{ uf }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="Mensagem" id="MensagemLabel">Mensagem</label>
+
+                        <div class="controls">
+                            <textarea class="form-control" cols="20" id="Mensagem" name="Mensagem" rows="5"
+                                      _vkenabled="true"></textarea>
+                        </div>
+                    </div>
+                    <div id="bag-pedidos-formulario">
+
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" id="btn-enviar-pedido" class="btn btn-primary form-control"
+                                style="padding: 4px 16px !important;">Enviar Informações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--end-->
+
+    </div>
+
+</div>
+<!-- /.container -->
+<script>
+    $(document).ready(function () {
+        $("#menu-publicacoes").addClass('active');
+
+        $('#form_item').submit(function (e) {
+            e.preventDefault(); // stop default action
+        });
+
+        $('#form-cadastro').submit(function (e) {
+
+            e.preventDefault(); // stop default action
+            $("#btn-enviar-pedido").addClass('disabled');
+
+            var formData = new FormData($('#form-cadastro')[0]);
+            var formURL = $(this).attr("action");
+            var itemData = new Array();
+
+            $(this).serializeArray().forEach(function (field) {
+                formData.append(field.name, field.value);
+            });
+
+            itemData['items'] = new Array();
+
+            $('#form_item').serializeArray().forEach(function (field) {
+                if (field.value > 0) {
+                    formData.append('Items[' + field.name.match(/\d+/g)[0] + ']', field.value);
+                }
+            });
+
+            $.ajax({
+                type: "POST",
+                url: formURL,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        resetForm('#form-cadastro');
+                    } else {
+                        toastr.error(data.message);
+                    }
+                    $("#btn-enviar-pedido").removeClass('disabled');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#btn-enviar-pedido").removeClass('disabled');
+                }
+            });
+
+        });
+
+        $('#EntregaCEP').blur(function () {
+            if ($('#EntregaCEP').val() != '') {
+                $('#EntregaCEP').addClass('ajax-loader');
+                // busca cep
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: 'http://www.crmall.com.br/interface_crmall/appcrmall/php/enderecoPorCep.php?identificador=tqyG1HzR2Q&cep={' + $('#EntregaCEP').val() + '}',
+                    success: function (data) {
+                        $('#EntregaEndereco').val(data['logradouro']);
+                        $('#EntregaBairro').val(data['bairro']);
+                        $('#EntregaCidade').val(data['cidade']);
+                        $('#EntregaUF').val(data['uf']);
+                        $('#EntregaCEP').removeClass('ajax-loader');
+                        $('#EntregaNumero').focus();
+                    },
+                    error: function () {
+                        $('#EntregaCEP').removeClass('ajax-loader');
+                    }
+                });
+            }
+        });
+
+        $("input[type='radio']").change(function () {
+            if (this.value == 'Fisica') {
+                $("#NomeLabel").text('Nome');
+                $("#CPFLabel").text('CPF');
+                $("#CPF").mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+                $("#NomeFantasia").css({"display":"none"});
+                $("#NomeFantasiaLabel").css({"display":"none"});
+                $("#InscricaoEstadual").css({"display":"none"});
+                $("#InscricaoEstadualLabel").css({"display":"none"});
+                $("#Cargo").css({"display":"inline"});
+                $("#CargoLabel").css({"display":"inline"});
+            }
+            if (this.value == 'Juridica') {
+                $("#NomeLabel").text('Razão Social');
+                $("#CPFLabel").text('CNPJ');
+                $("#CPF").mask("99.999.999/9999-99", {"placeholder": "00.000.000/0000-00"});
+                $("#NomeFantasia").css({"display":"inline"});
+                $("#NomeFantasiaLabel").css({"display":"inline"});
+                $("#InscricaoEstadual").css({"display":"inline"});
+                $("#InscricaoEstadualLabel").css({"display":"inline"});
+                $("#Cargo").css({"display":"none"});
+                $("#CargoLabel").css({"display":"none"});
+            }
+        });
+
+        $("input[name='CPF']").mask("999.999.999-99", {"placeholder": "000.000.000-00"});
+        $("input[name='EntregaCEP']").mask("99999-999", {"placeholder": "00000-000"});
+
+        var newPhoneMask = function (phone, e, currentField, options) {
+            if (phone.length < 15) {
+                return '(00) 0000-00009';
+            }
+            return '(00) 00000-0009';
+        };
+
+        $(".sp_celphones").mask(newPhoneMask, {
+            onKeyPress: function (phone, e, currentField, options) {
+                $(currentField).mask(newPhoneMask(phone), options);
+            }
+        });
+
+        $("#category").change(function () {
+            window.location.href = '/site/publicacoes/' + $(this).val();
+        });
+
+        function resetForm(form) {
+
+//            $(form).each(function () {
+//                this.reset();
+//            });
+        }
+
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+
+        $('.spinner .btn:first-of-type').on('click', function () {
+            var spinner = $(this).parent().parent().find('input');
+            if (parseInt(spinner.val(), 10) + 1 >= 0) {
+                spinner.val(parseInt(spinner.val(), 10) + 1);
+            }
+        });
+
+        $('.spinner .btn:last-of-type').on('click', function () {
+            var spinner = $(this).parent().parent().find('input');
+            if (parseInt(spinner.val(), 10) - 1 >= 0) {
+                spinner.val(parseInt(spinner.val(), 10) - 1);
+            }
+        });
+
+        $('.spinner input').change(function () {
+            if (($.isNumeric($(this).val()) == false) || ($(this).val() <= 0)) {
+                $(this).val(0);
+            }
+        });
+
+        $('[data-toggle="popover"]').popover();
+    });
+</script>
+
+{% endblock %}

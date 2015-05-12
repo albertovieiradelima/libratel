@@ -1,0 +1,188 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel slide">
+    <!-- Indicators -->
+    <div class="container">
+        <ol class="carousel-indicators carousel-indicators-abrasce">
+            {% for key, topimage in topimages %}
+            <li data-target="#carousel_topo" data-slide-to="{{ key }}" class="{{ key == 0 ? ' active' : '' }}"></li>
+            {% endfor %}
+        </ol>
+    </div>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        {% for key, topimage in topimages %}
+        <div class="item{{ key == 0 ? ' active' : '' }}">
+            <div class="fill" style="background-image:url('/uploads/banners/{{ topimage.image }}');"></div>
+            <div class="container">
+                <div class="carousel-caption">
+                    <h1>{{ topimage.title }}</h1>
+                    <h3>{{ topimage.description }}</h3>
+                    <br>
+                    <br>
+                    {% if topimage.title != null or topimage.description != null %}
+                        <a class="btn btn-default pull-left{{ topimage.link ? '' : ' hide'  }}" href="{{ topimage.link }}" role="button">SAIBA MAIS</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#carousel_topo" data-slide="prev">
+        <span class="icon-prev">
+            <i class="fa fa-angle-left"></i>
+        </span>
+    </a>
+    <a class="right carousel-control" href="#carousel_topo" data-slide="next">
+        <span class="icon-next">
+            <i class="fa fa-angle-right"></i>
+        </span>
+    </a>
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="col-md-3 btn btn-default" onclick="window.location.href='/site/guia-de-shoppings';">
+                <span>Guia de Shopping Centers</span>
+            </div>
+            <div class="col-md-3 btn btn-default" onclick="window.location.href='/site/guia-de-fornecedores';">
+                <span>Guia de Fornecedores</span>
+            </div>
+            <div class="col-md-3 btn btn-default" onclick="window.location.href='/site/monitoramento';">
+                <span>Números do Setor</span>
+            </div>
+            <div class="col-md-3 btn btn-default" onclick="window.location.href='/site/inauguracoes';">
+                <span>Inaugurações</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-box">
+        <div class="col-md-4">
+            <h3>PRÓXIMOS EVENTOS <i class="fa fa-calendar-o"></i></h3>
+        </div>
+    </div>
+    <div class="row row-box-eventos">
+        <div class="col-lg-12 box">
+            {% for event in events %}
+            <div class="col-md-3 box-evento">
+                <h4>{{ event.start_date|date("d/m/Y") }} à {{ event.end_date|date("d/m/Y") }}</h4>
+                <h3>{{ event.title }}</h3>
+                <h5>Hora: {{ event.start_hour|date("H:i") }} às {{ event.end_hour|date("H:i") }}</h5>
+                <h5>Local: {{ event.local }}</h5>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="row row-box-eventos box-rodape">
+        <div class="col-lg-12">
+            <h4><a href="/site/eventos"><i class="icon-plus"></i> Todos os eventos</a></h4>
+        </div>
+    </div>
+
+    <div class="row row-informacoes">
+        <div class="col-md-4">
+            <!--box newsletter-->
+            <h3>RECEBA INFORMAÇÕES DA ABRASCE</h3>
+            <hr>
+            <div class="box-newsletter">
+                <div class="input-group">
+                    <input type="email" name="email" class="form-control" placeholder="Digite seu e-mail">
+                    <span class="input-group-btn">
+                        <button id="submit-newsletter" class="btn btn-default" type="button">ok</button>
+                    </span>
+                </div>
+            </div>
+            <!--end box-->
+            <br>
+            <hr>
+            <!--box revista-->
+            <div class="box-revista">
+                <a href="/site/revistas/{{ magazine['id'] }}">
+                    <img class="img-responsive img-hover img-thumbnail" src="/uploads/magazines/{{ magazine['image'] }}" alt="" width="100%">
+                </a>
+                <h4>{{ magazine['publication'] }}</h4>
+                <h3>{{ magazine['title'] }}</h3>
+                <h4>{{ magazine['sinopse'][:150]|raw }}...</h4>
+            </div>
+            <!--end box-->
+            <br>
+            <!--box redes sociais-->
+            <h3>Fique conectado com a ABRASCE</h3>
+            <hr>
+            <div class="box-redes-socias">
+                <div class="input-group">
+                    <a href="https://www.facebook.com/abrasceshoppingcenters" target="_blank">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                    <a href="http://www.linkedin.com/company/abrasce-associa-o-brasileira-de-shopping-centers" target="_blank">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                    <a href="https://twitter.com/ABRASCE" target="_blank">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCdSpss4ljHDiqQakJHo09uA" target="_blank">
+                        <i class="fa fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            <!--end box-->
+        </div>
+        <div class="col-md-8">
+            <!--box banner-->
+            {% for key, banner in banners %}
+            <a href="{{ banner.link }}">
+                <img class="img-responsive img-hover img-thumbnail" src="/uploads/banners/{{ banner.image }}" width="100%" alt="">
+            </a>
+            {% endfor %}
+            <!--end box-->
+            <br>
+            <!--box noticia-->
+            <h3>NOTÍCIAS DO SETOR <img src="/assets/img/down.png" alt=""></h3>
+            <hr class="hr-small-space">
+            <div class="box-noticia">
+                {% for new in news %}
+                <h3><a href="/site/noticia/{{ new.id }}">{{ new.title[:180] ~ '...' }}</a></h3>
+                <hr class="hr-line">
+                {% endfor %}
+                <div class="col-lg-12 box-rodape">
+                    <h4><a href="/site/noticias"><i class="icon-plus"></i> Notícias</a></h4>
+                </div>
+            </div>
+            <!--end box-->
+            <br>
+            <!--box noticia-->
+            <h3>ESPAÇO DO ASSOCIADO <img src="/assets/img/down.png" alt=""></h3>
+            <hr class="hr-small-space">
+            <div class="box-noticia">
+                {% for spacepartner in spacepartners %}
+                <h3><a href="/site/noticia-associado/{{ spacepartner.id }}">{{ spacepartner.title[:180] ~ '...' }}</a></h3>
+                <hr class="hr-line">
+                {% endfor %}
+                <div class="col-lg-12 box-rodape">
+                    <h4><a href="/site/noticias-associado"><i class="icon-plus"></i> Notícias</a></h4>
+                </div>
+            </div>
+            <!--end box-->
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+
+<!-- Script to Activate the Carousel -->
+<script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+</script>
+
+{% endblock %}

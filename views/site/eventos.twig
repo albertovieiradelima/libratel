@@ -1,0 +1,241 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_cursos-e-eventos.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Cursos e Eventos</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Cursos e Eventos</h5>
+        </div>
+    </div>
+
+    {% if entity == false %}
+        <div class="row row-container">
+            <div class="col-md-12 container-page">
+                <h3>AGENDA</h3>
+                <hr>
+                {% for events_month in list %}
+                    <div class="list-row">
+                        <div class="col-md-3 yellow-title-container">
+                            <span>{{ events_month.month_name|upper }}  {{ year }}</span>
+                        </div>
+                        <div class="box-container table-responsive" style="clear: both;">
+                            <table class="table-list">
+                                <thead>
+                                    <tr>
+                                        <td style="width: 100px;">DATA</td>
+                                        <td style="width: 150px;">HORÁRIO</td>
+                                        <td style="width: 280px;">LOCAL</td>
+                                        <td>NOME DO EVENTO</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for event in events_month %}
+                                        {% if event > 0 %}
+                                            <tr>
+                                                <td class="table-list-date-column">{{ event.start_date|date('Y-m-d') < event.end_date|date('Y-m-d') ? event.start_date|date('d') ~ ' a ' ~ event.end_date|date('d') : event.start_date|date('d') }}</td>
+                                                <td>{{ event.start_hour == '00:00:00' ? 'a definir' : 'das ' ~ event.start_hour|slice(0,5) ~ ' às ' ~ event.end_hour|slice(0,5) }}</td>
+                                                <td>{{ event.local }}</td>
+                                                <td><a class="event-link" href="/site/evento/{{ event.id}}">{{ event.title|upper }}</a></td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% else %}
+
+        <div class="row row-container">
+            {% if entity.end_date|date('Y-m-d') < "now"|date('Y-m-d') %}
+                <div class="col-md-12 container-beneficios">
+                    <h4><strong>{{ entity.start_date|date("d/m/Y") }}</strong></h4>
+                    <div class="row">
+                        <div class="col-md-12"><h3>{{ entity.title|upper }}</h3></div>
+                    </div>
+                    <hr>
+
+                    {% if entity.image %}
+                        <img style='margin: 0px 0px 20px 20px' class='pull-right' src="/uploads/events/{{ entity.image }}" width="320" alt="">
+                    {% endif %}
+                    <p class="description-page">
+                        {{ entity.description|raw }}
+                    </p>
+                </div>
+            {% else %}
+                <div class="col-md-8 container-beneficios">
+                    <h4><strong>{{ entity.start_date|date("d/m/Y") }}</strong></h4>
+                    <div class="row">
+                        <div class="col-md-12"><h3>{{ entity.title|upper }}</h3></div>
+                    </div>
+                    <hr>
+
+                    {% if entity.image %}
+                        <img style='margin: 0px 0px 20px 20px' class='pull-right' src="/uploads/events/{{ entity.image }}" width="320" alt="">
+                    {% endif %}
+                    <p class="description-page">
+                        {{ entity.description|raw }}
+                    </p>
+                </div>
+                {% if (entity.inscription == 'inactive') %}
+                    <div class="col-md-4 col-right-event" style="margin-top: 39px">
+                        <div class="abrasce-book-title">FORMULÁRIO PARA REGISTRO DE INTERESSE</div>
+                        <hr class="info-shopping-separator2">
+                        <div class="abrasce-form-text">
+                            <p>
+                            <span class="wysiwyg-color-gray">Preencha o formulário abaixo para registrar seu interesse em <strong>{{ entity.title|upper }}</strong>.</span>
+                            </p>
+                        </div>
+                        <div class="box-noticia">
+                            <form action="/site/evento/interesse" class="" id="form-evento-interesse" method="POST">
+                                <input type="hidden" id="register" name="register" value="{{ entity.title|upper }}">
+                                <input type="hidden" id="data" name="data" value="{{ entity.startdate|date("d/m/Y") }}">
+                                <input type="hidden" id="Id" name="Id" value="{{ entity.id }}">
+                                <div class="abrasce-form-box2">
+                                    <div class="form-group">
+                                        <label class="control-label" for="Nome">Nome</label>
+                                        <div class="controls">
+                                            <input class="form-control" data-val="true" data-val-required="Nome é obrigatório." id="Nome" maxlength="100" name="Nome" type="text" value="" _vkenabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="Cargo">Cargo</label>
+                                        <div class="controls">
+                                            <select name="Cargo" id="Cargo" class="form-control">
+                                                {% for key,cargo in null|cargolist %}
+                                                <option value="{{ key }}">{{ cargo }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="Telefone">Telefone</label>
+                                        <div class="controls">
+                                            <input class="phone-mask form-control" data-val="true" data-val-required="Telefone é obrigatório." id="Telefone" maxlength="15" name="Telefone" type="text" value="" _vkenabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="CPF">CPF</label>
+                                        <div class="controls">
+                                            <input class="form-control" data-val="true" data-val-required="CPF é obrigatório." id="CPF" maxlength="14" name="CPF" type="text" value="" _vkenabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="Empresa">Empresa</label>
+                                        <div class="controls">
+                                            <input class="form-control" data-val="true" data-val-required="Empresa é obrigatório." id="Empresa" maxlength="100" name="Empresa" type="text" value="" _vkenabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="Email">E-mail</label>
+                                        <div class="controls">
+                                            <input class="form-control" data-val="true" data-val-required="E-mail é obrigatório." id="Email" maxlength="100" name="Email" type="text" value="" _vkenabled="true">
+                                        </div>
+                                    </div>
+                                    <div class="form-actions" style="margin-top: 25px;">
+                                        <button class="btn btn-primary form-control" type="submit">ENVIAR PARA REGISTRO</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                {% else %}
+
+                <div class="col-md-4 col-right-event" style="/*display: none; */margin-top: 97px">
+                    <hr>
+                    <div class="box-newsletter">
+                        <a href="/site/evento/inscricao/{{ entity.id }}" class="btn btn-lg btn-primary btn-block"><i class="fa fa-check-square-o"></i> Faça sua Inscrição</a>
+                    </div>
+                    <br>
+                    <div class="box-newsletter container-noticia">
+                        <h3>Informações</h3>
+                        <br>
+
+                        <p><strong>Exclusivo para Associados:</strong> {{entity.exclusive_associated=='0'?'Não':'Sim'}}</p>
+                        <p><strong>Valor da Inscrição:</strong> R$ {{entity.standard_price}}</p>
+                        <p><strong>Valor para Associados:</strong> R$ {{entity.associated_price}}</p>
+                    </div>
+                </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $("#menu-cursos-e-eventos").addClass('active');
+
+        $('#form-evento-interesse').submit(function(e) {
+
+            e.preventDefault(); // stop default action
+
+            var formData = new FormData($('#form-evento-interesse')[0]);
+            var formURL = $(this).attr("action");
+            var itemData = new Array();
+
+            $.ajax({
+                type: "POST",
+                url: formURL,
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(data, textStatus, jqXHR) {
+                    if (data.success) {
+                        toastr.success(data.message);
+                        resetForm('#form-evento-interesse');
+                    } else {
+                        toastr.error(data.message);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    // if fails
+                }
+            });
+        });
+
+        function resetForm(form) {
+
+            $(form).each(function() {
+                this.reset();
+            });
+        }
+
+        //deprecated
+        $('#form-search-eventos').on('submit', function(data) {
+            var params = $(this).serializeArray();
+            var q = params[0].value;
+            if(q.length <= 2){
+                toastr.error("O termo a ser pesquisado precisa ter pelo menos 2 caracteres",'Termo de pesquisa muito pequeno');
+                return false;
+            }
+            return true;
+        });
+
+    });
+</script>
+
+{% endblock %}

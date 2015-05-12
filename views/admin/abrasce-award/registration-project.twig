@@ -1,0 +1,132 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+<section class="content-header">
+    <h1>
+        {{ navigate }} - {{ event.title }}
+        <small>Painel de controle</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/admin"><i class="fa fa-cogs"></i> Admin</a>
+        </li>
+        <li>
+            <i class="fa fa-trophy"></i> Prêmio ABRASCE
+        </li>
+        <li><a href="/admin/abrasce-award/registrations">Inscrição</a></li>
+        <li class="active">{{ navigate }}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-lg-8" style="text-align: left; margin-bottom: 10px;">
+            <button type="button" class="btn btn-primary" data-toggle="modal" onclick="imprimirPDF({{ idRegistration }})" id="imprimirPDF">
+                <i class="fa fa-print"></i> Imprimir em PDF
+            </button>
+        </div>
+    </div>
+
+    <section class="recort">
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="box box-info">
+                    <div class="box-body" style="padding: 10px 50px 30px 50px;">
+                        <h3 style="border-bottom: 1px solid #f4f4f4;padding-bottom: 10px;">
+                            Reponsavel pelo Projeto
+                        </h3>
+                        <p style="font-style: italic;margin: 0px;">Nome: <strong>{{ reg_entity.responsible_name }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">E-mail: <strong>{{ reg_entity.responsible_email }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">Documento: <strong>{{ reg_entity.responsible_document_number }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">Telefone: <strong>{{ reg_entity.responsible_phone }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">Cargo: <strong>{{ reg_entity.responsible_position }}</strong></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="box box-info">
+                    <div class="box-body" style="padding: 10px 50px 30px 50px;">
+                        <h3 style="border-bottom: 1px solid #f4f4f4;padding-bottom: 10px;">
+                            Shopping
+                        </h3>
+                        <p style="font-style: italic;margin: 0px;">Nome: <strong>{{ reg_entity.shopping_name }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">Telefone: <strong>{{ reg_entity.shopping_phone }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">Endereço: <strong>{{ reg_entity.shopping_address }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">Cidade: <strong>{{ reg_entity.shopping_city }}</strong></p>
+                        <p style="font-style: italic;margin: 0px;">Estado: <strong>{{ reg_entity.shopping_state }}</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-body" style="padding: 20px 50px 50px 50px;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="abrasce-title">
+                                    <h2>
+                                        INSCRIÇÃO - {{ award_event.title|upper }}
+                                    </h2>
+                                    <hr/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div>
+                                    <h3>
+                                        Título do Projeto: <strong>{{ reg_entity.project_title }}</strong>
+                                    </h3>
+                                    <hr/>
+                                </div>
+                            </div>
+                        </div>
+                        <form method="POST" action="/site/premio-abrasce/inscricao/edit/save" enctype="multipart/form-data">
+
+                            <input type="hidden" name="fk_registration" value="{{ idRegistration }}" />
+
+                            {% for field in fields %}
+                            <div class="form-group" style="text-align: justify;">
+                                <label style="font-weight:700; font-size: 1.1em">{{ field.title }}
+                                    {% if field.weight > 0 %}
+                                    (Peso {{ field.weight }})
+                                    {% endif %}
+                                </label>
+                                <p style="font-style: italic;">{{ field.description|raw }}</p>
+                                {% if field.type == 'textarea' %}
+                                <div class="callout callout-info">
+                                    <p style="font-weight:700;">{{ field ? field.value|nl2br : '' }}</p>
+                                </div>
+                                {% elseif field.type == 'text' %}
+                                <div class="callout callout-info">
+                                    <p style="font-weight:700;">{{ field ? field.value : '' }}</p>
+                                </div>
+
+                                {% elseif field.type == 'file' %}
+                                {% if field.value %}
+                                <div class="callout callout-info">
+                                    <div style="text-align: center;">
+                                        <img src="{{ image64('', field.value) }}">
+                                    </div>
+                                </div>
+                                {% endif %}
+                                {% endif %}
+
+                            </div>
+                            <br/>
+                            {% endfor %}
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</section>
+{% endblock %}
+
+{% block header_page %}
+<script type="text/javascript" src="/assets/js/admin/abrasce-award/registration-project.js"></script>
+{% endblock %}

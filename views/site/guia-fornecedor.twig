@@ -1,0 +1,89 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_guia-fornecedores.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Fornecedores</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Fornecedores</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-page">
+            <h3>LISTA DE FORNECEDORES</h3>
+            <hr>
+            <div class="row">
+                <div class="input-uf-guia col-xs-12 col-sm-6 col-md-6">
+                    <select name="category" id="category" class="input-large form-control">
+                        <option value="">Busca por categoria</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id_categoria_fornecedor }}"{{ category.id_categoria_fornecedor == id ? ' selected' : '' }}>{{ category.descricao }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                {% for supplier in suppliers %}
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <div class="box-container-suppliers">
+                        <div class="container-content content-boxes-supplier">
+                            <div class="abrasce-fantasia">
+                                <a href="/site/fornecedor/{{ supplier.id_fornecedor }}" tag="{{supplier.fantasia }}"><span>{{ supplier.fantasia }}</span></a>
+                            </div>
+                            <div class="abrasce-site">
+                                <a href="http://{{ supplier.site|lower }}" target="_blank"><spa>{{ supplier.site|lower }}</spa></a>
+                            </div>
+                            <div class="content-col-left">
+                                <label>{{ supplier.localidade }}</label><br>
+                                <label>{{ supplier.telefone|phone }}</label><br>
+                            </div>
+                            {% if supplier.logo != '' %}
+                                <img src="/uploads/supplier/{{ supplier.logo }}" class="supplier-logo" alt=""/>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-md-4 col-right-margin-top-lg">
+            <div class="box-container-rigth-col">
+                <img src="/assets/img/banner-calendario.jpg" style="width: 338px;" alt=""/>
+            </div>
+            <div class="box-container-suppliers">
+                <img src="/assets/img/banner-pos.jpg" style="width: 338px;" alt=""/>
+            </div>
+            <div class="box-container-suppliers">
+                <img src="/assets/img/banner-calendario.jpg" style="width: 338px;" alt=""/>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#category").change(function() {
+            window.location.href = '/site/guia-de-fornecedores/' + $(this).val();
+        });
+    })
+</script>
+
+{% endblock %}

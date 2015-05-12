@@ -1,0 +1,90 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+    <section class="content-header">
+        <h1>
+            {{ navigate }}
+            <small>Painel de controle</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/admin"><i class="fa fa-cogs"></i> Admin</a>
+            </li>
+            <li>
+                <i class="fa fa-calendar"></i> Cursos / Eventos</a>
+            </li>
+            <li class="active">{{ navigate }}</li>
+        </ol>
+    </section>
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-8" style="text-align: left; margin-bottom: 10px;">
+                <button type="button" class="btn btn-success new" data-toggle="modal" data-target="#event-charge-period-modal">
+                    <i class="fa fa-plus"></i> Novo
+                </button>
+                <button type="button" class="btn btn-primary edit" data-toggle="modal">
+                    <i class="fa fa-pencil"></i> Alterar
+                </button>
+                <button type="button" class="btn btn-danger remove" data-toggle="modal">
+                    <i class="fa fa-times"></i> Remover
+                </button>
+                <span>|</span>
+            <span>
+                Alterar Curso/Evento:
+                <select id='select-event' class="form-control select2" style="width: auto;min-width: 250px;">
+                    {% for obj in events %}
+                        <option value='{{obj.id}}'>{{obj.title}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+            </div>
+            <div class="col-lg-4" style="text-align: right; margin-bottom: 10px;">
+                <div class="info-datatable"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+                    <div class="box-body">
+                        <table id="registers" class="table table-hover table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                            <tr role="row">
+                                <th tabindex="0" aria-label="Código: activate to sort column ascending" style="width: 100px;">
+                                    Código
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="registers" aria-label="Início: activate to sort column ascending" aria-sort="ascending">
+                                    Início
+                                </th>
+                                <th tabindex="0" aria-label="Término: activate to sort column">
+                                    Término
+                                </th>
+                                <th tabindex="0" aria-label="Valor Associado: activate to sort column">
+                                    Valor Associado
+                                </th>
+                                <th tabindex="0" aria-label="Valor não Associado: activate to sort column">
+                                    Valor não Associado
+                                </th>
+                            </tr>
+                            </thead>
+                            <tfoot>
+                            <tr>
+                                <th>Código</th>
+                                <th>Início</th>
+                                <th>Término</th>
+                                <th>Valor Associado</th>
+                                <th>Valor não Associado</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block header_page %}
+<script>
+    _eventID = {{event.id}};
+</script>
+<script type="text/javascript" src="/assets/js/admin/event-charge-period.js"></script>
+{% endblock %}

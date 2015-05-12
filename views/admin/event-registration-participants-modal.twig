@@ -1,0 +1,93 @@
+<style type="text/css">
+    .col-lg-6 {
+        margin-bottom: 15px;
+    }
+</style>
+<div class="modal fade" id="event-registration-participants-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formEventRegistrationParticipants" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Participantes</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="certificate_name">Nome para Certificado</label>
+                            <input type="text" name="certificate_name" class="form-control" placeholder="Nome para certificado">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="cpf">CPF</label>
+                            <input type="text" name="cpf" class="form-control cpf" placeholder="CPF do participante">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="badge_name">Nome para Crachá</label>
+                            <input type="text" name="badge_name" class="form-control" placeholder="Nome para crachá">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="badge_company">Empresa para Crachá</label>
+                            <input type="text" name="badge_company" class="form-control" placeholder="Empresa para crachá">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="phone">Celular</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                <input type="text" class="form-control" data-inputmask='"mask": "(99) 99999-9999"' data-mask name="phone" />
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="email">E-mail</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="job">Cargo</label>
+                            <select class="form-control select2" name="job" id="job">
+                                {% for key,cargo in null|cargoParticipantsList %}
+                                <option value="{{ key }}">{{ cargo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="area">Área</label>
+                            <select class="form-control select2" name="area" id="area">
+                                {% for key,area in null|areaParticipantsList %}
+                                <option value="{{ key }}">{{ area }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        <div class="radio">
+                            <label style="padding-left: 0px;">
+                                <input type="radio" name="sex" id="male" value="male">
+                                Masculino
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label style="padding-left: 0px;">
+                                <input type="radio" name="sex" id="female" value="female">
+                                Feminino
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

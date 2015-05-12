@@ -1,0 +1,88 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+<section class="content-header">
+    <h1>
+        {{ navigate }} - {{ award.name }}
+        <small>Painel de controle</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/admin"><i class="fa fa-cogs"></i> Admin</a>
+        </li>
+        <li class="active">{{ navigate }}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6" style="text-align: left; margin-bottom: 10px;">
+            <button type="button" class="btn btn-success new" data-toggle="modal" data-target="#award-field-modal">
+                <i class="fa fa-plus"></i> Novo
+            </button>
+            <button type="button" class="btn btn-primary edit" data-toggle="modal">
+                <i class="fa fa-pencil"></i> Alterar
+            </button>
+            <button type="button" class="btn btn-danger remove" data-toggle="modal">
+                <i class="fa fa-times"></i> Remover
+            </button>
+            <span>|</span>
+            <span>
+                Alterar Prêmio: 
+                <select id='select-award' class="form-control" style="width: 250px; display: inline;">
+                    {% for obj in awards %}
+                        <option value='{{obj.id}}'>{{obj.name}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+        </div>
+        <div class="col-lg-6" style="text-align: right; margin-bottom: 10px;">
+            <div class="info-datatable"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="registers" class="table table-hover table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr role="row">
+                                <th tabindex="0" aria-label="Código: activate to sort column ascending" style="width: 100px;">
+                                    Código
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="registers" rowspan="1" colspan="1" aria-label="Tipo activate to sort column ascending" aria-sort="ascending">
+                                    Tipo
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="registers" rowspan="1" colspan="1" aria-label="Título activate to sort column ascending" aria-sort="ascending">
+                                    Titulo
+                                </th>
+                                <th tabindex="0" aria-label="Peso: activate to sort column">
+                                    Peso
+                                </th>
+                                <th tabindex="0" aria-label="Ordem: activate to sort column">
+                                    Ordem
+                                </th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Código</th>
+                                <th>Tipo</th>
+                                <th>Título</th>
+                                <th>Peso</th>
+                                <th>Ordem</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include modal ignore missing %}
+{% endblock %}
+
+{% block header_page %}
+<script>
+    _awardID = {{award.id}};
+</script>
+<script type="text/javascript" src="/assets/js/admin/abrasce-award/award-field.js"></script>
+{% endblock %}

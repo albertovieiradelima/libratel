@@ -1,0 +1,159 @@
+<!-- Modal AwardEvent list -->
+<div class="modal fade" id="modal-award-event" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabel">Prêmios associados ao evento</h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <button type="button" class="btn btn-success" onclick="showModalAwardEventForm()">
+                            <i class="fa fa-plus"></i> Novo
+                        </button>
+                    </div>
+                </div>
+
+                <br/>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="box">
+                            <div class="box-body">
+                                <table id="award-event-registers" class="table table-hover table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr role="row">
+                                        <th tabindex="0" aria-label="Prêmio: activate to sort column ascending">
+                                            Prêmio
+                                        </th>
+                                        <th tabindex="0" aria-label="Início: activate to sort column">
+                                            Insc. Início
+                                        </th>
+                                        <th tabindex="0" aria-label="Fim: activate to sort column">
+                                            Insc. Fim
+                                        </th>
+                                        <th tabindex="0" aria-label="Dias Venc.: activate to sort column">
+                                            Dias Venc.
+                                        </th>
+                                        <th tabindex="0" aria-label="Valor: activate to sort column">
+                                            Valor
+                                        </th>
+                                        <th tabindex="0" aria-label="Opções: activate to sort column">
+                                            Opções
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Prêmio</th>
+                                        <th>Insc. Início</th>
+                                        <th>Insc. Fim</th>
+                                        <th>Dias Venc.</th>
+                                        <th>Valor</th>
+                                        <th>Opções</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal AwardEvent form -->
+<div class="modal fade" id="modal-award-event-form" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalLabelAwardEvent">Prêmio</h4>
+            </div>
+
+            <div class="modal-body">
+
+                <form id="formAwardEvent" method="post" novalidate="novalidate" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <input type="hidden" name="fk_event" />
+                        <div class="form-group">
+
+                            <div class="col-lg-6" style="padding-left: 0px;">
+                                <label for="fk_award">Tipo</label>
+                                <select required class="form-control" name="fk_award" id="fk_award">
+                                    <option>---</option>
+                                    {% for obj in awards %}
+                                    <option value="{{obj.id}}">{{obj.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-lg-6" style="padding-right: 0px;">
+                                <label>Título</label>
+                                <input required type="text" name="title" class="form-control" />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-6" style="padding-left: 0px;">
+                                <label>Dias para o Vencimento</label>
+                                <input required type="text" name="billing_days_to_due" class="form-control mask-number" placeholder="Dias para o vencimento do boleto (apenas números)" />
+                            </div>
+                            <div class="col-lg-6" style="padding-right: 0px;">
+                                <label>Valor da Inscrição</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">R$</div>
+                                    <input required type="text" name="registration_price" class="form-control money" placeholder="Valor da inscrição" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-12" style="padding-left: 0px;padding-right: 0px;">
+                                <label>Período de Inscrição</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon" style="padding: 6px 12px;border-left: 1px solid #ccc;">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control date-time-picker" placeholder="Data de início" name="registration_date_begin" />
+                                    <span class="input-group-addon">a</span>
+                                    <input type="text" class="form-control date-time-picker" placeholder="Data final" name="registration_date_end" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description-award-event">Descrição</label>
+                            <textarea class="textarea form-control" name="description" id="description-award-event"
+                                      placeholder="Insira o texto ..." style="width: 100%; height: 200px"></textarea>
+                        </div>
+
+                        <div class="form-group file">
+                            <label>Logo</label>
+                            <input id="file-logo" name="logo" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="" data-overwrite-initial="false">
+                        </div>
+
+                        <div class="form-group file">
+                            <label>Banner</label>
+                            <input id="file-banner" name="banner" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="" data-overwrite-initial="false">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

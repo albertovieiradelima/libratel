@@ -1,0 +1,82 @@
+{% extends "admin/layout.twig" %}
+{% block content %}
+<section class="content-header">
+    <h1>
+        {{ navigate }}
+        <small>Painel de controle</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/admin"><i class="fa fa-cogs"></i> Admin</a>
+        </li>
+        <li>
+            <i class="fa fa-globe"></i> Conteúdo Geral
+        </li>
+        <li>
+            Layout
+        </li>
+        <li class="active">{{ navigate }}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-lg-6" style="text-align: left; margin-bottom: 10px;">
+            <button type="button" class="btn btn-success new" data-toggle="modal" data-target="#banner-modal">
+                <i class="fa fa-plus"></i> Novo
+            </button>
+            <button type="button" class="btn btn-primary edit" data-toggle="modal">
+                <i class="fa fa-pencil"></i> Alterar
+            </button>
+            <button type="button" class="btn btn-danger remove" data-toggle="modal">
+                <i class="fa fa-times"></i> Remover
+            </button>
+        </div>
+        <div class="col-lg-6" style="text-align: right; margin-bottom: 10px;">
+            <div class="info-datatable"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box">
+                <div class="box-body">
+                    <table id="registers" class="table table-hover table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr role="row">
+                                <th tabindex="0" aria-label="Código: activate to sort column ascending" style="width: 100px;">
+                                    Código
+                                </th>
+                                <th class="sorting" tabindex="0" aria-controls="registers" rowspan="1" colspan="1" aria-label="Data: activate to sort column ascending" aria-sort="ascending">
+                                    Data
+                                </th>
+                                <th tabindex="0" aria-label="Imagem: activate to sort column">
+                                    Imagem
+                                </th>
+                                <th tabindex="0" aria-label="Link: activate to sort column">
+                                    Link
+                                </th>
+                                <th tabindex="0" aria-label="Status: activate to sort column">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Código</th>
+                                <th>Data</th>
+                                <th>Imagem</th>
+                                <th>Link</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% include modal ignore missing %}
+{% endblock %}
+
+{% block header_page %}
+<script type="text/javascript" src="/assets/js/admin/banner.js"></script>
+{% endblock %}

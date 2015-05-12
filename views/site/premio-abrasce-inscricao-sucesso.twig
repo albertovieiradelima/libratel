@@ -1,0 +1,66 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_inauguracoes.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Prêmio Abrasce</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Premio ABRASCE</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-12 container-noticia">
+            <h3>INSCRIÇÃO - {{ event.title ? event.title|upper : 'PRÊMIO ABRASCE' }}</h3>
+            <hr>
+
+            <div class="box-container">
+                <div class="box-noticia">
+                    <p class="description-page">
+                        <strong>Inscrição: </strong><strong class="text-primary">{{ registration.registration_number }}</strong>
+                    </p>
+                    <p class="description-page">Sua inscrição foi efetivada/alterada com sucesso!</p>
+                    {% if email %}
+                    <p class="description-page">Os dados da sua inscrição foram enviados para o e-mail <strong>{{ email }}</strong>!</p>
+                    <p class="description-page">Caso deseje imprimir o seu boleto, clique no botão abaixo.</p>
+                    {% else %}
+                    <p class="description-page">Desculpe, ocorreu um erro ao tentar enviar os dados da sua inscrição por e-mail.</p>
+                    <p class="description-page">Por favor, clique no botão abaixo para imprimir o seu boleto.</p>
+                    {% endif %}
+                    <div class="btn-group pull-right" role="group">
+                        <button type="button" id="boleto" class="btn btn-success">Clique aqui para abrir o Boleto</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function() {
+        // Abrir boleto
+        $("#boleto").click(function(event) {
+
+            window.open("{{ link_boleto }}");
+            event.preventDefault();
+
+            return false;
+        });
+    });
+</script>
+
+{% endblock %}

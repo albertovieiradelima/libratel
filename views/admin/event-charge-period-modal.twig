@@ -1,0 +1,53 @@
+<style type="text/css">
+    .col-lg-6 {
+        margin-bottom: 15px;
+    }
+</style>
+<div class="modal fade" id="event-charge-period-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formEventChargePeriod" method="post">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Adicionar Faixas de Cobrança ao Curso/Evento</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <input type="hidden" name="fk_event" class="form-control">
+                    <div class="form-group" style="margin-bottom: 90px;">
+                        <div class="col-lg-3">
+                            <label>Valor para Associado</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">R$</div>
+                                <input required="" type="text" name="associated_price" class="form-control money" data-thousands="." data-decimal="," placeholder="Valor da inscrição" aria-required="true" aria-invalid="false">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <label>Valor para não Associado</label>
+                            <div class="input-group">
+                                <div class="input-group-addon">R$</div>
+                                <input required="" type="text" name="standard_price" class="form-control money" data-thousands="." data-decimal="," placeholder="Valor da inscrição" aria-required="true" aria-invalid="false">
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="date">Data de Início e Término</label>
+                            <div class="input-group input-daterange">
+                                <div class="input-group-addon" style="padding: 6px 12px;border-left: 1px solid #ccc;">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" name="start_date" />
+                                <span class="input-group-addon">a</span>
+                                <input type="text" class="form-control" name="end_date" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i> Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

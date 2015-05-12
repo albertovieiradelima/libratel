@@ -1,0 +1,207 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_inauguracoes.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Prêmio Abrasce</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Premio ABRASCE</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-noticia">
+            {% if award %}
+                <h3>{{ award.title|upper }}</h3>
+            {% else %}
+                <h3>{{ event.title ? event.title|upper : 'PRÊMIO ABRASCE' }}</h3>
+            {% endif %}
+            <hr>
+            {% if award %}
+            <div class="box-container">
+                <div class="box-noticia">
+                    <strong>Período de Inscrição:</strong> <br/> de <strong class="text-primary">{{ award.registration_date_begin|date("d/m/Y H:i") }}</strong> à <strong class="text-primary">{{ award.registration_date_end|date("d/m/Y H:i") }}</strong>
+                        <div class="btn-group pull-right" role="group">
+                            <a href="javascript:void(0)" class="btn btn-info" data-toggle="modal" data-target="#registrationEditModal"><i class="fa fa-pencil-square-o"></i> Editar inscrição</a>
+                            <a href="/site/premio-abrasce/inscricao/{{ event.id }}/{{ award.fk_award }}" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Realizar inscrição</a>
+                        </div>
+                </div>
+            </div>
+            {% endif %}
+            <p>
+                {% if award %}
+                {{ award.description|raw }}
+                {% else %}
+                {{ event.description|raw }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-md-4">
+            <h3>Edições</h3>
+            <hr>
+            <div class="box-newsletter">
+                <select class="form-control" id="select-change-event">
+                    {% for ev in events %}
+                    <option {{ ev.id == event.id ? "selected" : "" }} value="{{ ev.id }}">{{ev.title}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <ul class="nav nav-pills nav-stacked abrasce-nav-list">
+                {% for item in awards %}
+                <li class="abrasce-list{{ award and award.fk_award == item.fk_award ? ' active' : '' }}" id="award-{{ item.fk_award }}">
+                    <a href="/site/premio-abrasce/{{ event.id }}/{{ item.fk_award }}">
+                        {{ item.title|upper }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            <div class="box-container-suppliers col-md-12">
+                <img class="col-md-12" src="/assets/img/banner-premio-abrasce.png" alt=""/>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="registrationEditModal" tabindex="-1" role="dialog" aria-labelledby="registrationEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="registrationEditModalLabel">Editar Inscrição</h4>
+            </div>
+            <div class="modal-body">
+
+                <form id="formEditAuth" class="form-horizontal">
+
+                    <input type="hidden" name="fk_award" value="{{ award.fk_award }}" />
+                    <input type="hidden" name="fk_event" value="{{ event.id }}" />
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Prêmio</label>
+                        <div class="col-sm-8">
+                            <p class="form-control-static">
+                                {% if award %}
+                                    {{ award.title|upper }}
+                                {% else %}
+                                    {{ event.title ? event.title|upper : 'PRÊMIO ABRASCE' }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Shopping</label>
+                        <div class="col-sm-8">
+                            <select id="selectShopping" name="fk_shopping" class="form-control select2" required="">
+                                <option value="">---</option>
+                                {% for sh in shoppings %}
+                                    {% if sh.filiacao == '2' %}
+                                <option value="{{sh.id_shopping}}">{{sh.fantasia}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Código da Inscrição</label>
+                        <div class="col-sm-8">
+                            <input name="registration_number" type="text" class="form-control" placeholder="Código da inscricao" required="" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <button type="submit" id="btnEditAuth"  data-loading-text="<i class='fa fa-refresh fa-spin'></i> Verificando..." class="btn btn-primary btn-block">Editar <span class="glyphicon glyphicon-arrow-right"></span></button>
+                        </div>
+                    </div>
+
+                    <div id="alertAuth" class="alert alert-danger" style="display: none;" role="alert">
+                        <div class="alert-content">
+
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom: 100px;">&nbsp;</div>
+
+<script>
+    $(document).ready(function() {
+
+        $("#menu-premio").addClass('active');
+
+        $("#formEditAuth").validate({
+            submitHandler: formHandler
+        });
+
+        $("#{{ award.id }}").css({
+            "border-left": "6px solid #ffcc00",
+            "background": "url('/assets/img/forward_menu_hover.png')",
+            "background-repeat": "no-repeat",
+            "background-position": "-5px 15px",
+            "background-color": "#f7f7f7"
+        });
+
+        $("#select-change-event").on('change', function(e){
+            window.location.href = "/site/premio-abrasce/" + $(this).val();
+        });
+
+    })
+
+    function formHandler(){
+
+        if($('#alertAuth').is(':visible')){
+            $('#alertAuth').slideUp();
+        }
+
+        var $btn = $("#btnEditAuth").button("loading");
+
+        $.post('/site/premio-abrasce/auth', $("#formEditAuth").serializeArray(), function(res){
+
+            if(res.success == true){
+
+                window.location.href = '/site/premio-abrasce/inscricao/edit';
+
+            }else{
+
+                $('#alertAuth .alert-content').html(res.message);
+                $('#alertAuth').slideDown();
+
+            }
+
+        }).error(function(data){
+
+            $('#alertAuth .alert-content').html("Ocorreu um erro ao enviar a solicitação. Por favor tente novamente mais tarde - " + data.message);
+            $('#alertAuth').slideDown();
+
+        }).always(function(data){
+            $btn.button('reset')
+        });
+
+    }
+
+</script>
+
+{% endblock %}

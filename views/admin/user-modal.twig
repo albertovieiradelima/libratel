@@ -1,0 +1,95 @@
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <form id="formUser" method="post" class="form-horizontal form-validate">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Usuário</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <label for="avatar" class="col-sm-3 control-label">Avatar</label>
+                        <div class="col-sm-8">
+                            <input type="hidden" name="id" class="form-control">
+                            <div id="avatar-select"></div>
+                            <input type="hidden" name="avatar" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf" class="col-sm-3 control-label">CPF <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <input type="text" name="cpf" class="form-control" id="cpf">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="name">Nome Completo <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input type="text" name="name" class="form-control" placeholder="Nome Completo">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="email">E-mail <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input type="email" id="email" name="email" class="form-control" placeholder="E-mail">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="username">Usuário do Login <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input type="text" name="username" class="form-control" placeholder="Usuário do Login">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="password">Senha <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                        <input type="password" name="password" class="form-control" placeholder="Senha">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="phone">Telefone <strong class="text-danger">*</strong></label>
+                        <div class="col-sm-8">
+                            <input name="phone" id="phone" type="text" class="form-control phone-mask">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Cargo <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <select id="job" name="job" class="form-control select2">
+                                {% for key,cargo in null|cargoParticipantsList %}
+                                    <option value="{{ key }}">{{ cargo }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">Área <strong class="text-danger">*</strong></label>
+                        <div class="col-lg-8">
+                            <select id="area" name="area" class="form-control select2">
+                                {% for key,area in null|areaParticipantsList %}
+                                    <option value="{{ key }}">{{ area }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            <input type="checkbox" name="status" class="minimal" checked/>
+                            Ativo
+                        </label>
+                        <div class="col-lg-8">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

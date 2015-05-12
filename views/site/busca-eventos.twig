@@ -1,0 +1,150 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<style>
+.gsc-branding-text, .gsc-branding-img, .gcsc-branding-text, .gcsc-branding-img-noclear { display: none; height: 0; }
+</style>
+
+<header id="myCarousel" class="carousel slide" style="height: 350px; border-bottom: 12px solid #ffcc00;">
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_02.jpg');">
+                <div class="container">
+                    <div class="row" style="margin-top: 30px; margin-right: 0px; margin-left: -5px;">
+                        <div class="col-lg-9">
+                            <span class="title-navigate">
+                                <h2 style="padding: 10px;">
+                                    BUSCA
+                                </h2>
+                            </span>
+                        </div>
+                        <div class="col-lg-9" style="margin-top: -15px;">
+                            <div class="sandbox-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container" style="margin-top: 15px;">
+    
+    <div class="row">
+        <div class="col-sm-7 col-md-8 col-xs-12">
+            <div>
+                <h6 style="color: #878686; font-family: 'Conv_humanist-777-bt-1361500798'">
+                    Eventos / Cursos
+                </h6>
+                <h2 style="color: #878686; font-family: 'Conv_CorpoA'; margin-top: 30px;'">
+                    {% if query %}
+                    
+                        {% if list|length > 0 %}
+                            Exibindo resultados para "{{query}}"
+                        {% else %}
+                            Nenhum resultado encontrado para "{{query}}"
+                        {% endif %}
+                        
+                    {% else %}
+                        Termo de pesquisa inválido
+                    {% endif %}
+                </h2>
+            </div>
+        </div>
+        <div class="col-sm-5 col-md-4 col-xs-12">
+            <span class="visible-md visible-lg visible-sm">
+                <br/>
+            </span>
+            <form id="form-search-eventos" action="/site/busca/eventos" method="get">
+                <div class="input-group" style="width:auto">
+                    <input name="q" type="text" class="form-control" value="{{query}}" 
+                           placeholder="Busca por palavra chave" 
+                           style="border: 2px solid #0066b3;border-radius: 0px;height: 35px; background-color: #ffffff">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"
+                                style="padding: 0px 10px;background-color: #0066b3;color: #FFFFFF;height: 35px;border-radius: 0px;border-color: #0066b3;">
+                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <br/>
+    
+    {% for ent in list %}
+    <div class="row" style="margin-bottom: 1em; line-height: 2em;">
+        <div class="col-sm-12">
+            <a href="/site/evento/{{ent['id']}}">
+                <p style="color: #ec6b10; font-size:1.2em; font-family: 'Conv_humanist-777-bt-1361500798'; ">
+                    <strong>
+                        {{ ent.date|date("d/m/Y") }}
+                    </strong>
+                </p>
+                <p style="color: #0066b3; font-size:1.2em; font-family: 'Conv_humanist-777-bt-1361500798'; ">
+                    <strong>
+                        {{ ent.title|upper }}
+                    </strong>
+                </p>
+                <p style="color: #333; font-family: 'Conv_humanist-777-bt-1361500798'; ">
+                    {{ ent.description[:280]|striptags ~ '...' }}
+                    &nbsp;
+                    <strong><span class="text-info">[+ Continuar lendo...]</span></strong>
+                </p>
+            </a>
+            <div style="border-bottom: 1px dotted #464646; margin-top: 1em"></div>
+        </div>
+    </div>
+    {% endfor %}
+    <br/>
+    {% if rows %}
+        <div style="font-style:italic" class="text-center text-muted">
+            ({{rows}} resultados encontrados)
+        </div>
+    {% endif %}
+    
+    {% if pages > 1 %}
+    <div class="text-center">
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% for i in 1..pages %}
+                    <li class="{{ page == (i) ? 'active' : '' }}"><a href="/site/busca/eventos?q={{query}}&page={{i}}">{{i}}</a></li>
+                {% endfor %}
+                <li>
+                    <a href="#" aria-label="Próximo">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% endif %}
+    
+</div>
+
+<div style="margin-bottom: 20px;">&nbsp;</div>
+
+<script>
+$(document).ready(function() {
+    
+    $('#form-search-eventos').on('submit', function(data){
+        var params = $(this).serializeArray();
+        var q = params[0].value;
+        
+        if (q.length <= 2) {
+            toastr.error("O termo a ser pesquisado precisa ter pelo menos 2 caracteres",'Termo de pesquisa muito pequeno');
+            return false;
+        }
+
+        return true;
+    });
+});
+</script>
+
+{% endblock %}

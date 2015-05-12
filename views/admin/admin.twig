@@ -1,0 +1,95 @@
+{% extends "admin/layout.twig" %} {% block content %}
+
+<section class="content-header">
+    <h1>
+        {{ navigate }}
+        <small>Painel de controle</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li>
+            <a href="/admin"><i class="fa fa-cogs"></i> Admin</a>
+        </li>
+        <li class="active">{{ navigate }}</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-15">
+            <div class="small-box bg-aqua">
+                <div class="inner">
+                    <h3>{{newsletter['qtde']}}</h3>
+                    <p>Newsletter</p>
+                    <h6>Ativos</h6>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-email-outline"></i>
+                </div>
+                <a href="/admin/newsletter" class="small-box-footer">
+                    Mais informações <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-15">
+            <div class="small-box bg-green">
+                <div class="inner">
+                    <h3>{{contactus['qtde']}}</h3>
+                    <p>Fale conosco</p>
+                    <h6>Não lidos</h6>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-chatboxes-outline"></i>
+                </div>
+                <a href="/admin/contactus" class="small-box-footer">
+                	Mais informações <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-15">
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <h3>{{associate['qtde']}}</h3>
+                    <p>Seja um Associado</p>
+                    <h6>Não lidos</h6>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-people-outline"></i>
+                </div>
+                <a href="/admin/associates" class="small-box-footer">
+                	Mais informações <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-15">
+            <div class="small-box bg-red">
+                <div class="inner">
+                    <h3>{{subscriber['qtde']}}</h3>
+                    <p>Pedido de Inscrições</p>
+                    <h6>Não inscritos</h6>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-ios-personadd-outline"></i>
+                </div>
+                <a href="/admin/subscribers" class="small-box-footer">
+                    Mais informações <i class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+	    <div class="col-md-15">
+	    	<div class="small-box bg-blue">
+	            <div class="inner">
+	                <h3>0</h3>
+	                <p>Pedidos</p>
+	                <h6>Não concluidos</h6>
+	            </div>
+	            <div class="icon">
+	                <i class="ion ion-ios-cart-outline"></i>
+	            </div>
+	            <a href="#" class="small-box-footer">
+	                Mais informações <i class="fa fa-arrow-circle-right"></i>
+	            </a>
+	        </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

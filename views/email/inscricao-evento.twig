@@ -1,0 +1,36 @@
+{% extends "email/layout.twig" %}
+{% block content %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">CONFIRMAÇÃO DE INSCRIÇÃO | {% filter upper %}{{ evento.title }}{% endfilter %}.</div>
+            <div class="panel-body">
+                <p>
+                    {{ data }}
+                </p>
+                <br>
+                <p>
+                    Prezado(a) {{ registration.responsible_name }},
+                </p>
+                <br>
+                <p>
+                    Clique <a href="{{ boleto }}" target="_blank">aqui</a> para visualizar o boleto.
+                </p>
+                {% if registration.id %}
+                    <p>
+                        Clique <a href="http://abrasce.vagrant/site/evento/inscricao/visualizar/{{ registration.id }}" target="_blank">aqui</a> para visualizar a inscrição
+                    </p>
+                {% endif %}
+                <br>
+                <p>
+                    Em caso de dúvidas, por gentileza entre em contato com Bruno através do telefone (11)3506-8313 ou por e-mail bruno@abrasce.com.br.
+                </p>
+                <br>
+                <p>
+                    Atenciosamente, Abrasce<br>
+                    Portal do Shopping<br>
+                    http://www.portaldoshopping.com.br
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

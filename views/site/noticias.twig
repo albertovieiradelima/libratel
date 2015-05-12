@@ -1,0 +1,133 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_sobre-a-abrasce.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Notícias</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Imprensa / Notícias</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8 container-noticia">
+            {% if entity == false %}
+
+                <h3>Notícias{{ month_name != null ? ' de'.month_name|lower : '' }}{{ year != null ? ' de'.year : '' }}</h3>
+                <hr>
+
+                {% if list|length <= 0 %}
+                    <div class="box-noticia">
+                        <label>Nenhum registro encontrado para a categoria selecionada.</label>
+                    </div>
+                {% endif %}
+
+                {% if list|length > 0 %}
+                <div class="box-noticia">
+                    {% for ent in list %}
+                        <h3><a href="/site/noticia/{{ent['id']}}">{{ ent.date|date("d/m/Y") }} - {{ ent.title }}</a></h3>
+                        <hr class="hr-line">
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+            {% else %}
+
+                <h3>{{ entity.date|date("d/m/Y") }}</h3>
+                <hr>
+                <br>
+                <span class="info-shopping-area">{{ entity.title|upper }}</span>
+                <hr class="hr-line">
+                {% if entity.image %}
+                    <img class="img-responsive img-hover" src="/uploads/feeds/{{ entity.image }}" width="100%" alt="{{ entity.title }}">
+                {% endif %}
+                <br>
+                <p class="description-page">
+                    {{ entity.description|raw }}
+                </p>
+
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <h3>Pesquisar</h3>
+            <hr>
+            <form id="form-search-noticias" action="/site/busca/noticias" method="get">
+                <div class="box-newsletter">
+                <div class="input-group">
+                    <input name="q" type="text" class="form-control" placeholder="Busca por palavra chave">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="submit">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                </div>
+                </div>
+            </form>
+            <br>
+            <div class="box-noticia">
+                <div class="sandbox-container"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+<script>
+    $(document).ready(function() {
+        $(".navbar-btn button").removeClass('active');
+
+        $( ".datepicker" ).datepicker({
+            inline: true,
+            showOtherMonths: true
+        });
+
+        $('.sandbox-container').datepicker({
+            format: "mm/yyyy",
+            startView: 1,
+            minViewMode: 1,
+            language: "pt-BR",
+            todayHighlight: true,
+            keyboardNavigation: false
+        });
+
+        if ({{year}} != 0 && {{month}} != 0) {
+            var now = new Date({{year}}, {{month}}-1, 1);
+            $('.sandbox-container').datepicker('update', now);
+        }
+
+        $('.sandbox-container').datepicker().on('changeDate', function(e){
+            var selectedDate = e.date;
+            var month = selectedDate.getMonth()+1;
+            var year = selectedDate.getFullYear();
+            window.location.href = '/site/noticias/' + year + '/' + month;
+        });
+
+        $('#form-search-noticias').on('submit', function(data){
+            var params = $(this).serializeArray();
+            var q = params[0].value;
+            if(q.length <= 2){
+                toastr.error("O termo a ser pesquisado precisa ter pelo menos 2 caracteres",'Termo de pesquisa muito pequeno');
+                return false;
+            }
+            return true;
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_sobre-a-abrasce.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Revista Shopping Center</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Revistas</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8">
+            <h3>{{ magazine.publication|upper }}</h3>
+            <hr>
+
+            <!--<div class="media">-->
+                <!--<div class="media-left">-->
+                <div class="col-md-6">
+                    {% if magazine.image %}
+                    <img class="img-responsive img-hover" src="/uploads/magazines/{{ magazine.image }}" width="250" alt="{{ magazine.publication }}">
+                    <br>
+                    {% endif %}
+                </div>
+                <!--<div class="media-body">-->
+                <div class="col-md-6">
+                    <p class="description-page">
+                        <strong>{{ magazine.title }}</strong>
+                    </p>
+                    <p class="description-page">
+                        {{ magazine.sinopse|raw }}
+                    </p>
+                </div>
+            <!--</div>-->
+            <div class="col-md-12">
+                <p class="description-page">
+                    {{ magazine.description|raw }}
+                </p>
+            </div>
+        </div>
+        <div class="col-md-4 col-right-margin-top-lg">
+            <ul class="nav nav-pills nav-stacked abrasce-nav-list">
+                {% for item in publicationList %}
+                <li class="abrasce-list{{ publication|upper == item.publication|upper ? ' active' : '' }}">
+                    <a href="/site/revistas/{{ item.id }}">
+                        {{ item.publication }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+<script>
+    $(document).ready(function() {
+        $(".navbar-btn button").removeClass('active');
+    });
+</script>
+
+{% endblock %}

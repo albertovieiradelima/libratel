@@ -1,0 +1,83 @@
+{% extends "email/layout.twig" %}
+{% block content %}
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">Publicações / Pedido</div>
+            <div class="panel-body">
+                {# Dados Pessoais #}
+                <p>Tipo de Pessoa:  {{ data.TipoPessoa }}</p>
+
+                <p>Nome: {{ data.Nome }}</p>
+                {% if (data.TipoPessoa == 'Fisica') %}
+                    <p>CPF: {{ data.CPF }}</p>
+                {% else %}
+                    <p>Nome Fantasia: {{ data.Nome }}</p>
+                    <p>CNPJ: {{ data.CPF }}</p>
+                    <p>Inscrição Estadual: {{ data.InscricaoEstadual }}</p>
+                {% endif %}
+                <p>Cargo: {{ data.Cargo }}</p>
+
+                <p>E-mail: {{ data.Email }}</p>
+
+                <p>Telefone: {{ data.Telefone }}</p>
+                <br>
+                {# Dados de Entrega #}
+                <p><strong>Dados de Entrega</strong></p>
+
+                <p>Endereço: {{ data.EntregaEndereco }}</p>
+
+                <p>Número: {{ data.EntregaNumero }}</p>
+
+                <p>Complemento: {{ data.EntregaComplemento }}</p>
+
+                <p>Bairro: {{ data.EntregaBairro }}</p>
+
+                <p>Cidade: {{ data.EntregaCidade }}</p>
+
+                <p>CEP: {{ data.EntregaCEP }}</p>
+                <br>
+                {# Dados de Cobrança #}
+                <p><strong>Dados de Cobrança</strong></p>
+                {% if (data.EnderecoDeCobrancaIgualEntrega == 'Nao') %}
+                    <p>Endereço: {{ data.CobrancaEndereco }}</p>
+                    <p>Número: {{ data.CobrancaNumero }}</p>
+                    <p>Complemento: {{ data.CobrancaComplemento }}</p>
+                    <p>Bairro: {{ data.CobrancaBairro }}</p>
+                    <p>Cidade: {{ data.CobrancaCidade }}</p>
+                    <p>UF: {{ data.CobrancaUF }}</p>
+                    <p>CEP: {{ data.CobrancaCEP }}</p>
+                {% else %}
+                    <p>O endereço de faturamento é o mesmo endereço de entrega.</p>
+                {% endif %}
+                <br>
+                {# Items adicionados #}
+                <p><strong>Itens Adicionados</strong></p>
+
+                <p>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 10%; text-align: left;">COD</td>
+                        <td style="width: 80%; text-align: left;">DESCRIÇÃO</td>
+                        <td style="width: 10%; text-align: left;">QTDE</td>
+                    </tr>
+                    {% for item in data.items %}
+                        <tr>
+                            <td style="width: 10%; text-align: left;">{{ item.id }}</td>
+                            <td style="width: 80%; text-align: left;">{{ item.title }}</td>
+                            <td style="width: 10%; text-align: left;">{{ item.number }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                <br>
+
+                <p><strong>Mensagem</strong></p>
+
+                <p>
+                <pre>{{ data.Mensagem }}</pre>
+                </p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

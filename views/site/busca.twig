@@ -1,0 +1,46 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<style>
+.gsc-branding-text, .gsc-branding-img, .gcsc-branding-text, .gcsc-branding-img-noclear { display: none; height: 0; }
+</style>
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_guia-fornecedores.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Pesquisa Abrasce</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+
+<div class="container" style="margin-top: 15px;">
+    
+    <script>
+        (function() {
+          var cx = '000862219800235839115:y1jbfbixrga';
+          var gcse = document.createElement('script');
+          gcse.type = 'text/javascript';
+          gcse.async = true;
+          gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+              '//www.google.com/cse/cse.js?cx=' + cx;
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(gcse, s);
+        })();
+    </script>
+    <gcse:searchresults-only></gcse:searchresults-only>
+
+</div>
+
+<div style="margin-bottom: 20px;">&nbsp;</div>
+
+{% endblock %}

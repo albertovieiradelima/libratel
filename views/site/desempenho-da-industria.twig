@@ -1,0 +1,77 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<!-- Header Carousel -->
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_sobre-a-abrasce.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Números do Setor</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Números do Setor/Desempenho da indústria de Shopping Centers no Brasil</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-8">
+            <h3>Desempenho da indústria de Shopping Centers no Brasil</h3>
+            <hr>
+            <p class="description-page">
+                Com 24 novos empreendimentos em operação e média de 431 milhões de visitas mensais, o mercado de shopping centers brasileiro registrou, em 2014, alta de 10,1% nas vendas em relação ao ano anterior, atingindo total de R$ 142,27 bilhões, segundo a Associação Brasileira de Shopping Centers – Abrasce. A expectativa do setor para 2015 é de 8,5% de crescimento.
+            </p>
+            <p class="description-page">
+                “Os shoppings brasileiros atravessaram mais um ano de crescimento acima do comércio varejista e da inflação. Um dos segmentos que mais sustentaram seu desempenho foi o de alimentação, o que pode ser atribuído ao aumento do poder aquisitivo da população e a conveniência oferecida pelos centros de compra”, comenta Luiz Fernando Veiga, presidente da associação.
+            </p>
+            <p class="description-page">
+                A categoria de satélites cresceu 8,22%. Além dos citados, os segmentos de telefonia (21,55%); perfumaria (18,19%) e jóias (13,69%) também tiveram desempenho favorável ao longo de 2014, todos acima de 13%.
+            </p>
+            <p class="description-page">
+                O Natal foi a data comemorativa que, como de praxe, mais contribuiu para o crescimento do setor. No mês e no período das festas, os campeões de vendas foram: telefonia (26,83%); artigos diversos (15,71%); lazer e entretenimento (17,06%); conveniência e serviços (16,45%). Em média, as vendas no mês de dezembro cresceram 8,5% em relação ao mesmo período de 2013, performance maior que a do comércio em geral, que apresentou crescimento de 1,2% se comparado ao ano passado.
+            </p>
+            <p class="description-page">
+                Para 2015, a Abrasce acredita na manutenção do ritmo de expansões e inaugurações no setor, que prevê a chegada de mais de 26 shoppings até o fim do ano, 16 deles em cidades que não são capitais. A estimativa de investimento total nesses projetos, incluindo novos shoppings e expansões é de cerca R$ 16 bilhões, sendo que 48% estarão concentrados na região Sudeste. O Nordeste ocupa o segundo lugar, com 24% desses investimentos, seguido pelas regiões Norte (16%), Sul (7%) e Centro-Oeste (5%).
+            </p>
+            <p class="description-page">
+                Neste ano, 12 cidades receberão seu primeiro shopping, de forma que, até o fim de 2015, 58% dos empreendimentos estarão concentrados fora das capitais. Dos atuais 520 shoppings, 18% contam com projetos de expansão. “O setor de shopping centers continua em crescimento e os lançamentos previstos para este ano demonstram a confiança do empreendedor. Acreditamos que 2015 será um ano desafiador para a indústria, com juros mais altos e problemas estruturais em relação à falta de energia e água. No entanto, poderemos demonstrar toda a força do setor”, conclui o presidente da Associação.
+            </p>
+            <p class="description-page">
+                <strong>Recorde de inaugurações</strong>
+            </p>
+            <p class="description-page">
+                A indústria de Shopping Centers está em plena expansão no País e, em 2013, atingiu um recorde. Ao longo do ano, foram 38 empreendimentos inaugurados. Esse número, somado às expansões pelas quais muitos shoppings estão passando, contribui para o bom desempenho do setor, que além da conveniência, oferece comodidade e segurança aos frequentadores.
+            </p>
+            <p class="description-page">
+                A região Sudeste foi a que recebeu a maior quantidade de novos empreendimentos – ao todo foram 20 – seguida pelas regiões Sul, Nordeste, Centro Oeste e Norte. Este número fica ainda mais expressivo se comparado ao total de novos empreendimentos fora das capitais. Dos 38 shoppings inaugurados, apenas 15 aconteceram nas capitais. Pela primeira vez na história da indústria, o percentual de shoppings inaugurados fora das capitais é igual ao de shoppings nas capitais.
+            </p>
+            <p class="description-page">
+                Apesar de perfis variados, a maior parte desses malls foi construída em municípios que possuem até 500 mil habitantes, e o tamanho médio destes empreendimentos é de 26.142 mil m² de ABL (Área Bruta Locável).
+            </p>
+        </div>
+        <div class="col-md-4 col-right-margin-top-lg">
+            {% include "site/menu-monitoramento.twig" %}
+        </div>
+    </div>
+
+</div>
+<!-- /.container -->
+<script>
+    $(document).ready(function() {
+        $(".navbar-btn button").removeClass('active');
+    });
+</script>
+
+{% endblock %}

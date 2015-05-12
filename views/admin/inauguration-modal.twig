@@ -1,0 +1,75 @@
+<style type="text/css">
+    .col-lg-6 {
+        margin-bottom: 15px;
+    }
+</style>
+<div class="modal fade" id="inauguration-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="formInauguration" method="post" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Cadastro de Shopping</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="id" class="form-control">
+                    <div class="form-group">
+                        <label for="fk_inauguration_category">Categoria</label>
+                        <select class="form-control" name="fk_inauguration_category" id="fk_inauguration_category"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Shopping</label>
+                        <input type="text" name="shopping" class="form-control" placeholder="Nome do Shopping">
+                    </div>
+                    <!--<div class="form-group file">-->
+                        <!--<label for="image">Imagem</label>-->
+                        <!--<input id="file" name="image" type="file" multiple=true class="file" data-show-upload="false" data-preview-file-type="any" data-initial-caption="" data-overwrite-initial="false">-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="city">Cidade</label>
+                            <input type="text" name="city" class="form-control">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="state">Estado</label>
+                            <select name="state" id="state" class="input-large form-control">
+                                {% for key,uf in null|uflist %}
+                                    <option value="{{ key }}">{{ uf }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6" style="padding-left: 0px;">
+                            <label for="abl">ABL</label>
+                            <input type="text" name="abl" class="form-control money" data-precision="3" data-thousands=".">
+                        </div>
+                        <div class="col-lg-6" style="padding-right: 0px;">
+                            <label for="inauguration_date">Data de Inauguração</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control" name="inauguration_date" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="link">Link</label>
+                        <input type="text" name="link" class="form-control" placeholder="Web Site">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="status" class="minimal" checked/> Inaugurado
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-dismiss="modal" class="btn btn-danger pull-left"><i class="fa fa-times"></i> Descartar</button>
+                    <button type="submit" name="submit" class="btn btn-primary"><i class="fa fa-check"></i>  Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

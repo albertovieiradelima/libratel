@@ -1,0 +1,153 @@
+{% extends "site/layout.twig" %}
+{% block content %}
+
+<header id="carousel_topo" class="carousel interno slide">
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill" style="background-image:url('/assets/img/topo_inauguracoes.png');"></div>
+            <div class="container title-page">
+                <div class="carousel-caption carousel-internal">
+                    <h1>Prêmio Abrasce</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+
+<div class="container">
+    <div class="row row-navigator">
+        <div class="col-md-12">
+            <h5>Premio ABRASCE</h5>
+        </div>
+    </div>
+    <div class="row row-container">
+        <div class="col-md-12">
+            <h3>INSCRIÇÃO - {{ award_event.title|upper }}</h3>
+            <hr/>
+
+            {% for message in app.session.getFlashBag.get('message') %}
+            <div class="alert alert-{{message.type}}" role="alert">
+                {{message.content}}
+            </div>
+            {% endfor %}
+
+            <div class="box-container">
+                <div class="box-noticia">
+                    <h3>Título do Projeto: <span class="info-shopping-area-text">{{ reg_entity.project_title }}</span></h3>
+                </div>
+            </div>
+            <div class="box-noticia">
+                <form method="POST" action="/site/premio-abrasce/inscricao/edit/save" enctype="multipart/form-data">
+
+                    <input type="hidden" name="fk_registration" value="{{ idRegistration }}" />
+
+                    {% for field in fields %}
+                    <div class="form-group">
+                        <label style="font-size: 1.1em">{{ field.title }}
+                            {% if field.weight > 0 %}
+                            (Peso {{ field.weight }})
+                            {% endif %}
+                        </label>
+                        <p style="font-style: italic;">{{ field.description|raw }}</p>
+
+                        {% if field.type == 'textarea' %}
+
+                        <textarea rows="5" maxlength="{{ field.maxlength }}" class= "form-control limit" name="{{ field.id }}">{{ field ? field.value : '' }}</textarea>
+                        <div style="width: 100%;text-align: right;color: #337ab7;">caracter: <span class="caracteres_{{ field.id }}">{{ field ? - field.value|length + (field.maxlength) : '' }}</span> de {{ field.maxlength }} disponíveis</div>
+
+                        {% elseif field.type == 'text' %}
+
+                        <input type="text" class="form-control limit" maxlength="{{ field.maxlength }}" placeholder="" name="{{ field.id }}" value="{{ field ? field.value : '' }}" />
+                        <div style="width: 100%;text-align: right;color: #337ab7;">caracter: <span class="caracteres_{{ field.id }}">{{ field ? - field.value|length + (field.maxlength) : '' }}</span> de {{ field.maxlength }} disponíveis</div>
+
+                        {% elseif field.type == 'file' %}
+
+                        <input id="file-{{ field.id }}" name="{{ field.id }}" type="file" multiple=true class="file"
+                               data-show-upload="false" data-preview-file-type="any" data-initial-caption="" data-overwrite-initial="false" />
+
+                        {% set arrFiletypes = null %}
+                        {% if field.accept_filetypes %}
+                        {% set arrFiletypes = field.accept_filetypes|split(',') %}
+                        {% endif %}
+
+                        {% set filetypesStr = "[" %}
+                        {% for ft in arrFiletypes %}
+                        {% set filetypesStr = filetypesStr ~ "'" ~ ft ~ "'" %}
+                        {% if not loop.last %}
+                        {% set filetypesStr = filetypesStr ~ ',' %}
+                        {% else %}
+                        {% set filetypesStr = filetypesStr ~ ']' %}
+                        {% endif %}
+                        {% endfor %}
+
+                        <script>
+
+                            $(document).ready(function(){
+
+                                $('#file-{{ field.id }}').fileinput('refresh', {
+                                {% if field.accept_filetypes %}
+                                    //'allowedFileExtensions': ['jpg', 'png', 'gif'],
+                                    'allowedFileExtensions': {{ filetypesStr|raw }},
+                                    {% endif %}
+                                    // 'initialPreview': ["<img src='/uploads/premio-abrasce/{{award_event.fk_event}}/{{award_event.fk_award}}/{{idRegistration}}/{{field.value}}' class='file-preview-image'>",],
+                                    'overwriteInitial': true,
+                                        'maxFileSize': 5120,
+                                {% if field.value %}
+                                    'initialCaption':'{{field.value}}'
+                                    {% endif %}
+                                });
+
+                            });
+
+                        </script>
+
+                        {% if field.value %}
+                        <br/>
+                        <div class="col-md-4 col-md-offset-4">
+                            <a target="_blank" class="btn btn-primary btn-block" href="/uploads/premio-abrasce/{{award_event.fk_event}}/{{award_event.fk_award}}/{{idRegistration}}/{{field.value}}"><i class="fa fa-file fa-1x"></i> Arquivo Atual</a>
+                        </div>
+                        <br/>
+                        {% endif %}
+
+                        {% endif %}
+                    </div>
+                    <br/>
+                    {% endfor %}
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-4 col-sm-4">
+                            <button type="submit" class="btn btn-success btn-block"><i class="fa fa-envelope-o"></i>&nbsp; Enviar Inscrição</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).on("input", ".limit", function () {
+        var limite = $(this).attr('maxlength');
+        var caracteresDigitados = $(this).val().length;
+        var caracteresRestantes = limite - caracteresDigitados;
+
+        if(caracteresRestantes == 0){
+            $(".caracteres_"+$(this).attr('name')).css('color', 'red');
+            $(".caracteres_"+$(this).attr('name')).parent("div").css('color', 'red');
+        } else {
+            $(".caracteres_"+$(this).attr('name')).css('color', '#337ab7');
+            $(".caracteres_"+$(this).attr('name')).parent("div").css('color', '#337ab7');
+        }
+        $(".caracteres_"+$(this).attr('name')).text(caracteresRestantes);
+        console.log(limite);
+        console.log($(".caracteres_"+$(this).attr('name')).text(caracteresRestantes));
+    });
+
+</script>
+
+{% endblock %}

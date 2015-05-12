@@ -1,0 +1,25 @@
+body * {
+     visibility: hidden;
+     margin: 0px 0px 0px 0px;
+ }
+
+#carousel_topo {
+    display: none;
+}
+
+#printable, #printable * {
+    visibility: visible;
+}
+
+#printable {
+    display: block;
+    margin: -100px 0px 0px 0px;
+
+}
+.panel-footer {
+    display: none;
+}
+
+.description-page{
+    display: none;
+}
