@@ -44,19 +44,11 @@ class IndexController implements ControllerProviderInterface {
         $indexController->get('/site/busca', array($this, 'searchAction'))->bind('site-busca');
         $indexController->get('/site/busca/noticias', array($this, 'searchNewsAction'))->bind('site-busca-noticias');
         $indexController->get('/site/busca/noticias-associado', array($this, 'searchNewsAssociateAction'))->bind('site-busca-noticias-associado');
-        $indexController->get('/site/eventos/{year}', array($this, 'eventsAction'))->value('year', date('Y'))->bind('eventos');
-        $indexController->get('/site/busca/eventos', array($this, 'searchEventsAction'))->bind('site-busca-eventos');
         $indexController->get('/site/fale-com-abrasce', array($this, 'contactAction'))->bind('fale-conosco');
         $indexController->get('/site/sobre-a-abrasce/{title}', array($this, 'aboutAction'))->assert('title', '.*');
         $indexController->get('/site/revistas/{id}', array($this, 'magazineAction'))->assert('id', '.*');
         $indexController->get('/site/associado/{page}', array($this, 'associadoAction'))->value('page');
         $indexController->post('/site/get-shopping-address', array($this, 'getShoppingAddressAction'))->bind('get-shopping-address-action');
-        $indexController->post('/site/premio-abrasce/inscricao/edit/save', array($this, 'premioAbrasceInscricaoEditSaveAction'))->bind('premio-abrasce-inscricao-edit-save');
-        $indexController->get('/site/premio-abrasce/inscricao/edit', array($this, 'premioAbrasceInscricaoEditAction'))->bind('premio-abrasce-inscricao-edit');
-        $indexController->post('/site/premio-abrasce/inscricao/save', array($this, 'premioAbrasceInscricaoSaveAction'));
-        $indexController->get('/site/premio-abrasce/inscricao/{id}/{idAward}', array($this, 'premioAbrasceInscricaoAction'))->assert('id', '\d+')->assert('idAward', '\d+');
-        $indexController->post('/site/premio-abrasce/auth', array($this, 'premioAbrasceAuthAction'))->bind('premio-abrasce-auth');
-        $indexController->get('/site/premio-abrasce/{id}/{idAward}', array($this, 'premioAbrasceAction'))->value('id', false)->value('idAward', false);
         $indexController->get('/site/guia-de-shoppings/{id}', array($this, 'guiaShoppingAction'))->assert('id', '.*');
         $indexController->get('/site/shopping/{id}', array($this, 'infoShoppingAction'))->assert('id', '.*');
         $indexController->get('/site/guia-de-fornecedores/{id}', array($this, 'guiaSupplierAction'))->assert('id', '.*');
@@ -71,10 +63,7 @@ class IndexController implements ControllerProviderInterface {
         $indexController->post('/site/fale-com-abrasce/insert', array($this, 'insertContactusAction'))->bind('novo-fale-conosco');
         $indexController->post('/site/seja-associado/insert', array($this, 'insertAssociateAction'))->bind('novo-seja-associado');
         $indexController->post('/site/pedido', array($this, 'orderAction'));
-        $indexController->get('/site/boleto-premio/{hash}/{id}/{pdf}', array($this, 'boletoAwardAction'))->value('hash')->value('id')->value('pdf')->bind('boletoAward');
-        $indexController->get('/site/premio-abrasce/inscricao/send', array($this, 'premioAbrasceInscricaoSendAction'))->bind('premio-abrasce-inscricao-send');
         $indexController->get('/site/monitoramento/{page}', array($this, 'monitoramentoAction'))->value('page')->bind('site-monitoramento');
-        $indexController->post('/site/event-discount-coupon/get-data/{fk_event}', array($this, 'getCouponAction'));
 
         return $indexController;
     }
@@ -86,18 +75,10 @@ class IndexController implements ControllerProviderInterface {
      */
     public function indexAction(Application $app, Request $request) {
 
-        //event
-        $app['event']->getHomeEvents();
-        $events = $app['event']->fetch_all();
-        $app['event']->close();
-
         //news
         $app['feed']->getHomeFeeds(\App\Enum\FeedTypeEnum::NOTICIA);
-        $news = $app['feed']->fetch_all();
-        $app['feed']->close();
-
-        $app['feed']->getHomeFeeds(\App\Enum\FeedTypeEnum::ASSOCIADO);
-        $spacepartners = $app['feed']->fetch_all();
+        $news = $app['feed']->fetch();
+        $news['description'] = substr($news['description'],0,200).'...';
         $app['feed']->close();
 
         //magazines
@@ -113,9 +94,7 @@ class IndexController implements ControllerProviderInterface {
         $app['banner']->close();
 
         return $app['twig']->render('site/index.twig', array(
-            'events' => $events, 
-            'news' => $news, 
-            'spacepartners' => $spacepartners,
+            'news' => $news,
             'magazine' => $magazine,
             'topimages' => $topimages,
             'banners' => $banners
@@ -154,79 +133,6 @@ class IndexController implements ControllerProviderInterface {
         ));
 
     }
-
-    /**
-     * Eventos
-     * 
-     * @param \Silex\Application $app, Request $request
-     * @return \Twig\evento.twig
-     */
-    public function eventsAction(Application $app, $year) {
-        if (!$year) {
-            $year = date('Y');
-        }
-        
-        $params = array(
-            'year' => $year
-        );
-        
-        // List all
-        $app['event']->getAllThemActiveByYear($params);
-        $list = $app['event']->fetch_all();
-
-        $lista = array();
-        foreach ($list as $evento) {
-            $date = DateUtil::formatDateMysqlToView($evento['start_date']);
-            $partes = explode("/", $date);
-            $mes = $partes[1];
-            $monthName = DateUtil::getMonthName($mes);
-            $lista[$monthName]['month_name'] = $monthName;
-            $lista[$monthName][] = $evento;
-        }
-
-
-        return $app['twig']->render('site/eventos.twig', array('list' => $lista, 'year' => $year, 'entity' => false));
-    }
-
-    /**
-     * Busca de eventos 
-     * @param Application $app
-     * @param Request $request
-     * @return type
-     */
-     public function searchEventsAction(Application $app, Request $request) {
-         $query = $request->query->get('q', false);
-         $page = $request->query->get('page', 1);
-         $limit = 10; # fixed rows limit
-
-         if ($query) {
-
-             $app['event']->count($query);
-             $data = $app['event']->fetch();
-             $rows = (int) $data['count'];
-             $pages = 1;
-
-             if ($rows > $limit) {
-
-                 $pages = ceil($rows / $limit);
-                 $offset = ($page - 1)  * $limit;
-                 $app['event']->search($query, $offset, $limit);
-                 $list = $app['event']->fetch_all();
-
-             } else {
-                 $app['event']->search($query);
-                 $list = $app['event']->fetch_all();
-             }
-         }
-
-         return $app['twig']->render('site/busca-eventos.twig', array(
-             'query' => $query,
-             'list' => $list,
-             'pages' => $pages,
-             'page' => $page,
-             'rows' => $rows
-         ));
-     }
 
     /**
      * Associado
@@ -583,9 +489,6 @@ class IndexController implements ControllerProviderInterface {
                 ->setSubject('Portal ABRASCE - Publicações/Pedido ('.$post['Nome'].')')
                 ->setFrom(array('biblioteca@portaldoshopping.com.br' => 'Biblioteca ABRASCE'))
                 ->setTo(array(
-//                    'karina@abrasce.com.br' => $smtp['smtp_name'],
-//                    'priscila@abrasce.com.br' => $smtp['smtp_name'],
-//                    'fabiola@abrasce.com.br' => $smtp['smtp_name'],
                     'alberto.lima@crmall.com' => $smtp['smtp_name'],
                 ))
                 ->setBody($app['twig']->render('email/publicacoes-pedido.twig', array('data' => $post)), 'text/html');
@@ -1009,304 +912,6 @@ class IndexController implements ControllerProviderInterface {
         ));
     }
 
-    /**
- * Premio Abrasce
- *
- * @param \Silex\Application $app, Request $request
- * @return \Twig\premio-abrasce.twig
- */
-    public function premioAbrasceAction(Application $app, $id, $idAward) {
-
-        $shoppings = $app['shopping']->getShoppingAll();
-
-        $app['aa_event']->getAllOrderByYear();
-        $events = $app['aa_event']->fetch_all();
-
-        if(!$id){
-            $app['aa_event']->getLast();
-        }else{
-            $app['aa_event']->getById($id);
-        }
-
-        $event = $app['aa_event']->fetch();
-        $app['aa_event']->close();
-
-        $awards = $app['aa_award_event']->getAllActive($event['id']);
-
-        $award = null;
-        if($idAward){
-            $award = $app['aa_award_event']->getById($idAward,$event['id']);
-        }
-
-        $app['aa_award_event']->close();
-
-        return $app['twig']->render('site/premio-abrasce.twig', array(
-            'events'    => $events,
-            'event'     => $event,
-            'awards'    => $awards,
-            'award'     => $award,
-            'shoppings' => $shoppings,
-            'id_type'   => 12
-        ));
-    }
-
-    /**
-     * Inscrição Premio Abrasce
-     *
-     * @param \Silex\Application $app, Request $request
-     * @return \Twig\premio-abrasce.twig
-     */
-    public function premioAbrasceInscricaoAction(Application $app, $id, $idAward) {
-
-        $states = FormUtil::getStatesArray();
-
-        $app['shopping']->getShoppingAll();
-        $shoppings = $app['shopping']->fetch_all();
-        $app['shopping']->close();
-
-        $app['aa_event']->getAllOrderByYear();
-        $events = $app['aa_event']->fetch_all();
-
-        if(!$id){
-            $app['aa_event']->getLast();
-        }else{
-            $app['aa_event']->getById($id);
-        }
-
-        $event = $app['aa_event']->fetch();
-        $app['aa_event']->close();
-
-        $awards = $app['aa_award_event']->getAll($event['id']);
-
-        $award = null;
-        if($idAward){
-            $award = $app['aa_award_event']->getById($idAward,$event['id']);
-        }
-
-        $app['aa_award_event']->close();
-
-        return $app['twig']->render('site/premio-abrasce-inscricao.twig', array(
-            'states'    => $states,
-            'shoppings' => $shoppings,
-            'events'    => $events,
-            'event'     => $event,
-            'awards'    => $awards,
-            'award'     => $award,
-            'id_type'   => 12
-        ));
-    }
-
-    /**
-     * POST Inscrição Premio Abrasce
-     *
-     * @param \Silex\Application $app, Request $request
-     * @return \Twig\premio-abrasce.twig
-     */
-    public function premioAbrasceInscricaoSaveAction(Application $app, Request $request) {
-
-        $post = $request->request->all();
-
-        // Get event
-        $app['aa_event']->getById($post['fk_event']);
-        $event = $app['aa_event']->fetch();
-
-        $award = $app['aa_award']->getById($post['fk_award']);
-        $awardEvent = $app['aa_award_event']->getById($post['fk_award'],$post['fk_event']);
-
-        // Get Shopping
-        $app['shopping']->getShoppingById($post['fk_shopping']);
-        $shopping = $app['shopping']->fetch();
-
-        // Check if billing address is different from shopping address
-        if($post['billing_info'] == 'shopping') {
-            $post['billing_document_number'] = $shopping['cnpj'];
-            $post['billing_name'] = $shopping['fantasia'];
-            $post['billing_zip'] = $post['shopping_zip'];
-            $post['billing_state'] = $post['shopping_state'];
-            $post['billing_city'] = $post['shopping_city'];
-            $post['billing_address'] = $post['shopping_address'];
-        }
-
-        // Invoice data
-        $dueDate = new \DateTime('now', new \DateTimeZone('America/Sao_Paulo'));
-        $dueDate->modify("+{$awardEvent['billing_days_to_due']} days");
-        $post['invoice_due_date'] = $dueDate->format('Y-m-d H:i:s');
-
-        if($app['aa_registration']->getByShopping($post['fk_shopping'])){
-            $post['invoice_value'] = ($awardEvent['registration_price'] / 2);
-        } else {
-            $post['invoice_value'] = $awardEvent['registration_price'];
-        }
-
-        // Set params
-        $post['status'] = 'pending';
-        $post['created_at'] = date('Y-m-d H:i:s');
-
-        $regID = $app['aa_registration']->insert($post);
-
-        $updateData = array();
-        $updateData['invoice_number'] = '25/' . str_pad($regID, 11, '0', STR_PAD_LEFT) . '-0';
-        $updateData['registration_number'] = $event['year'] . $award['code'] . str_pad($regID,5,'0',STR_PAD_LEFT);
-
-        $app['aa_registration']->update($updateData, $regID);
-
-        if ($post['action'] == 'continue') {
-            // Auth registration edit and redirect to edit page
-
-            $app['session']->set('projectid', $regID);
-
-            return $app->redirect($app['url_generator']->generate('premio-abrasce-inscricao-edit'));
-        }
-
-        $mailer = array(
-            'email' => false
-        );
-
-        $registration = $app['aa_registration']->getById($regID);
-
-        $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVER['HTTP_HOST']}/site/boleto-premio/";
-        $boleto = $url . hash('sha512', $regID, false) . '/' . $regID . '/1';
-
-        // Envia boleto e dados da inscrição
-        if ($regID > 0) {
-            $mailer = $this->sendEmailSubscription($app, $regID, $boleto);
-        }
-
-        return $app['twig']->render('site/premio-abrasce-inscricao-sucesso.twig', array(
-            'event' => $event,
-            'registration' => $registration,
-            'link_boleto' => $boleto,
-            'email' => $mailer['email']
-        ));
-    }
-
-    public function premioAbrasceInscricaoEditAction(Application $app, Request $request){
-
-        $regID  = $app['session']->get('projectid');
-        $reg = $app['aa_registration']->getById($regID);
-        $fields = $app['aa_award_event_field']->getAll($reg['fk_award'], $reg['fk_event'], 'order', 'ASC');
-        $award_event = $app['aa_award_event']->getById($reg['fk_award'], $reg['fk_event']);
-        $values =  $app['aa_award_event_field_registration']->getValues($regID);
-
-        if($values && count($values) > 0) {
-            foreach($fields as &$obj){
-                $obj['value'] = array_key_exists($obj['id'], $values) ? $values[ $obj['id'] ] : null;
-            }
-        }
-
-        return $app['twig']->render('site/premio-abrasce-inscricao-projeto.twig', array(
-            'idRegistration'        => $regID,
-            'reg_entity'            => $reg,
-            'award_event'           => $award_event,
-            'fields'                => $fields,
-            'values'                => $values
-        ));
-    }
-
-    public function premioAbrasceInscricaoEditSaveAction(Application $app, Request $request){
-
-        $post = $request->request->all();
-        $files = $request->files->all();
-
-        $regID = $post['fk_registration'];
-
-        foreach($post as $key => $value){
-            if($key != 'fk_registration' && is_numeric($key)){
-                $app['aa_award_event_field_registration']->setValue($key, $regID, $value);
-            }
-        }
-
-        $reg = $app['aa_registration']->getById($regID);
-        $award = $app['aa_award_event']->getById($reg['fk_award'], $reg['fk_event']);
-
-        // Save files
-        if($files && count($files) > 0) {
-
-            foreach($files as $key => $file) {
-
-                if($file){
-                    $val = $app['aa_award_event_field_registration']->getById($key, $regID);
-                    $path = PATH_PUBLIC . "/uploads/premio-abrasce/{$award['fk_event']}/{$award['fk_award']}/{$regID}/";
-
-                    if($val && $val['value']){
-                        $currentFile = $path . $val['value'];
-                        if(file_exists($val)){
-                            unlink($currentFile);
-                        }
-                    }
-
-                    if(!file_exists($path)){
-                        mkdir($path, 0777, true);
-                    }
-
-                    $fileNameOriginal = $file->getClientOriginalName();
-                    $extension = strrchr($fileNameOriginal, '.');
-                    $fileName = 'file_'. md5(microtime()) . strtolower($extension);
-
-                    $file->move($path, $fileName);
-
-                    $app['aa_award_event_field_registration']->setValue($key, $regID, $fileName);
-                }
-            }
-        }
-
-        // Get event
-        $app['aa_event']->getById($reg['fk_event']);
-        $event = $app['aa_event']->fetch();
-
-        $mailer = array(
-            'email' => false
-        );
-
-        $url = 'http' . (isset($_SERVER['HTTPS']) ? 's' : '') . '://' . "{$_SERVER['HTTP_HOST']}/site/boleto-premio/";
-        $boleto = $url . hash('sha512', $regID, false) . '/' . $regID . '/1';
-
-        // Envia boleto e dados da inscrição
-        if ($regID > 0) {
-            $mailer = $this->sendEmailSubscription($app, $regID, $boleto);
-        }
-
-        $registration = $app['aa_registration']->getById($regID);
-
-        $link_boleto = hash('sha512', $regID, false) . '/' . $regID;
-
-        return $app['twig']->render('site/premio-abrasce-inscricao-sucesso.twig', array(
-            'event' => $event,
-            'registration' => $registration,
-            'link_boleto' => $boleto,
-            'email' => $mailer['email']
-        ));
-    }
-
-    public function premioAbrasceAuthAction(Application $app, Request $request){
-
-        try{
-
-            $post = $request->request->all();
-
-            // if(!$post['fk_shopping'] || !$post['registration_number']) {
-            if(!$post['fk_shopping'] || !$post['registration_number'] || !$post['fk_award'] || !$post['fk_event']) {
-                throw new \Exception('Dados inválido, por favor, forneça os dados corretamente');
-            }
-
-            $entity = $app['aa_registration']->getByRegistration($post['fk_award'],$post['fk_event'],$post['fk_shopping'],$post['registration_number']);
-            if(!$entity){
-                throw new \Exception('Inscrição não encontrada');
-            }
-
-            $app['session']->set('projectid', $entity['id']);
-
-            $responseData['success'] = true;
-
-        }catch(\Exception $ex){
-            $responseData['success'] = false;
-            $responseData['message'] = $ex->getMessage();
-        }
-
-        return $app->json($responseData);
-
-    }
-
     public function getShoppingAddressAction(Application $app, Request $request){
         try{
             $post = $request->request->all();
@@ -1348,181 +953,6 @@ class IndexController implements ControllerProviderInterface {
     }
 
     /**
-     * BoletoAward action
-     *
-     * @param \Silex\Application $app
-     * @return mixed
-     */
-    public function boletoAwardAction(Application $app, $hash, $id, $pdf = 0) {
-
-        if (hash('sha512', $id, false) != $hash) {
-            return $app->abort(Response::HTTP_NOT_FOUND);
-        }
-
-        $boleto = $app['setup']->getDataBoletoById();
-
-        if (!$boleto) {
-            return $app->abort(Response::HTTP_BAD_REQUEST, 'Dados do Cedente não encontrado.');
-        }
-
-        // Pega os dados da cobrança
-        $reg = $app['aa_registration']->getBillingById($id);
-
-        if (!$reg) {
-            return $app->abort(Response::HTTP_BAD_REQUEST, 'Dados de Cobrança não encontrado.');
-        }
-
-        // Pega o período de vencimento e o valor da inscrição
-        $event = $app['aa_award_event']->getOrderById($reg['fk_award'], $reg['fk_event']);
-
-        if (!$event) {
-            return $app->abort(Response::HTTP_BAD_REQUEST, 'Data de Vencimento não encontrada.');
-        }
-
-        // Data de vencimento
-        $dueDate = new \DateTime('now');
-
-        // Modifica a data de vencimento do boleto
-        if ($event['billing_days_to_due'] > 0) {
-            $dueDate->modify("+{$event['billing_days_to_due']} days");
-        } else {
-            $dueDate->modify('+10 days');
-        }
-
-        $sacado = new Agente($reg['billing_name'], $reg['billing_document_number'], $reg['billing_address'], $reg['billing_zip'], $reg['billing_city'], $reg['billing_state']);
-        $cedente = new Agente($boleto['cedente_name'], $boleto['cedente_cnpj'], $boleto['cedente_address'], $boleto['cedente_zip'], $boleto['cedente_city'], $boleto['cedente_state']);
-
-        $boleto = new Bradesco(array(
-            'dataVencimento' => $dueDate,
-            'valor' => $event['registration_price'],
-            'sequencial' => $id, // Id sequencial do nosso número
-            'sacado' => $sacado,
-            'cedente' => $cedente,
-            'agencia' => $boleto['cedente_agencia'], // Até 4 dígitos
-            'conta' =>  $boleto['cedente_conta'], // Até 8 dígitos
-            'convenio' => 1234, // 4, 6 ou 7 dígitos
-            'carteira' => $boleto['cedente_carteira'],
-            'contaDv' => $boleto['cedente_conta_dv'],
-            'agenciaDv' => $boleto['cedente_agencia_dv'],
-            'descricaoDemonstrativo' => array( // Até 5
-                $boleto['cedente_label1'],
-                $boleto['cedente_label2'],
-                $boleto['cedente_label3']
-            ),
-            'instrucoes' => array( // Até 8
-                $boleto['cedente_label4'],
-                $boleto['cedente_label5'],
-                $boleto['cedente_label6']
-            )
-        ));
-
-        if ($pdf) {
-
-            $options = array(
-                'page-size' => 'A4',
-                'margin-left' => '12.5',
-                'margin-right' => '12.5',
-                'password' => '123'
-            );
-
-            $knpdf = new Pdf(null, $options);
-            $knpdf->setBinary('/usr/local/bin/wkhtmltopdf');
-
-            // Expressão usada para remover as instruções de impressão
-            // $html = preg_replace('!<div\s+class="noprint info">.*?</div>!is', '', $boleto->getOutput());
-
-            $stream = $knpdf->getOutputFromHtml($boleto->getOutput());
-
-            return new Response($stream, 200, array('Content-Type' => 'application/pdf'));
-        }
-
-        return new Response($boleto->getOutput());
-    }
-
-    /**
-     * BoletoEvent action
-     *
-     * @param \Silex\Application $app
-     * @return mixed
-     */
-    /*
-    public function boletoEventAction(Application $app, $hash, $id, $pdf = 0) {
-        try {
-            if (hash('sha512', $id, false) != $hash) {
-                return $app->abort(Response::HTTP_NOT_FOUND);
-            }
-
-            $boleto = $app['setup']->getDataBoletoById();
-
-            if (!$boleto) {
-                return $app->abort(Response::HTTP_BAD_REQUEST, 'Dados do Cedente não encontrado.');
-            }
-
-            // Pega os dados da cobrança, período de vencimento e o valor da inscrição
-            $reg = $app['event_registration']->getBillingById($id);
-
-            if (!$reg) {
-                return $app->abort(Response::HTTP_BAD_REQUEST, 'Dados de Cobrança e Vencimento não encontrado.');
-            }
-
-            $sacado = new Agente($reg['billing_name'], $reg['billing_document'], $reg['billing_address'], $reg['billing_zip'], $reg['billing_city'], $reg['billing_state']);
-            $cedente = new Agente($boleto['cedente_name'], $boleto['cedente_cnpj'], $boleto['cedente_address'], $boleto['cedente_zip'], $boleto['cedente_city'], $boleto['cedente_state']);
-
-            $due_date = new \DateTime($reg['invoice_due_date']);
-
-            $boleto = new Bradesco(array(
-                'dataVencimento' => $due_date,
-                'valor' => $reg['invoice_value'],
-                'sequencial' => $id, // Id sequencial do nosso número
-                'sacado' => $sacado,
-                'cedente' => $cedente,
-                'agencia' => $boleto['cedente_agencia'], // Até 4 dígitos
-                'conta' => $boleto['cedente_conta'], // Até 8 dígitos
-                'convenio' => 1234, // 4, 6 ou 7 dígitos
-                'carteira' => $boleto['cedente_carteira'],
-                'contaDv' => $boleto['cedente_conta_dv'],
-                'agenciaDv' => $boleto['cedente_agencia_dv'],
-                'descricaoDemonstrativo' => array( // Até 5
-                    $boleto['cedente_label1'],
-                    $boleto['cedente_label2'],
-                    $boleto['cedente_label3']
-                ),
-                'instrucoes' => array( // Até 8
-                    $boleto['cedente_label4'],
-                    $boleto['cedente_label5'],
-                    $boleto['cedente_label6']
-                )
-            ));
-
-            if ($pdf) {
-
-                $options = array(
-                    'page-size' => 'A4',
-                    'margin-left' => '12.5',
-                    'margin-right' => '12.5',
-                    'password' => '123'
-                );
-
-                $knpdf = new Pdf(null, $options);
-                $knpdf->setBinary('/usr/local/bin/wkhtmltopdf');
-
-                // Expressão usada para remover as instruções de impressão
-                // $html = preg_replace('!<div\s+class="noprint info">.*?</div>!is', '', $boleto->getOutput());
-
-                $stream = $knpdf->getOutputFromHtml($boleto->getOutput());
-
-                return new Response($stream, 200, array('Content-Type' => 'application/pdf'));
-            }
-
-            return new Response($boleto->getOutput());
-        }catch (\Exception $e){
-            var_dump($e->getMessage());
-            exit;
-        }
-    }
-    */
-
-    /**
      * Send E-mail Subscription
      * @param $id
      * @return array
@@ -1553,11 +983,6 @@ class IndexController implements ControllerProviderInterface {
             'password' => $smtp['smtp_pass']
         );
 
-        // Teste de envio usando nossos servidores
-//        $transport = \Swift_SmtpTransport::newInstance('smtp.crmall.com', 587, 'tls')
-//            ->setUsername('xxx@crmall.com')
-//            ->setPassword('d3ve2014');
-
         $transport = \Swift_SmtpTransport::newInstance($smtp['smtp_host'], $smtp['smtp_port'], 'tls')
             ->setUsername($smtp['smtp_user'])
             ->setPassword($smtp['smtp_pass']);
@@ -1570,9 +995,6 @@ class IndexController implements ControllerProviderInterface {
             ->setFrom(array($smtp['smtp_email']))
             ->setTo(array($reg['responsible_email']))
             ->setBody($app['twig']->render('email/inscricao-premio-abrasce.twig', array('event' => $event, 'registration' => $reg, 'boleto' => $boleto)), 'text/html');
-
-//        $swiftAttachment = \Swift_Attachment::fromPath($pdfile);
-//        $message->attach($swiftAttachment);
 
         // envia e-mail
         if ($mailer->send($message) == 1) {
@@ -1590,33 +1012,6 @@ class IndexController implements ControllerProviderInterface {
         }
 
         return $result;
-    }
-
-    /**
-     * Check if cupom exists
-     * @param $cupom
-     * @return bool
-     */
-    public function getCouponAction(Application $app,Request $request, $fk_event){
-        $post = $request->request->all();
-        $data = $app['event_discount_coupon']->getById($post['id']);
-
-        if($data['fk_event']!=$fk_event){
-            return $app->json(array(
-                'success'=>false,
-                'error' => 'Cupom inválido'
-            ));
-        }
-        if($data['used_number']>=$data['maximum_number']){
-            return $app->json(array(
-                'success'=>false,
-                'error' => 'Esse cupom não possui mais descontos'
-            ));
-        }
-        return $app->json(array(
-            'success'=>true,
-            'error' => 'Cupom válido'
-        ));
     }
 
 }

@@ -63,23 +63,11 @@ $app['twig'] = $app->share($app->extend("twig", function (\Twig_Environment $twi
 // MySQLi provider
 $app->register(new App\Provider\MySQLi\MySQLiServiceProvider(), array(
     'mysqli.options' => array(
-        'hostname' => '177.66.160.146',
-        'username' => 'pds_user',
-        'password' => 'bgvReWg7',
-        'database' => 'portaldoshopping',
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'password' => 'rigole',
+        'database' => 'libratel',
         'charset'  => 'utf8'
-    )
-));
-
-// OCI8 provider
-$app->register(new App\Provider\OCI8\OCI8ServiceProvider(), array(
-    'oci.options' => array(
-        'hostname' => '187.103.131.243',
-        'port' => '1521',
-        'sid' => 'xe',
-        'username' => 'crmall_abrasce',
-        'password' => 'abrcrmallora',
-        'charset'  => 'AL32UTF8'
     )
 ));
 
@@ -268,18 +256,6 @@ $app['aa_registration'] = $app->share(function() use ($app) {
 
 $app['setup'] = $app->share(function() use ($app) {
     return new App\Model\SetupModel($app['db']);
-});
-
-$app['crmall_shopping'] = $app->share(function() use ($app) {
-    return new App\Model\CrmallShoppingModel($app['oci']);
-});
-
-$app['crmall_supplier'] = $app->share(function() use ($app) {
-    return new App\Model\CrmallSupplierModel($app['oci']);
-});
-
-$app['crmall_costumer'] = $app->share(function() use ($app) {
-    return new App\Model\CrmallCostumerModel($app['oci']);
 });
 
 $app['file_category'] = $app->share(function() use ($app) {

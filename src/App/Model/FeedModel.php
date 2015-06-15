@@ -111,10 +111,9 @@ class FeedModel extends BaseModel {
      */
     public function getHomeFeeds($type) {
 
-        $sql = "SELECT * FROM feed 
+        $sql = "SELECT * FROM feed
                 WHERE type = {$type} AND thumb IS NOT NULL AND status = ".SituationStatusEnum::ACTIVE."
-                ORDER BY date DESC
-                LIMIT 0,2";
+                ORDER BY RAND() LIMIT 0,1";
 
         return $this->query($sql);
     }
