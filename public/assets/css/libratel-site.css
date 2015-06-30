@@ -59,6 +59,12 @@ header.carousel {
     color: #fff;
 }
 
+.footer a,
+.footer a:visited,
+.footer a:hover {
+    color: #CFF09E;
+}
+
 .footer h3 {
     font-size: 14px;
 }

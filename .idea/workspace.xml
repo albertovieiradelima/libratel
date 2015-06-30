@@ -2,29 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49e5f6c6-403e-4086-8a88-0b8eb2b1ce5c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/assets/css/libratel-site.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libratel.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/public/assets/css/custon.css" afterPath="$PROJECT_DIR$/public/assets/css/custon.bkp.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/img/favicon.ico" afterPath="$PROJECT_DIR$/public/assets/img/favicon.ico" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/banners/image_845d3e0e718a5f98ac26fa62adcb2243.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/banners/image_8d58c9b68e91665de6dab16c097cdd87.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/banners/image_c0e8de56965e23b95d2984ec54418ce5.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/uploads/banners/image_de1770e9e76ba8dfe8ac082c7bafddf0.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/crmall/openboleto" afterPath="$PROJECT_DIR$/vendor/crmall/openboleto" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/vendor/crmall/twig-base64" afterPath="$PROJECT_DIR$/vendor/crmall/twig-base64" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App/Model/FeedModel.php" afterPath="$PROJECT_DIR$/src/App/Model/FeedModel.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App/Controller/IndexController.php" afterPath="$PROJECT_DIR$/src/App/Controller/IndexController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log/app.log" afterPath="$PROJECT_DIR$/log/app.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/app.php" afterPath="$PROJECT_DIR$/src/app.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/css/bootstrap-theme.css" afterPath="$PROJECT_DIR$/public/assets/css/bootstrap-theme.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/css/bootstrap-theme.min.css" afterPath="$PROJECT_DIR$/public/assets/css/bootstrap-theme.min.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/css/bootstrap.css" afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" afterPath="$PROJECT_DIR$/public/assets/css/bootstrap.min.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log/error.log" afterPath="$PROJECT_DIR$/log/error.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/site/index.twig" afterPath="$PROJECT_DIR$/views/site/index.twig" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/site/layout.twig" afterPath="$PROJECT_DIR$/views/site/layout.twig" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/js/site.js" afterPath="$PROJECT_DIR$/public/assets/js/site.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/assets/css/libratel-site.css" afterPath="$PROJECT_DIR$/public/assets/css/libratel-site.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="libratel.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,11 +40,9 @@
       <file leaf-file-name="layout.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/site/layout.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6613162" vertical-offset="1940" max-vertical-offset="4528">
-              <caret line="147" column="76" selection-start-line="147" selection-start-column="76" selection-end-line="147" selection-end-column="76" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.6226415" vertical-offset="1732" max-vertical-offset="4416">
+              <caret line="133" column="53" selection-start-line="133" selection-start-column="53" selection-end-line="133" selection-end-column="53" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -64,15 +50,9 @@
       <file leaf-file-name="index.twig" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/site/index.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.64" vertical-offset="3585" max-vertical-offset="4448">
-              <caret line="236" column="54" selection-start-line="236" selection-start-column="54" selection-end-line="236" selection-end-column="54" />
-              <folding>
-                <element signature="e#4775#4802#0#HTML" expanded="true" />
-                <element signature="e#7721#7755#0#HTML" expanded="true" />
-                <element signature="e#9576#9610#0#HTML" expanded="true" />
-                <element signature="e#11431#11465#0#HTML" expanded="true" />
-                <element signature="e#13286#13320#0#HTML" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-7.581818" vertical-offset="1247" max-vertical-offset="5312">
+              <caret line="104" column="76" selection-start-line="104" selection-start-column="76" selection-end-line="104" selection-end-column="76" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -80,7 +60,7 @@
       <file leaf-file-name="app.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-21.12" vertical-offset="480" max-vertical-offset="4768">
+            <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="4768">
               <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
               <folding />
             </state>
@@ -90,7 +70,7 @@
       <file leaf-file-name="FeedModel.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App/Model/FeedModel.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1380" max-vertical-offset="2016">
+            <state vertical-scroll-proportion="-19.04" vertical-offset="1380" max-vertical-offset="2016">
               <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
               <folding>
                 <marker date="1432084083357" expanded="true" signature="323:353" placeholder="SELECT * FRO..feed..." />
@@ -113,8 +93,8 @@
       <file leaf-file-name="IndexController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/App/Controller/IndexController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-167.0" vertical-offset="11825" max-vertical-offset="16096">
-              <caret line="1016" column="0" selection-start-line="1016" selection-start-column="0" selection-end-line="1016" selection-end-column="0" />
+            <state vertical-scroll-proportion="-10.84" vertical-offset="10817" max-vertical-offset="16096">
+              <caret line="709" column="27" selection-start-line="709" selection-start-column="27" selection-end-line="709" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -135,8 +115,8 @@
       <file leaf-file-name="libratel-site.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/assets/css/libratel-site.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="1168">
-              <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+            <state vertical-scroll-proportion="-15.7" vertical-offset="537" max-vertical-offset="1264">
+              <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -521,11 +501,80 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/views/site/layout.twig">
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4528">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/site/index.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3585" max-vertical-offset="4448">
+          <caret line="236" column="54" selection-start-line="236" selection-start-column="54" selection-end-line="236" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/app.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="4768">
+          <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App/Model/FeedModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1380" max-vertical-offset="2016">
+          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+          <folding>
+            <marker date="1432084083357" expanded="true" signature="323:353" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="544:591" placeholder="SELECT ${{$c..." />
+            <marker date="1432084083357" expanded="true" signature="629:697" placeholder="SELECT ${{$c..." />
+            <marker date="1432084083357" expanded="true" signature="1023:1154" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="1192:1340" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="1574:1702" placeholder="SELECT count..." />
+            <marker date="1432084083357" expanded="true" signature="1904:2052" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="2090:2257" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="2466:2643" placeholder="INSERT INTO ..." />
+            <marker date="1432084083357" expanded="true" signature="2794:2833" placeholder="UPDATE feed ..." />
+            <marker date="1432084083357" expanded="true" signature="2973:3001" placeholder="DELETE FROM ..." />
+            <marker date="1432084083357" expanded="true" signature="3150:3314" placeholder="SELECT * FRO..feed..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App/Controller/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="11825" max-vertical-offset="16096">
+          <caret line="1016" column="0" selection-start-line="1016" selection-start-column="0" selection-end-line="1016" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/js/site.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2344" max-vertical-offset="3616">
+          <caret line="189" column="14" selection-start-line="189" selection-start-column="14" selection-end-line="189" selection-end-column="14" />
+          <folding>
+            <marker date="1431989138294" expanded="true" signature="5760:5941" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/assets/css/libratel-site.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="1168">
+          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/site/layout.twig">
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1412" max-vertical-offset="4480">
           <caret line="162" column="6" selection-start-line="162" selection-start-column="6" selection-end-line="162" selection-end-column="6" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -533,13 +582,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2705" max-vertical-offset="3568">
           <caret line="132" column="43" selection-start-line="132" selection-start-column="43" selection-end-line="132" selection-end-column="43" />
-          <folding>
-            <element signature="e#4775#4802#0#HTML" expanded="true" />
-            <element signature="e#7721#7755#0#HTML" expanded="true" />
-            <element signature="e#9576#9610#0#HTML" expanded="true" />
-            <element signature="e#11431#11465#0#HTML" expanded="true" />
-            <element signature="e#13286#13320#0#HTML" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -610,9 +653,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1024" max-vertical-offset="3712">
           <caret line="102" column="54" selection-start-line="102" selection-start-column="54" selection-end-line="102" selection-end-column="54" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -620,13 +661,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="5104">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#4775#4802#0#HTML" expanded="true" />
-            <element signature="e#7721#7755#0#HTML" expanded="true" />
-            <element signature="e#9576#9610#0#HTML" expanded="true" />
-            <element signature="e#11431#11465#0#HTML" expanded="true" />
-            <element signature="e#13286#13320#0#HTML" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -704,9 +739,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3696">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -753,39 +786,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/App/Model/FeedModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1380" max-vertical-offset="2016">
-          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
-          <folding>
-            <marker date="1432084083357" expanded="true" signature="323:353" placeholder="SELECT * FRO..feed..." />
-            <marker date="1432084083357" expanded="true" signature="544:591" placeholder="SELECT ${{$c..." />
-            <marker date="1432084083357" expanded="true" signature="629:697" placeholder="SELECT ${{$c..." />
-            <marker date="1432084083357" expanded="true" signature="1023:1154" placeholder="SELECT * FRO..feed..." />
-            <marker date="1432084083357" expanded="true" signature="1192:1340" placeholder="SELECT * FRO..feed..." />
-            <marker date="1432084083357" expanded="true" signature="1574:1702" placeholder="SELECT count..." />
-            <marker date="1432084083357" expanded="true" signature="1904:2052" placeholder="SELECT * FRO..feed..." />
-            <marker date="1432084083357" expanded="true" signature="2090:2257" placeholder="SELECT * FRO..feed..." />
-            <marker date="1432084083357" expanded="true" signature="2466:2643" placeholder="INSERT INTO ..." />
-            <marker date="1432084083357" expanded="true" signature="2794:2833" placeholder="UPDATE feed ..." />
-            <marker date="1432084083357" expanded="true" signature="2973:3001" placeholder="DELETE FROM ..." />
-            <marker date="1432084083357" expanded="true" signature="3150:3314" placeholder="SELECT * FRO..feed..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/app.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-21.12" vertical-offset="480" max-vertical-offset="4768">
+        <state vertical-scroll-proportion="0.0" vertical-offset="480" max-vertical-offset="4768">
           <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App/Controller/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-167.0" vertical-offset="11825" max-vertical-offset="16096">
-          <caret line="1016" column="0" selection-start-line="1016" selection-start-column="0" selection-end-line="1016" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -816,35 +820,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/site/index.twig">
+    <entry file="file://$PROJECT_DIR$/public/assets/css/libratel-site.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.64" vertical-offset="3585" max-vertical-offset="4448">
-          <caret line="236" column="54" selection-start-line="236" selection-start-column="54" selection-end-line="236" selection-end-column="54" />
+        <state vertical-scroll-proportion="-15.7" vertical-offset="537" max-vertical-offset="1264">
+          <caret line="63" column="16" selection-start-line="63" selection-start-column="16" selection-end-line="63" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App/Model/FeedModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.04" vertical-offset="1380" max-vertical-offset="2016">
+          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
           <folding>
-            <element signature="e#4775#4802#0#HTML" expanded="true" />
-            <element signature="e#7721#7755#0#HTML" expanded="true" />
-            <element signature="e#9576#9610#0#HTML" expanded="true" />
-            <element signature="e#11431#11465#0#HTML" expanded="true" />
-            <element signature="e#13286#13320#0#HTML" expanded="true" />
+            <marker date="1432084083357" expanded="true" signature="323:353" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="544:591" placeholder="SELECT ${{$c..." />
+            <marker date="1432084083357" expanded="true" signature="629:697" placeholder="SELECT ${{$c..." />
+            <marker date="1432084083357" expanded="true" signature="1023:1154" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="1192:1340" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="1574:1702" placeholder="SELECT count..." />
+            <marker date="1432084083357" expanded="true" signature="1904:2052" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="2090:2257" placeholder="SELECT * FRO..feed..." />
+            <marker date="1432084083357" expanded="true" signature="2466:2643" placeholder="INSERT INTO ..." />
+            <marker date="1432084083357" expanded="true" signature="2794:2833" placeholder="UPDATE feed ..." />
+            <marker date="1432084083357" expanded="true" signature="2973:3001" placeholder="DELETE FROM ..." />
+            <marker date="1432084083357" expanded="true" signature="3150:3314" placeholder="SELECT * FRO..feed..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/assets/css/libratel-site.css">
+    <entry file="file://$PROJECT_DIR$/views/site/index.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="507" max-vertical-offset="1168">
-          <caret line="57" column="30" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+        <state vertical-scroll-proportion="-7.581818" vertical-offset="1247" max-vertical-offset="5312">
+          <caret line="104" column="76" selection-start-line="104" selection-start-column="76" selection-end-line="104" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_3.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.34591195" vertical-offset="1204" max-vertical-offset="16976">
+          <caret line="89" column="9" selection-start-line="89" selection-start-column="9" selection-end-line="89" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App/Controller/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.84" vertical-offset="10817" max-vertical-offset="16096">
+          <caret line="709" column="27" selection-start-line="709" selection-start-column="27" selection-end-line="709" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/site/layout.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6613162" vertical-offset="1940" max-vertical-offset="4528">
-          <caret line="147" column="76" selection-start-line="147" selection-start-column="76" selection-end-line="147" selection-end-column="76" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.6226415" vertical-offset="1732" max-vertical-offset="4416">
+          <caret line="133" column="53" selection-start-line="133" selection-start-column="53" selection-end-line="133" selection-end-column="53" />
+          <folding />
         </state>
       </provider>
     </entry>
